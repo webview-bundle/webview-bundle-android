@@ -13,7 +13,7 @@ required versions of Node.js and the JDK are pinned in `mise.toml`.
 pinned tools from the repository root:
 
 ```sh
-mise installㄴ
+mise install
 ```
 
 ## Installing / updating the FFI module
