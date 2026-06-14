@@ -50,6 +50,15 @@ Tags follow the upstream convention: `ffi/<version>` for releases and
 `prerelease/<sha>` for prereleases. Run `node scripts/install.mjs --help` for
 all options.
 
+## Test App & E2E
+
+`testapp/` is a Android Application that serves a **real builtin `.wvb`**
+to a `WebView`, and `e2e/` drives it with Appium.
+
+```sh
+cd e2e && yarn install && yarn e2e
+```
+
 ## License
 
 MIT License
