@@ -66,7 +66,7 @@ all options.
 to a `WebView`, and `e2e/` drives it with Appium.
 
 ```sh
-cd e2e && yarn install && yarn e2e
+cd e2e && yarn install && yarn test
 ```
 
 ## License

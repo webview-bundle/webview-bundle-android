@@ -32,7 +32,8 @@ import androidx.webkit.WebViewFeature
  *   forbids mixed content.
  * @property allowFileAccess / [allowContentAccess] hardened off by default.
  * @property webContentsDebuggingEnabled enable `chrome://inspect` process-wide;
- *   gate on a debug build.
+ *   gate on a debug build. Applied independently of [applyRecommendedSettings],
+ *   and only ever enables (never force-disables) the process-global flag.
  * @property installServiceWorker route Service Worker requests through the bundle
  *   (see [installServiceWorkerClient]); defaults `true`.
  * @property configureWebView final hook to customize the [WebView] after the
@@ -52,18 +53,23 @@ public class InstallOptions {
 
     @SuppressLint("SetJavaScriptEnabled")
     internal fun applySettings(webView: WebView) {
-        if (!applyRecommendedSettings) return
-        webView.settings.apply {
-            javaScriptEnabled = this@InstallOptions.javaScriptEnabled
-            domStorageEnabled = this@InstallOptions.domStorageEnabled
-            mixedContentMode = this@InstallOptions.mixedContentMode
-            allowFileAccess = this@InstallOptions.allowFileAccess
-            allowContentAccess = this@InstallOptions.allowContentAccess
-            @Suppress("DEPRECATION")
-            allowFileAccessFromFileURLs = false
-            @Suppress("DEPRECATION")
-            allowUniversalAccessFromFileURLs = false
+        if (applyRecommendedSettings) {
+            webView.settings.apply {
+                javaScriptEnabled = this@InstallOptions.javaScriptEnabled
+                domStorageEnabled = this@InstallOptions.domStorageEnabled
+                mixedContentMode = this@InstallOptions.mixedContentMode
+                allowFileAccess = this@InstallOptions.allowFileAccess
+                allowContentAccess = this@InstallOptions.allowContentAccess
+                @Suppress("DEPRECATION")
+                allowFileAccessFromFileURLs = false
+                @Suppress("DEPRECATION")
+                allowUniversalAccessFromFileURLs = false
+            }
         }
+        // Independent of applyRecommendedSettings, so it is honored even when the
+        // recommended per-WebView settings are skipped. This only ever *enables*
+        // debugging: the flag is process-global, so we never force-disable it and
+        // clobber a value the host app set for its own WebViews.
         if (webContentsDebuggingEnabled) {
             WebView.setWebContentsDebuggingEnabled(true)
         }

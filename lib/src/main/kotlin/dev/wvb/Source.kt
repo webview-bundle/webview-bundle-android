@@ -78,10 +78,12 @@ private val tmpCounter = AtomicLong(0)
  * additive overlay — files removed from the assets in a later app version are
  * **not** deleted from [builtinDir]; clear it yourself for a clean slate.
  *
- * Idempotent: a file is copied only when missing or a different size, so repeat
- * launches are cheap. No-op when the asset directory does not exist. Returns the
- * destination [builtinDir]. Throws [java.io.IOException] on a genuine copy failure
- * (e.g. the disk is full).
+ * Cheap on repeat launches: within the same installed APK a file is copied only
+ * when missing or a different size. The whole tree is re-extracted after an app
+ * update (detected via the APK's install timestamp), so a same-size content change
+ * — e.g. a `manifest.json` bumping `"0.0.1"` -> `"0.0.2"` — is not missed. No-op
+ * when the asset directory does not exist. Returns the destination [builtinDir].
+ * Throws [java.io.IOException] on a genuine copy failure (e.g. the disk is full).
  *
  * Concurrency-safe: same-process callers targeting the same [builtinDir] are
  * serialized, and each file is written to a unique temp and atomically renamed, so
@@ -100,16 +102,37 @@ public fun installBuiltinBundlesFromAssets(
     // temp + atomic rename in copyAssetFile.
     val lock = extractionLocks.getOrPut(File(destRoot).absolutePath) { Any() }
     synchronized(lock) {
-        copyAssetTree(context, assetDir.trim('/'), File(destRoot))
+        // Re-extract whenever the APK changed. A per-file size comparison alone
+        // misses same-size content changes (e.g. a manifest.json bumping
+        // "0.0.1" -> "0.0.2"), which would otherwise serve stale bundles after an
+        // app update; the APK's install timestamp changes on every (re)install.
+        val stampFile = File(destRoot, ".asset-stamp")
+        val currentStamp = currentAssetStamp(context)
+        val storedStamp = runCatching { stampFile.readText().trim() }.getOrNull()
+        val force = currentStamp == null || currentStamp != storedStamp
+
+        copyAssetTree(context, assetDir.trim('/'), File(destRoot), force)
+
+        if (force && currentStamp != null) {
+            // Written under the lock; a torn stamp only causes a harmless re-extract.
+            runCatching { stampFile.writeText(currentStamp) }
+        }
     }
     return destRoot
 }
 
+/** APK identity that changes on every (re)install/update, or `null` if unavailable. */
+private fun currentAssetStamp(context: Context): String? =
+    runCatching {
+        context.packageManager.getPackageInfo(context.packageName, 0).lastUpdateTime.toString()
+    }.getOrNull()
+
 /**
  * Recursively copies an asset directory into [dest] (additive overlay), copying
- * changed files only; never deletes existing destination entries.
+ * changed files only; never deletes existing destination entries. When [force] is
+ * set every file is rewritten regardless of size (used after an app update).
  */
-private fun copyAssetTree(context: Context, assetPath: String, dest: File) {
+private fun copyAssetTree(context: Context, assetPath: String, dest: File, force: Boolean) {
     // `list` returns the children of a directory, or an empty array for a file
     // (and for an empty directory, which bundle dirs never are). A genuine
     // IOException is allowed to propagate rather than be silently treated as "no
@@ -117,31 +140,32 @@ private fun copyAssetTree(context: Context, assetPath: String, dest: File) {
     val children = context.assets.list(assetPath) ?: emptyArray()
 
     if (children.isEmpty()) {
-        copyAssetFile(context, assetPath, dest)
+        copyAssetFile(context, assetPath, dest, force)
         return
     }
 
     dest.mkdirs()
     for (child in children) {
         val childAsset = if (assetPath.isEmpty()) child else "$assetPath/$child"
-        copyAssetTree(context, childAsset, File(dest, child))
+        copyAssetTree(context, childAsset, File(dest, child), force)
     }
 }
 
 /**
  * Copies a single asset file to [dest] when missing or a different size.
  *
- * The asset stream's [java.io.InputStream.available] reports the full uncompressed
- * length up front (true for `AssetManager` streams, compressed or not), so it is
- * compared against the already-extracted file's length to skip unchanged copies.
- * The bytes are written to a **unique** sibling temp and atomically renamed, so a
- * process killed mid-copy — or a concurrent extraction from another thread or
- * process — cannot leave a torn destination (the temp name carries the pid and a
- * counter, so concurrent copies never share one). A path that turns out not to be
- * a readable file (e.g. an empty asset directory) is skipped; a real
+ * Unless [force] is set, the asset stream's [java.io.InputStream.available] (the
+ * full uncompressed length up front, for `AssetManager` streams compressed or not)
+ * is compared against the already-extracted file's length to skip unchanged copies;
+ * [force] rewrites the file regardless (size alone can't detect a same-size content
+ * change). The bytes are written to a **unique** sibling temp and atomically
+ * renamed, so a process killed mid-copy — or a concurrent extraction from another
+ * thread or process — cannot leave a torn destination (the temp name carries the
+ * pid and a counter, so concurrent copies never share one). A path that turns out
+ * not to be a readable file (e.g. an empty asset directory) is skipped; a real
  * [java.io.IOException] propagates.
  */
-private fun copyAssetFile(context: Context, assetPath: String, dest: File) {
+private fun copyAssetFile(context: Context, assetPath: String, dest: File, force: Boolean) {
     val input = try {
         context.assets.open(assetPath)
     } catch (_: FileNotFoundException) {
@@ -149,7 +173,7 @@ private fun copyAssetFile(context: Context, assetPath: String, dest: File) {
     }
     input.use { stream ->
         val incomingSize = stream.available().toLong()
-        if (dest.isFile && dest.length() == incomingSize) return
+        if (!force && dest.isFile && dest.length() == incomingSize) return
         dest.parentFile?.mkdirs()
         val tmp = File(
             dest.parentFile,
@@ -158,9 +182,10 @@ private fun copyAssetFile(context: Context, assetPath: String, dest: File) {
         try {
             tmp.outputStream().use { output -> stream.copyTo(output) }
             // renameTo over an existing destination is an atomic replace on the
-            // app's filesystem; fall back to a copy only in the rare failure case.
+            // app's (single) filesystem. If it fails, fail loudly rather than fall
+            // back to a non-atomic copy a concurrent reader could observe torn.
             if (!tmp.renameTo(dest)) {
-                tmp.copyTo(dest, overwrite = true)
+                throw java.io.IOException("failed to atomically move $tmp -> $dest")
             }
         } finally {
             tmp.delete()

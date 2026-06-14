@@ -119,9 +119,12 @@ public class WebViewBundle private constructor(
         return try {
             val response = runBlocking { registered.handle(method, uri, headers) }
             response.toWebResourceResponse()
-        } catch (error: Throwable) {
-            // Build the fail-closed response first, then report: a throwing
-            // onError must never suppress it or escape onto the WebView thread.
+        } catch (error: Exception) {
+            // Only handler *exceptions* fail closed as a 500; fatal `Error`s (OOM,
+            // a missing native library, …) are left to propagate rather than be
+            // masked as an HTTP response. Build the fail-closed response first, then
+            // report: a throwing onError must never suppress it or escape onto the
+            // WebView thread.
             val response = errorWebResourceResponse(error)
             runCatching { onError?.invoke(error) }
             response

@@ -128,7 +128,7 @@ private fun isRepresentableStatus(code: Int): Boolean =
  *   handler's value), so a stale length — e.g. a HEAD `200` that kept the file
  *   size — cannot make the WebView hang waiting for bytes that never arrive.
  *   `Content-Range` is preserved verbatim, so `206` media seeking keeps working;
- *   `204`/`1xx` are served body-less.
+ *   `204`/`205`/`1xx` are served body-less.
  */
 internal fun HttpResponse.toWebResourceResponse(): WebResourceResponse {
     val statusCode = status.toInt()
@@ -142,7 +142,9 @@ internal fun HttpResponse.toWebResourceResponse(): WebResourceResponse {
     val (mimeFromHeader, encoding) = parseContentType(contentType)
     val mimeType = mimeFromHeader ?: DEFAULT_MIME_TYPE
 
-    val bodyless = statusCode == 204 || statusCode in 100..199
+    // 204 No Content, 205 Reset Content, and 1xx informational responses cannot
+    // carry a body (RFC 9110 §6.4.1 / §15.3.{5,6}).
+    val bodyless = statusCode == 204 || statusCode == 205 || statusCode in 100..199
     val payload = if (bodyless) ByteArray(0) else body
 
     val responseHeaders = LinkedHashMap<String, String>()
