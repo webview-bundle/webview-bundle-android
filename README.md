@@ -28,6 +28,16 @@ variant (`lib-android`):
 The Kotlin bindings are overwritten in place; `jniLibs` is replaced wholesale,
 so an ABI dropped between releases does not linger.
 
+### Pinned version
+
+The FFI ref this checkout is built against is pinned in **`.ffi-version`**.
+
+```sh
+node scripts/install.mjs            # installs the ref from .ffi-version
+```
+
+### Other invocations
+
 ```sh
 # install a release (tag ffi/0.1.0)
 node scripts/install.mjs 0.1.0

@@ -10,12 +10,20 @@ jobs:
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # 6.0.1
       - uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # 4.0.1
+      - name: Install ffi
+        run: node scripts/install.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       - run: ./gradlew :lib:assembleRelease :lib:lintRelease :testapp:assembleDebug
   e2e:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # 6.0.1
       - uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # 4.0.1
+      - name: Install ffi
+        run: node scripts/install.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       # KVM hardware acceleration for the Android emulator on Linux runners.
       - name: Enable KVM
         run: |
