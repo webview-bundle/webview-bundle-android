@@ -3,14 +3,21 @@
 
 [versions]
 android-gradle-plugin = "8.10.1"
+androidx-annotation   = "1.8.1"
+androidx-webkit       = "1.12.1"
 jna                   = "5.17.0"
 kotlin                = "2.3.21"
 kotlinx-coroutines    = "1.10.2"
 
 [libraries]
-jna                            = { module = "net.java.dev.jna:jna", version.ref = "jna" }
+androidx-annotation            = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
+androidx-webkit                = { module = "androidx.webkit:webkit", version.ref = "androidx-webkit" }
+# JNA is declared inline in lib/build.gradle.kts as "...:jna:<jna>@aar" (the
+# Android AAR variant); only the version below is referenced from the catalog.
 kotlinx-coroutines-core        = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-android     = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 
 [plugins]
+android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 android-library     = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 kotlin-android      = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

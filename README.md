@@ -28,6 +28,16 @@ variant (`lib-android`):
 The Kotlin bindings are overwritten in place; `jniLibs` is replaced wholesale,
 so an ABI dropped between releases does not linger.
 
+### Pinned version
+
+The FFI ref this checkout is built against is pinned in **`.ffi-version`**.
+
+```sh
+node scripts/install.mjs            # installs the ref from .ffi-version
+```
+
+### Other invocations
+
 ```sh
 # install a release (tag ffi/0.1.0)
 node scripts/install.mjs 0.1.0
@@ -49,6 +59,15 @@ node scripts/install.mjs --asset-file .output/android.zip
 Tags follow the upstream convention: `ffi/<version>` for releases and
 `prerelease/<sha>` for prereleases. Run `node scripts/install.mjs --help` for
 all options.
+
+## Test App & E2E
+
+`testapp/` is a Android Application that serves a **real builtin `.wvb`**
+to a `WebView`, and `e2e/` drives it with Appium.
+
+```sh
+cd e2e && yarn install && yarn test
+```
 
 ## License
 

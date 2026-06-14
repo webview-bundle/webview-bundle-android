@@ -20,3 +20,4 @@ plugins {
 
 rootProject.name = "webview-bundle-android"
 include("lib")
+include("testapp")

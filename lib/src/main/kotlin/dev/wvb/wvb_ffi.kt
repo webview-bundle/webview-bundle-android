@@ -703,25 +703,53 @@ internal object IntegrityCheckingUniffiLib {
     ): Short
     external fun uniffi_wvb_ffi_checksum_method_remote_list_bundles(
     ): Short
-    external fun uniffi_wvb_ffi_checksum_method_bundlesource_bundles_map(
+    external fun uniffi_wvb_ffi_checksum_method_bundlesource_fetch_builtin_bundle(
     ): Short
-    external fun uniffi_wvb_ffi_checksum_method_bundlesource_fetch(
+    external fun uniffi_wvb_ffi_checksum_method_bundlesource_fetch_bundle(
     ): Short
     external fun uniffi_wvb_ffi_checksum_method_bundlesource_fetch_descriptor(
     ): Short
-    external fun uniffi_wvb_ffi_checksum_method_bundlesource_filepath(
+    external fun uniffi_wvb_ffi_checksum_method_bundlesource_fetch_remote_bundle(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundlesource_get_builtin_bundle_filepath(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundlesource_get_remote_bundle_filepath(
     ): Short
     external fun uniffi_wvb_ffi_checksum_method_bundlesource_list_bundles(
     ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundlesource_load_builtin_metadata(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundlesource_load_descriptor(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundlesource_load_remote_metadata(
+    ): Short
     external fun uniffi_wvb_ffi_checksum_method_bundlesource_load_version(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundlesource_prune_remote_bundles(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundlesource_remote_retained_versions(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundlesource_remove_remote_bundle(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundlesource_resolve_filepath(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundlesource_unload_descriptor(
     ): Short
     external fun uniffi_wvb_ffi_checksum_method_bundlesource_update_version(
     ): Short
     external fun uniffi_wvb_ffi_checksum_method_bundlesource_write_remote_bundle(
     ): Short
+    external fun uniffi_wvb_ffi_checksum_method_loadeddescriptor_descriptor(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_loadeddescriptor_get_data(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_loadeddescriptor_get_data_checksum(
+    ): Short
     external fun uniffi_wvb_ffi_checksum_method_updater_download_update(
     ): Short
     external fun uniffi_wvb_ffi_checksum_method_updater_get_update(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_updater_install(
     ): Short
     external fun uniffi_wvb_ffi_checksum_method_updater_list_remotes(
     ): Short
@@ -853,21 +881,51 @@ external fun uniffi_wvb_ffi_fn_free_bundlesource(`handle`: Long,uniffi_out_err: 
 ): Unit
 external fun uniffi_wvb_ffi_fn_constructor_bundlesource_new(`config`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
 ): Long
-external fun uniffi_wvb_ffi_fn_method_bundlesource_bundles_map(`ptr`: Long,uniffi_out_err: UniffiRustCallStatus, 
-): RustBuffer.ByValue
-external fun uniffi_wvb_ffi_fn_method_bundlesource_fetch(`ptr`: Long,`bundleName`: RustBuffer.ByValue,
+external fun uniffi_wvb_ffi_fn_method_bundlesource_fetch_builtin_bundle(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`version`: RustBuffer.ByValue,
+): Long
+external fun uniffi_wvb_ffi_fn_method_bundlesource_fetch_bundle(`ptr`: Long,`bundleName`: RustBuffer.ByValue,
 ): Long
 external fun uniffi_wvb_ffi_fn_method_bundlesource_fetch_descriptor(`ptr`: Long,`bundleName`: RustBuffer.ByValue,
 ): Long
-external fun uniffi_wvb_ffi_fn_method_bundlesource_filepath(`ptr`: Long,`bundleName`: RustBuffer.ByValue,
+external fun uniffi_wvb_ffi_fn_method_bundlesource_fetch_remote_bundle(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`version`: RustBuffer.ByValue,
 ): Long
+external fun uniffi_wvb_ffi_fn_method_bundlesource_get_builtin_bundle_filepath(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`version`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
+): RustBuffer.ByValue
+external fun uniffi_wvb_ffi_fn_method_bundlesource_get_remote_bundle_filepath(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`version`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
+): RustBuffer.ByValue
 external fun uniffi_wvb_ffi_fn_method_bundlesource_list_bundles(`ptr`: Long,
+): Long
+external fun uniffi_wvb_ffi_fn_method_bundlesource_load_builtin_metadata(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`version`: RustBuffer.ByValue,
+): Long
+external fun uniffi_wvb_ffi_fn_method_bundlesource_load_descriptor(`ptr`: Long,`bundleName`: RustBuffer.ByValue,
+): Long
+external fun uniffi_wvb_ffi_fn_method_bundlesource_load_remote_metadata(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`version`: RustBuffer.ByValue,
 ): Long
 external fun uniffi_wvb_ffi_fn_method_bundlesource_load_version(`ptr`: Long,`bundleName`: RustBuffer.ByValue,
 ): Long
+external fun uniffi_wvb_ffi_fn_method_bundlesource_prune_remote_bundles(`ptr`: Long,`bundleName`: RustBuffer.ByValue,
+): Long
+external fun uniffi_wvb_ffi_fn_method_bundlesource_remote_retained_versions(`ptr`: Long,`bundleName`: RustBuffer.ByValue,
+): Long
+external fun uniffi_wvb_ffi_fn_method_bundlesource_remove_remote_bundle(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`version`: RustBuffer.ByValue,
+): Long
+external fun uniffi_wvb_ffi_fn_method_bundlesource_resolve_filepath(`ptr`: Long,`bundleName`: RustBuffer.ByValue,
+): Long
+external fun uniffi_wvb_ffi_fn_method_bundlesource_unload_descriptor(`ptr`: Long,`bundleName`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
+): Byte
 external fun uniffi_wvb_ffi_fn_method_bundlesource_update_version(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`version`: RustBuffer.ByValue,
 ): Long
 external fun uniffi_wvb_ffi_fn_method_bundlesource_write_remote_bundle(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`version`: RustBuffer.ByValue,`bundle`: Long,`metadata`: RustBuffer.ByValue,
+): Long
+external fun uniffi_wvb_ffi_fn_clone_loadeddescriptor(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): Long
+external fun uniffi_wvb_ffi_fn_free_loadeddescriptor(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): Unit
+external fun uniffi_wvb_ffi_fn_method_loadeddescriptor_descriptor(`ptr`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): Long
+external fun uniffi_wvb_ffi_fn_method_loadeddescriptor_get_data(`ptr`: Long,`path`: RustBuffer.ByValue,
+): Long
+external fun uniffi_wvb_ffi_fn_method_loadeddescriptor_get_data_checksum(`ptr`: Long,`path`: RustBuffer.ByValue,
 ): Long
 external fun uniffi_wvb_ffi_fn_clone_updater(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
 ): Long
@@ -878,6 +936,8 @@ external fun uniffi_wvb_ffi_fn_constructor_updater_new(`source`: Long,`remote`: 
 external fun uniffi_wvb_ffi_fn_method_updater_download_update(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`version`: RustBuffer.ByValue,
 ): Long
 external fun uniffi_wvb_ffi_fn_method_updater_get_update(`ptr`: Long,`bundleName`: RustBuffer.ByValue,
+): Long
+external fun uniffi_wvb_ffi_fn_method_updater_install(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`version`: RustBuffer.ByValue,
 ): Long
 external fun uniffi_wvb_ffi_fn_method_updater_list_remotes(`ptr`: Long,
 ): Long
@@ -1056,7 +1116,7 @@ private fun uniffiCheckApiChecksums(lib: IntegrityCheckingUniffiLib) {
     if (lib.uniffi_wvb_ffi_checksum_method_bundledescriptor_header() != 28740.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundledescriptor_index() != 38468.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundledescriptor_index() != 45942.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_wvb_ffi_checksum_method_bundledescriptor_index_entries() != 42039.toShort()) {
@@ -1098,22 +1158,52 @@ private fun uniffiCheckApiChecksums(lib: IntegrityCheckingUniffiLib) {
     if (lib.uniffi_wvb_ffi_checksum_method_remote_list_bundles() != 28549.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_bundles_map() != 6856.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_fetch_builtin_bundle() != 33213.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_fetch() != 7423.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_fetch_bundle() != 38812.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_fetch_descriptor() != 6993.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_fetch_descriptor() != 28723.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_filepath() != 64084.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_fetch_remote_bundle() != 44933.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_get_builtin_bundle_filepath() != 17928.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_get_remote_bundle_filepath() != 23450.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_list_bundles() != 34449.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_load_builtin_metadata() != 4913.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_load_descriptor() != 30101.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_load_remote_metadata() != 61273.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
     if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_load_version() != 32808.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_prune_remote_bundles() != 48913.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_remote_retained_versions() != 47892.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_remove_remote_bundle() != 4825.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_resolve_filepath() != 55355.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_unload_descriptor() != 36116.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_update_version() != 52326.toShort()) {
@@ -1122,10 +1212,22 @@ private fun uniffiCheckApiChecksums(lib: IntegrityCheckingUniffiLib) {
     if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_write_remote_bundle() != 49447.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
+    if (lib.uniffi_wvb_ffi_checksum_method_loadeddescriptor_descriptor() != 52553.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_loadeddescriptor_get_data() != 27083.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_loadeddescriptor_get_data_checksum() != 38729.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
     if (lib.uniffi_wvb_ffi_checksum_method_updater_download_update() != 45642.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_wvb_ffi_checksum_method_updater_get_update() != 5468.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_updater_install() != 28133.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_wvb_ffi_checksum_method_updater_list_remotes() != 35179.toShort()) {
@@ -2308,9 +2410,10 @@ public interface BundleDescriptorInterface {
      * Returns an [`Index`] view backed by the full bundle.
      *
      * # Panics
-     * Panics when called on a descriptor obtained via `BundleSource::fetch_descriptor`,
-     * because that variant holds only metadata and has no data section.
-     * Use `BundleSource::fetch` instead when data access is required.
+     * Panics when called on a metadata-only descriptor (obtained via
+     * `BundleSource::fetch_descriptor` or `LoadedDescriptor::descriptor`), because
+     * those variants have no data section. Use `BundleSource::fetch_bundle` instead
+     * when data access is required.
      */
     fun `index`(): Index
     
@@ -2465,9 +2568,10 @@ open class BundleDescriptor: Disposable, AutoCloseable, BundleDescriptorInterfac
      * Returns an [`Index`] view backed by the full bundle.
      *
      * # Panics
-     * Panics when called on a descriptor obtained via `BundleSource::fetch_descriptor`,
-     * because that variant holds only metadata and has no data section.
-     * Use `BundleSource::fetch` instead when data access is required.
+     * Panics when called on a metadata-only descriptor (obtained via
+     * `BundleSource::fetch_descriptor` or `LoadedDescriptor::descriptor`), because
+     * those variants have no data section. Use `BundleSource::fetch_bundle` instead
+     * when data access is required.
      */override fun `index`(): Index {
             return FfiConverterTypeIndex.lift(
     callWithHandle {
@@ -2636,25 +2740,91 @@ public object FfiConverterTypeBundleDescriptor: FfiConverter<BundleDescriptor, L
  */
 public interface BundleSourceInterface {
     
-    fun `bundlesMap`(): Map<kotlin.String, List<ListBundleItem>>
+    /**
+     * Loads the full builtin bundle for `bundle_name` at `version`, bypassing the
+     * remote source and version resolution.
+     */
+    suspend fun `fetchBuiltinBundle`(`bundleName`: kotlin.String, `version`: kotlin.String): Bundle
     
     /**
      * Loads the full bundle (header + index + data) for `bundle_name`.
      */
-    suspend fun `fetch`(`bundleName`: kotlin.String): Bundle
+    suspend fun `fetchBundle`(`bundleName`: kotlin.String): Bundle
     
     /**
      * Loads only the header and index for `bundle_name`, skipping the data section.
      * The returned descriptor does not support [`BundleDescriptor::index`]; use
-     * [`fetch`](BundleSource::fetch) when entry data is needed.
+     * [`fetch`](BundleSource::fetch_bundle) when entry data is needed.
      */
     suspend fun `fetchDescriptor`(`bundleName`: kotlin.String): BundleDescriptor
     
-    suspend fun `filepath`(`bundleName`: kotlin.String): kotlin.String
+    /**
+     * Loads the full remote bundle for `bundle_name` at `version`, bypassing the
+     * builtin source and version resolution.
+     */
+    suspend fun `fetchRemoteBundle`(`bundleName`: kotlin.String, `version`: kotlin.String): Bundle
+    
+    /**
+     * Resolves the on-disk path of the builtin bundle `bundle_name` at `version`,
+     * without checking whether the file exists.
+     */
+    fun `getBuiltinBundleFilepath`(`bundleName`: kotlin.String, `version`: kotlin.String): kotlin.String
+    
+    /**
+     * Resolves the on-disk path of the remote bundle `bundle_name` at `version`,
+     * without checking whether the file exists.
+     */
+    fun `getRemoteBundleFilepath`(`bundleName`: kotlin.String, `version`: kotlin.String): kotlin.String
     
     suspend fun `listBundles`(): List<ListBundleItem>
     
+    /**
+     * Loads the manifest metadata for the builtin bundle `bundle_name` at `version`,
+     * or `None` if no such entry exists.
+     */
+    suspend fun `loadBuiltinMetadata`(`bundleName`: kotlin.String, `version`: kotlin.String): BundleManifestMetadata?
+    
+    /**
+     * Loads (and caches) the descriptor for the current version of `bundle_name`.
+     * Concurrent calls for the same bundle share a single load (single-flight) and
+     * return the cached descriptor until the active version changes or
+     * [`unload_descriptor`](BundleSource::unload_descriptor) is called.
+     */
+    suspend fun `loadDescriptor`(`bundleName`: kotlin.String): LoadedDescriptor
+    
+    /**
+     * Loads the manifest metadata for the remote bundle `bundle_name` at `version`,
+     * or `None` if no such entry exists.
+     */
+    suspend fun `loadRemoteMetadata`(`bundleName`: kotlin.String, `version`: kotlin.String): BundleManifestMetadata?
+    
     suspend fun `loadVersion`(`bundleName`: kotlin.String): BundleSourceVersion?
+    
+    /**
+     * Removes every staged remote version except the retained set (current and
+     * previous). Returns the versions that were removed.
+     */
+    suspend fun `pruneRemoteBundles`(`bundleName`: kotlin.String): List<kotlin.String>
+    
+    /**
+     * Returns the remote versions that pruning retains (the current and previous).
+     */
+    suspend fun `remoteRetainedVersions`(`bundleName`: kotlin.String): List<kotlin.String>
+    
+    /**
+     * Removes a single staged remote bundle version: drops its manifest entry and
+     * deletes its file from disk. Returns `true` if the entry existed.
+     */
+    suspend fun `removeRemoteBundle`(`bundleName`: kotlin.String, `version`: kotlin.String): kotlin.Boolean
+    
+    suspend fun `resolveFilepath`(`bundleName`: kotlin.String): kotlin.String
+    
+    /**
+     * Drops the cached descriptor for `bundle_name`, if present. Already-returned
+     * [`LoadedDescriptor`] handles keep working; the next [`load_descriptor`]
+     * reloads from disk. Returns `true` if a cached descriptor was removed.
+     */
+    fun `unloadDescriptor`(`bundleName`: kotlin.String): kotlin.Boolean
     
     suspend fun `updateVersion`(`bundleName`: kotlin.String, `version`: kotlin.String)
     
@@ -2773,18 +2943,30 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         }
     }
 
-    override fun `bundlesMap`(): Map<kotlin.String, List<ListBundleItem>> {
-            return FfiConverterMapStringSequenceTypeListBundleItem.lift(
-    callWithHandle {
-    uniffiRustCall() { _status ->
-    UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_bundles_map(
-        it,
-        _status)
-}
-    }
+    
+    /**
+     * Loads the full builtin bundle for `bundle_name` at `version`, bypassing the
+     * remote source and version resolution.
+     */
+    @Throws(Exception::class)
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `fetchBuiltinBundle`(`bundleName`: kotlin.String, `version`: kotlin.String) : Bundle {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_fetch_builtin_bundle(
+                uniffiHandle,
+                FfiConverterString.lower(`bundleName`),FfiConverterString.lower(`version`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_u64(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_u64(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_u64(future) },
+        // lift function
+        { FfiConverterTypeBundle.lift(it) },
+        // Error FFI converter
+        Exception.ErrorHandler,
     )
     }
-    
 
     
     /**
@@ -2792,10 +2974,10 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
      */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    override suspend fun `fetch`(`bundleName`: kotlin.String) : Bundle {
+    override suspend fun `fetchBundle`(`bundleName`: kotlin.String) : Bundle {
         return uniffiRustCallAsync(
         callWithHandle { uniffiHandle ->
-            UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_fetch(
+            UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_fetch_bundle(
                 uniffiHandle,
                 FfiConverterString.lower(`bundleName`),
             )
@@ -2814,7 +2996,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
     /**
      * Loads only the header and index for `bundle_name`, skipping the data section.
      * The returned descriptor does not support [`BundleDescriptor::index`]; use
-     * [`fetch`](BundleSource::fetch) when entry data is needed.
+     * [`fetch`](BundleSource::fetch_bundle) when entry data is needed.
      */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
@@ -2837,25 +3019,65 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
     }
 
     
+    /**
+     * Loads the full remote bundle for `bundle_name` at `version`, bypassing the
+     * builtin source and version resolution.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    override suspend fun `filepath`(`bundleName`: kotlin.String) : kotlin.String {
+    override suspend fun `fetchRemoteBundle`(`bundleName`: kotlin.String, `version`: kotlin.String) : Bundle {
         return uniffiRustCallAsync(
         callWithHandle { uniffiHandle ->
-            UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_filepath(
+            UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_fetch_remote_bundle(
                 uniffiHandle,
-                FfiConverterString.lower(`bundleName`),
+                FfiConverterString.lower(`bundleName`),FfiConverterString.lower(`version`),
             )
         },
-        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
-        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_rust_buffer(future, continuation) },
-        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_u64(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_u64(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_u64(future) },
         // lift function
-        { FfiConverterString.lift(it) },
+        { FfiConverterTypeBundle.lift(it) },
         // Error FFI converter
         Exception.ErrorHandler,
     )
     }
+
+    
+    /**
+     * Resolves the on-disk path of the builtin bundle `bundle_name` at `version`,
+     * without checking whether the file exists.
+     */
+    @Throws(Exception::class)override fun `getBuiltinBundleFilepath`(`bundleName`: kotlin.String, `version`: kotlin.String): kotlin.String {
+            return FfiConverterString.lift(
+    callWithHandle {
+    uniffiRustCallWithError(Exception) { _status ->
+    UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_get_builtin_bundle_filepath(
+        it,
+        FfiConverterString.lower(`bundleName`),FfiConverterString.lower(`version`),_status)
+}
+    }
+    )
+    }
+    
+
+    
+    /**
+     * Resolves the on-disk path of the remote bundle `bundle_name` at `version`,
+     * without checking whether the file exists.
+     */
+    @Throws(Exception::class)override fun `getRemoteBundleFilepath`(`bundleName`: kotlin.String, `version`: kotlin.String): kotlin.String {
+            return FfiConverterString.lift(
+    callWithHandle {
+    uniffiRustCallWithError(Exception) { _status ->
+    UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_get_remote_bundle_filepath(
+        it,
+        FfiConverterString.lower(`bundleName`),FfiConverterString.lower(`version`),_status)
+}
+    }
+    )
+    }
+    
 
     
     @Throws(Exception::class)
@@ -2873,6 +3095,83 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
         // lift function
         { FfiConverterSequenceTypeListBundleItem.lift(it) },
+        // Error FFI converter
+        Exception.ErrorHandler,
+    )
+    }
+
+    
+    /**
+     * Loads the manifest metadata for the builtin bundle `bundle_name` at `version`,
+     * or `None` if no such entry exists.
+     */
+    @Throws(Exception::class)
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `loadBuiltinMetadata`(`bundleName`: kotlin.String, `version`: kotlin.String) : BundleManifestMetadata? {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_load_builtin_metadata(
+                uniffiHandle,
+                FfiConverterString.lower(`bundleName`),FfiConverterString.lower(`version`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
+        // lift function
+        { FfiConverterOptionalTypeBundleManifestMetadata.lift(it) },
+        // Error FFI converter
+        Exception.ErrorHandler,
+    )
+    }
+
+    
+    /**
+     * Loads (and caches) the descriptor for the current version of `bundle_name`.
+     * Concurrent calls for the same bundle share a single load (single-flight) and
+     * return the cached descriptor until the active version changes or
+     * [`unload_descriptor`](BundleSource::unload_descriptor) is called.
+     */
+    @Throws(Exception::class)
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `loadDescriptor`(`bundleName`: kotlin.String) : LoadedDescriptor {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_load_descriptor(
+                uniffiHandle,
+                FfiConverterString.lower(`bundleName`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_u64(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_u64(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_u64(future) },
+        // lift function
+        { FfiConverterTypeLoadedDescriptor.lift(it) },
+        // Error FFI converter
+        Exception.ErrorHandler,
+    )
+    }
+
+    
+    /**
+     * Loads the manifest metadata for the remote bundle `bundle_name` at `version`,
+     * or `None` if no such entry exists.
+     */
+    @Throws(Exception::class)
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `loadRemoteMetadata`(`bundleName`: kotlin.String, `version`: kotlin.String) : BundleManifestMetadata? {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_load_remote_metadata(
+                uniffiHandle,
+                FfiConverterString.lower(`bundleName`),FfiConverterString.lower(`version`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
+        // lift function
+        { FfiConverterOptionalTypeBundleManifestMetadata.lift(it) },
         // Error FFI converter
         Exception.ErrorHandler,
     )
@@ -2898,6 +3197,119 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         Exception.ErrorHandler,
     )
     }
+
+    
+    /**
+     * Removes every staged remote version except the retained set (current and
+     * previous). Returns the versions that were removed.
+     */
+    @Throws(Exception::class)
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `pruneRemoteBundles`(`bundleName`: kotlin.String) : List<kotlin.String> {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_prune_remote_bundles(
+                uniffiHandle,
+                FfiConverterString.lower(`bundleName`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
+        // lift function
+        { FfiConverterSequenceString.lift(it) },
+        // Error FFI converter
+        Exception.ErrorHandler,
+    )
+    }
+
+    
+    /**
+     * Returns the remote versions that pruning retains (the current and previous).
+     */
+    @Throws(Exception::class)
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `remoteRetainedVersions`(`bundleName`: kotlin.String) : List<kotlin.String> {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_remote_retained_versions(
+                uniffiHandle,
+                FfiConverterString.lower(`bundleName`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
+        // lift function
+        { FfiConverterSequenceString.lift(it) },
+        // Error FFI converter
+        Exception.ErrorHandler,
+    )
+    }
+
+    
+    /**
+     * Removes a single staged remote bundle version: drops its manifest entry and
+     * deletes its file from disk. Returns `true` if the entry existed.
+     */
+    @Throws(Exception::class)
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `removeRemoteBundle`(`bundleName`: kotlin.String, `version`: kotlin.String) : kotlin.Boolean {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_remove_remote_bundle(
+                uniffiHandle,
+                FfiConverterString.lower(`bundleName`),FfiConverterString.lower(`version`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_i8(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_i8(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_i8(future) },
+        // lift function
+        { FfiConverterBoolean.lift(it) },
+        // Error FFI converter
+        Exception.ErrorHandler,
+    )
+    }
+
+    
+    @Throws(Exception::class)
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `resolveFilepath`(`bundleName`: kotlin.String) : kotlin.String {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_resolve_filepath(
+                uniffiHandle,
+                FfiConverterString.lower(`bundleName`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
+        // lift function
+        { FfiConverterString.lift(it) },
+        // Error FFI converter
+        Exception.ErrorHandler,
+    )
+    }
+
+    
+    /**
+     * Drops the cached descriptor for `bundle_name`, if present. Already-returned
+     * [`LoadedDescriptor`] handles keep working; the next [`load_descriptor`]
+     * reloads from disk. Returns `true` if a cached descriptor was removed.
+     */override fun `unloadDescriptor`(`bundleName`: kotlin.String): kotlin.Boolean {
+            return FfiConverterBoolean.lift(
+    callWithHandle {
+    uniffiRustCall() { _status ->
+    UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_unload_descriptor(
+        it,
+        FfiConverterString.lower(`bundleName`),_status)
+}
+    }
+    )
+    }
+    
 
     
     @Throws(Exception::class)
@@ -3958,6 +4370,358 @@ public object FfiConverterTypeIndex: FfiConverter<Index, Long> {
 
 
 /**
+ * A descriptor loaded (and cached) by a [`BundleSource`].
+ *
+ * Holds the parsed header/index together with the filepath it was loaded from, so
+ * reading entry data always targets the exact bundle version that produced this
+ * descriptor — even if the source's active version is swapped concurrently. Entry
+ * data is read lazily from disk via [`LoadedDescriptor::get_data`], avoiding loading
+ * the whole bundle into memory.
+ */
+public interface LoadedDescriptorInterface {
+    
+    /**
+     * Returns the bundle descriptor (header + index metadata).
+     *
+     * The returned descriptor carries no reference back to the source, so it can
+     * outlive this `LoadedDescriptor`. It holds only metadata, so its `index()` is
+     * unsupported; use [`get_data`](LoadedDescriptor::get_data) for entry data.
+     */
+    fun `descriptor`(): BundleDescriptor
+    
+    /**
+     * Reads the bytes for `path`, loading them lazily from disk.
+     *
+     * The read targets the bundle file this descriptor was loaded from, so the data
+     * stays consistent with [`descriptor`](LoadedDescriptor::descriptor) even if the
+     * source's active version changes meanwhile. Returns `None` if `path` does not
+     * exist in the bundle.
+     */
+    suspend fun `getData`(`path`: kotlin.String): kotlin.ByteArray?
+    
+    /**
+     * Reads the CRC-32 checksum for `path`, loading it lazily from disk.
+     * Returns `None` if `path` does not exist in the bundle.
+     */
+    suspend fun `getDataChecksum`(`path`: kotlin.String): kotlin.UInt?
+    
+    companion object
+}
+
+/**
+ * A descriptor loaded (and cached) by a [`BundleSource`].
+ *
+ * Holds the parsed header/index together with the filepath it was loaded from, so
+ * reading entry data always targets the exact bundle version that produced this
+ * descriptor — even if the source's active version is swapped concurrently. Entry
+ * data is read lazily from disk via [`LoadedDescriptor::get_data`], avoiding loading
+ * the whole bundle into memory.
+ */
+open class LoadedDescriptor: Disposable, AutoCloseable, LoadedDescriptorInterface
+{
+
+    @Suppress("UNUSED_PARAMETER")
+    /**
+     * @suppress
+     */
+    constructor(withHandle: UniffiWithHandle, handle: Long) {
+        this.handle = handle
+        this.cleanable = UniffiLib.CLEANER.register(this, UniffiCleanAction(handle))
+    }
+
+    /**
+     * @suppress
+     *
+     * This constructor can be used to instantiate a fake object. Only used for tests. Any
+     * attempt to actually use an object constructed this way will fail as there is no
+     * connected Rust object.
+     */
+    @Suppress("UNUSED_PARAMETER")
+    constructor(noHandle: NoHandle) {
+        this.handle = 0
+        this.cleanable = null
+    }
+
+    protected val handle: Long
+    protected val cleanable: UniffiCleaner.Cleanable?
+
+    private val wasDestroyed = AtomicBoolean(false)
+    private val callCounter = AtomicLong(1)
+
+    override fun destroy() {
+        // Only allow a single call to this method.
+        // TODO: maybe we should log a warning if called more than once?
+        if (this.wasDestroyed.compareAndSet(false, true)) {
+            // This decrement always matches the initial count of 1 given at creation time.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable?.clean()
+            }
+        }
+    }
+
+    @Synchronized
+    override fun close() {
+        this.destroy()
+    }
+
+    internal inline fun <R> callWithHandle(block: (handle: Long) -> R): R {
+        // Check and increment the call counter, to keep the object alive.
+        // This needs a compare-and-set retry loop in case of concurrent updates.
+        do {
+            val c = this.callCounter.get()
+            if (c == 0L) {
+                throw IllegalStateException("${this.javaClass.simpleName} object has already been destroyed")
+            }
+            if (c == Long.MAX_VALUE) {
+                throw IllegalStateException("${this.javaClass.simpleName} call counter would overflow")
+            }
+        } while (! this.callCounter.compareAndSet(c, c + 1L))
+        // Now we can safely do the method call without the handle being freed concurrently.
+        try {
+            return block(this.uniffiCloneHandle())
+        } finally {
+            // This decrement always matches the increment we performed above.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable?.clean()
+            }
+        }
+    }
+
+    // Use a static inner class instead of a closure so as not to accidentally
+    // capture `this` as part of the cleanable's action.
+    private class UniffiCleanAction(private val handle: Long) : Runnable {
+        override fun run() {
+            if (handle == 0.toLong()) {
+                // Fake object created with `NoHandle`, don't try to free.
+                return;
+            }
+            uniffiRustCall { status ->
+                UniffiLib.uniffi_wvb_ffi_fn_free_loadeddescriptor(handle, status)
+            }
+        }
+    }
+
+    /**
+     * @suppress
+     */
+    fun uniffiCloneHandle(): Long {
+        if (handle == 0.toLong()) {
+            throw InternalException("uniffiCloneHandle() called on NoHandle object");
+        }
+        return uniffiRustCall() { status ->
+            UniffiLib.uniffi_wvb_ffi_fn_clone_loadeddescriptor(handle, status)
+        }
+    }
+
+    
+    /**
+     * Returns the bundle descriptor (header + index metadata).
+     *
+     * The returned descriptor carries no reference back to the source, so it can
+     * outlive this `LoadedDescriptor`. It holds only metadata, so its `index()` is
+     * unsupported; use [`get_data`](LoadedDescriptor::get_data) for entry data.
+     */override fun `descriptor`(): BundleDescriptor {
+            return FfiConverterTypeBundleDescriptor.lift(
+    callWithHandle {
+    uniffiRustCall() { _status ->
+    UniffiLib.uniffi_wvb_ffi_fn_method_loadeddescriptor_descriptor(
+        it,
+        _status)
+}
+    }
+    )
+    }
+    
+
+    
+    /**
+     * Reads the bytes for `path`, loading them lazily from disk.
+     *
+     * The read targets the bundle file this descriptor was loaded from, so the data
+     * stays consistent with [`descriptor`](LoadedDescriptor::descriptor) even if the
+     * source's active version changes meanwhile. Returns `None` if `path` does not
+     * exist in the bundle.
+     */
+    @Throws(Exception::class)
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `getData`(`path`: kotlin.String) : kotlin.ByteArray? {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_loadeddescriptor_get_data(
+                uniffiHandle,
+                FfiConverterString.lower(`path`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
+        // lift function
+        { FfiConverterOptionalByteArray.lift(it) },
+        // Error FFI converter
+        Exception.ErrorHandler,
+    )
+    }
+
+    
+    /**
+     * Reads the CRC-32 checksum for `path`, loading it lazily from disk.
+     * Returns `None` if `path` does not exist in the bundle.
+     */
+    @Throws(Exception::class)
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `getDataChecksum`(`path`: kotlin.String) : kotlin.UInt? {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_loadeddescriptor_get_data_checksum(
+                uniffiHandle,
+                FfiConverterString.lower(`path`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
+        // lift function
+        { FfiConverterOptionalUInt.lift(it) },
+        // Error FFI converter
+        Exception.ErrorHandler,
+    )
+    }
+
+    
+
+    
+
+
+    
+    
+    /**
+     * @suppress
+     */
+    companion object
+    
+}
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeLoadedDescriptor: FfiConverter<LoadedDescriptor, Long> {
+    override fun lower(value: LoadedDescriptor): Long {
+        return value.uniffiCloneHandle()
+    }
+
+    override fun lift(value: Long): LoadedDescriptor {
+        return LoadedDescriptor(UniffiWithHandle, value)
+    }
+
+    override fun read(buf: ByteBuffer): LoadedDescriptor {
+        return lift(buf.getLong())
+    }
+
+    override fun allocationSize(value: LoadedDescriptor) = 8UL
+
+    override fun write(value: LoadedDescriptor, buf: ByteBuffer) {
+        buf.putLong(lower(value))
+    }
+}
+
+
+// This template implements a class for working with a Rust struct via a handle
+// to the live Rust struct on the other side of the FFI.
+//
+// There's some subtlety here, because we have to be careful not to operate on a Rust
+// struct after it has been dropped, and because we must expose a public API for freeing
+// theq Kotlin wrapper object in lieu of reliable finalizers. The core requirements are:
+//
+//   * Each instance holds an opaque handle to the underlying Rust struct.
+//     Method calls need to read this handle from the object's state and pass it in to
+//     the Rust FFI.
+//
+//   * When an instance is no longer needed, its handle should be passed to a
+//     special destructor function provided by the Rust FFI, which will drop the
+//     underlying Rust struct.
+//
+//   * Given an instance, calling code is expected to call the special
+//     `destroy` method in order to free it after use, either by calling it explicitly
+//     or by using a higher-level helper like the `use` method. Failing to do so risks
+//     leaking the underlying Rust struct.
+//
+//   * We can't assume that calling code will do the right thing, and must be prepared
+//     to handle Kotlin method calls executing concurrently with or even after a call to
+//     `destroy`, and to handle multiple (possibly concurrent!) calls to `destroy`.
+//
+//   * We must never allow Rust code to operate on the underlying Rust struct after
+//     the destructor has been called, and must never call the destructor more than once.
+//     Doing so may trigger memory unsafety.
+//
+//   * To mitigate many of the risks of leaking memory and use-after-free unsafety, a `Cleaner`
+//     is implemented to call the destructor when the Kotlin object becomes unreachable.
+//     This is done in a background thread. This is not a panacea, and client code should be aware that
+//      1. the thread may starve if some there are objects that have poorly performing
+//     `drop` methods or do significant work in their `drop` methods.
+//      2. the thread is shared across the whole library. This can be tuned by using `android_cleaner = true`,
+//         or `android = true` in the [`kotlin` section of the `uniffi.toml` file](https://mozilla.github.io/uniffi-rs/kotlin/configuration.html).
+//
+// If we try to implement this with mutual exclusion on access to the handle, there is the
+// possibility of a race between a method call and a concurrent call to `destroy`:
+//
+//    * Thread A starts a method call, reads the value of the handle, but is interrupted
+//      before it can pass the handle over the FFI to Rust.
+//    * Thread B calls `destroy` and frees the underlying Rust struct.
+//    * Thread A resumes, passing the already-read handle value to Rust and triggering
+//      a use-after-free.
+//
+// One possible solution would be to use a `ReadWriteLock`, with each method call taking
+// a read lock (and thus allowed to run concurrently) and the special `destroy` method
+// taking a write lock (and thus blocking on live method calls). However, we aim not to
+// generate methods with any hidden blocking semantics, and a `destroy` method that might
+// block if called incorrectly seems to meet that bar.
+//
+// So, we achieve our goals by giving each instance an associated `AtomicLong` counter to track
+// the number of in-flight method calls, and an `AtomicBoolean` flag to indicate whether `destroy`
+// has been called. These are updated according to the following rules:
+//
+//    * The initial value of the counter is 1, indicating a live object with no in-flight calls.
+//      The initial value for the flag is false.
+//
+//    * At the start of each method call, we atomically check the counter.
+//      If it is 0 then the underlying Rust struct has already been destroyed and the call is aborted.
+//      If it is nonzero them we atomically increment it by 1 and proceed with the method call.
+//
+//    * At the end of each method call, we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+//    * When `destroy` is called, we atomically flip the flag from false to true.
+//      If the flag was already true we silently fail.
+//      Otherwise we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+// Astute readers may observe that this all sounds very similar to the way that Rust's `Arc<T>` works,
+// and indeed it is, with the addition of a flag to guard against multiple calls to `destroy`.
+//
+// The overall effect is that the underlying Rust struct is destroyed only when `destroy` has been
+// called *and* all in-flight method calls have completed, avoiding violating any of the expectations
+// of the underlying Rust code.
+//
+// This makes a cleaner a better alternative to _not_ calling `destroy()` as
+// and when the object is finished with, but the abstraction is not perfect: if the Rust object's `drop`
+// method is slow, and/or there are many objects to cleanup, and it's on a low end Android device, then the cleaner
+// thread may be starved, and the app will leak memory.
+//
+// In this case, `destroy`ing manually may be a better solution.
+//
+// The cleaner can live side by side with the manual calling of `destroy`. In the order of responsiveness, uniffi objects
+// with Rust peers are reclaimed:
+//
+// 1. By calling the `destroy` method of the object, which calls `rustObject.free()`. If that doesn't happen:
+// 2. When the object becomes unreachable, AND the Cleaner thread gets to call `rustObject.free()`. If the thread is starved then:
+// 3. The memory is reclaimed when the process terminates.
+//
+// [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
+//
+
+
+/**
  * Proxies HTTP-like requests to a local HTTP server.
  *
  * `hosts` maps virtual hostnames to local server base URLs
@@ -4605,6 +5369,17 @@ public interface UpdaterInterface {
      */
     suspend fun `getUpdate`(`bundleName`: kotlin.String): BundleUpdateInfo
     
+    /**
+     * Activates a previously downloaded bundle version.
+     *
+     * The version must already be staged in the remote source (via
+     * [`download_update`](Updater::download_update)). When integrity/signature
+     * verification is configured, the staged bundle is verified before activation.
+     * On success the current version is updated, the cached descriptor is dropped,
+     * and stale staged versions are pruned.
+     */
+    suspend fun `install`(`bundleName`: kotlin.String, `version`: kotlin.String)
+    
     suspend fun `listRemotes`(): List<ListRemoteBundleInfo>
     
     companion object
@@ -4763,6 +5538,37 @@ open class Updater: Disposable, AutoCloseable, UpdaterInterface
         { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
         // lift function
         { FfiConverterTypeBundleUpdateInfo.lift(it) },
+        // Error FFI converter
+        Exception.ErrorHandler,
+    )
+    }
+
+    
+    /**
+     * Activates a previously downloaded bundle version.
+     *
+     * The version must already be staged in the remote source (via
+     * [`download_update`](Updater::download_update)). When integrity/signature
+     * verification is configured, the staged bundle is verified before activation.
+     * On success the current version is updated, the cached descriptor is dropped,
+     * and stale staged versions are pruned.
+     */
+    @Throws(Exception::class)
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `install`(`bundleName`: kotlin.String, `version`: kotlin.String) {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_updater_install(
+                uniffiHandle,
+                FfiConverterString.lower(`bundleName`),FfiConverterString.lower(`version`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_void(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_void(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_void(future) },
+        // lift function
+        { Unit },
+        
         // Error FFI converter
         Exception.ErrorHandler,
     )
@@ -6189,6 +6995,38 @@ public object FfiConverterOptionalTypeBuildOptions: FfiConverterRustBuffer<Build
 /**
  * @suppress
  */
+public object FfiConverterOptionalTypeBundleManifestMetadata: FfiConverterRustBuffer<BundleManifestMetadata?> {
+    override fun read(buf: ByteBuffer): BundleManifestMetadata? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeBundleManifestMetadata.read(buf)
+    }
+
+    override fun allocationSize(value: BundleManifestMetadata?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeBundleManifestMetadata.allocationSize(value)
+        }
+    }
+
+    override fun write(value: BundleManifestMetadata?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeBundleManifestMetadata.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
 public object FfiConverterOptionalTypeBundleSourceVersion: FfiConverterRustBuffer<BundleSourceVersion?> {
     override fun read(buf: ByteBuffer): BundleSourceVersion? {
         if (buf.get().toInt() == 0) {
@@ -6565,45 +7403,6 @@ public object FfiConverterMapStringTypeIndexEntry: FfiConverterRustBuffer<Map<ko
         value.forEach { (k, v) ->
             FfiConverterString.write(k, buf)
             FfiConverterTypeIndexEntry.write(v, buf)
-        }
-    }
-}
-
-
-
-
-/**
- * @suppress
- */
-public object FfiConverterMapStringSequenceTypeListBundleItem: FfiConverterRustBuffer<Map<kotlin.String, List<ListBundleItem>>> {
-    override fun read(buf: ByteBuffer): Map<kotlin.String, List<ListBundleItem>> {
-        val len = buf.getInt()
-        return buildMap<kotlin.String, List<ListBundleItem>>(len) {
-            repeat(len) {
-                val k = FfiConverterString.read(buf)
-                val v = FfiConverterSequenceTypeListBundleItem.read(buf)
-                this[k] = v
-            }
-        }
-    }
-
-    override fun allocationSize(value: Map<kotlin.String, List<ListBundleItem>>): ULong {
-        val spaceForMapSize = 4UL
-        val spaceForChildren = value.map { (k, v) ->
-            FfiConverterString.allocationSize(k) +
-            FfiConverterSequenceTypeListBundleItem.allocationSize(v)
-        }.sum()
-        return spaceForMapSize + spaceForChildren
-    }
-
-    override fun write(value: Map<kotlin.String, List<ListBundleItem>>, buf: ByteBuffer) {
-        buf.putInt(value.size)
-        // The parens on `(k, v)` here ensure we're calling the right method,
-        // which is important for compatibility with older android devices.
-        // Ref https://blog.danlew.net/2017/03/16/kotlin-puzzler-whose-line-is-it-anyways/
-        value.forEach { (k, v) ->
-            FfiConverterString.write(k, buf)
-            FfiConverterSequenceTypeListBundleItem.write(v, buf)
         }
     }
 }

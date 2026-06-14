@@ -1,14 +1,18 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 }
 
 android {
-    namespace = "dev.wvb"
+    namespace = "dev.wvb.testapp"
     compileSdk = 35
 
     defaultConfig {
+        applicationId = "dev.wvb.android.testapp"
         minSdk = 24
+        targetSdk = 35
+        versionCode = 1
+        versionName = "1.0"
     }
 
     compileOptions {
@@ -22,16 +26,13 @@ android {
         }
     }
 
-    packaging {
-        jniLibs {
-            keepDebugSymbols.add("**/*.so")
+    buildTypes {
+        release {
+            isMinifyEnabled = false
         }
     }
 }
 
 dependencies {
-    implementation("net.java.dev.jna:jna:${libs.versions.jna.get()}@aar")
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.androidx.annotation)
-    implementation(libs.androidx.webkit)
+    implementation(project(":lib"))
 }

@@ -1,0 +1,24 @@
+{
+  "name": "webview-bundle-android-e2e",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Appium-driven E2E tests for the WebViewBundle Android testapp",
+  "packageManager": "yarn@4.16.0",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@wvb-playground/testing": "^0.0.0",
+    "@wvb-playground/webview-hacker-news": "^0.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25",
+    "appium": "^3.5.0",
+    "execa": "^9.5.2",
+    "tinyglobby": "^0.2.10",
+    "typescript": "6.0.3",
+    "vitest": "4.1.8",
+    "webdriverio": "9.28.0"
+  }
+}

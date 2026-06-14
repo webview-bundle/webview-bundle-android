@@ -1,0 +1,45 @@
+name: ci
+on:
+  pull_request:
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+jobs:
+  gradle-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # 6.0.1
+      - uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # 4.0.1
+      - name: Install ffi
+        run: node scripts/install.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - run: ./gradlew :lib:assembleRelease :lib:lintRelease :testapp:assembleDebug
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # 6.0.1
+      - uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # 4.0.1
+      - name: Install ffi
+        run: node scripts/install.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      # KVM hardware acceleration for the Android emulator on Linux runners.
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - run: corepack enable
+      - run: yarn install --immutable
+        working-directory: e2e
+      # Boots an emulator, then runs `yarn test`; the harness reuses the running
+      # emulator and builds the APK via its vitest globalSetup.
+      - uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a # 2.37.0
+        with:
+          api-level: 31
+          arch: x86_64
+          target: google_apis
+          disable-animations: true
+          working-directory: e2e
+          script: yarn test

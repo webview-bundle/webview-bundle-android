@@ -1,0 +1,4 @@
+# Bump this when upgrading the FFI, then run `node scripts/install.mjs`.
+# (`ffi/<version>` for releases, `prerelease/<sha>` for prereleases).
+# See releases from https://github.com/webview-bundle/webview-bundles.
+prerelease/7e38986

@@ -21,6 +21,7 @@
 //   - prerelease: prerelease/<sha>   e.g. prerelease/a3f693a
 //
 // Usage:
+//   node scripts/install.mjs                       # ref pinned in .ffi-version
 //   node scripts/install.mjs 0.1.0                 # -> tag ffi/0.1.0
 //   node scripts/install.mjs ffi/0.1.0             # explicit release tag
 //   node scripts/install.mjs prerelease/a3f693a    # explicit prerelease tag
@@ -60,6 +61,20 @@ const USER_AGENT = "webview-bundle-android-install-ffi";
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const LIB_SRC_DIR = join(ROOT_DIR, "lib", "src");
 const JNILIBS_DIR = join(LIB_SRC_DIR, "main", "jniLibs");
+// Single source of truth for the FFI ref this checkout is pinned to. Used when no
+// ref is passed on the command line (see `resolveTag`), so `node scripts/install.mjs`
+// is reproducible and CI installs exactly the committed bindings' version.
+const FFI_VERSION_FILE = join(ROOT_DIR, ".ffi-version");
+
+/** First non-empty, non-comment line of `.ffi-version`, or "" when absent. */
+function readPinnedRef() {
+	if (!existsSync(FFI_VERSION_FILE)) return "";
+	for (const line of readFileSync(FFI_VERSION_FILE, "utf8").split("\n")) {
+		const trimmed = line.trim();
+		if (trimmed && !trimmed.startsWith("#")) return trimmed;
+	}
+	return "";
+}
 
 // --- logging ----------------------------------------------------------------
 
@@ -186,9 +201,15 @@ async function resolveTag({ ref, prerelease, repo }) {
 		return `prerelease/${prerelease}`;
 	}
 	if (!ref) {
-		die(
-			"a version or tag is required (e.g. '0.1.0', 'ffi/0.1.0', 'latest'). See --help.",
-		);
+		ref = readPinnedRef();
+		if (ref) {
+			log(`Using pinned ref from .ffi-version: ${dim(ref)}`);
+		} else {
+			die(
+				"a version or tag is required (e.g. '0.1.0', 'ffi/0.1.0', 'latest'), " +
+					"or pin one in .ffi-version. See --help.",
+			);
+		}
 	}
 	if (ref === "latest") {
 		const tag = await resolveLatestFfiTag(repo);
