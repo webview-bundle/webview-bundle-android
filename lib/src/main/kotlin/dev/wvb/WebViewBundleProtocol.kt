@@ -4,14 +4,6 @@ package dev.wvb
 /**
  * Configures which request hosts a [WebViewBundleProtocol.Bundle] **passes through
  * to the network** instead of serving from the bundle.
- *
- * A bundle protocol handles every `https` host by default — like the core, the
- * bundle name is the first host label (`https://app.wvb/` -> bundle `app`). Use
- * this builder to carve out external origins the page talks to (APIs, CDNs,
- * analytics), so those reach the real network instead of being resolved to a
- * (missing) bundle. Hosts are matched case-insensitively.
- *
- * Obtained via the `bundle { ... }` builder; never constructed directly.
  */
 class BundlePassthrough internal constructor() {
     private val exactHosts = mutableSetOf<String>()
@@ -19,14 +11,15 @@ class BundlePassthrough internal constructor() {
     private val predicates = mutableListOf<(String) -> Boolean>()
 
     /** Pass requests to this exact host through to the network, e.g. `"example.com"`. */
+    @Suppress("unused")
     fun passthrough(host: String) {
         exactHosts += host.trim().lowercase()
     }
 
     /**
-     * Pass requests to any host under [domain] through to the network — `domain =
-     * "example.com"` matches `example.com` and `cdn.example.com`.
+     * Pass requests to any host under [domain] through to the network.
      */
+    @Suppress("unused")
     fun passthroughDomain(domain: String) {
         val normalized = domain.trim().trim('.').lowercase()
         require(normalized.isNotEmpty()) { "passthrough domain must not be empty" }
@@ -34,6 +27,7 @@ class BundlePassthrough internal constructor() {
     }
 
     /** Pass requests whose host satisfies [predicate] through to the network. */
+    @Suppress("unused")
     fun passthrough(predicate: (host: String) -> Boolean) {
         predicates += predicate
     }
@@ -47,8 +41,7 @@ class BundlePassthrough internal constructor() {
 }
 
 /**
- * Binds `https` hosts served inside a `WebView` to a webview-bundle request
- * handler.
+ * Binds `https` hosts served inside a `WebView` to a webview-bundle request handler.
  */
 sealed class WebViewBundleProtocol {
     /** Returns `true` if this protocol should serve a request to [host]. */
@@ -73,9 +66,6 @@ sealed class WebViewBundleProtocol {
      * [hosts] maps a full request host to a local base URL, e.g.
      * `mapOf("app.wvb" to "http://10.0.2.2:3000")`. The key is matched against the
      * entire request host (case-insensitive).
-     *
-     * On the Android emulator the host machine's `localhost` is reachable at
-     * `10.0.2.2`, and cleartext `http` to it requires a network security config.
      */
     class Local internal constructor(
         internal val hosts: Map<String, String>,
@@ -86,15 +76,13 @@ sealed class WebViewBundleProtocol {
 
     companion object {
         /**
-         * A [Bundle] protocol that serves **every** `https` host from the bundle
-         * source (bundle name = first host label). Register it last, as it matches
-         * all hosts.
+         * A [Bundle] protocol that serves data from the bundle source.
          */
         @Suppress("unUsed")
         fun bundle(): Bundle = Bundle(null)
 
         /**
-         * A [Bundle] protocol that serves every `https` host **except** the ones
+         * A [Bundle] protocol that serves data from the bundle source, but passes
          * the [passthrough] builder sends to the network:
          *
          * ```kotlin

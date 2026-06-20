@@ -44,6 +44,18 @@ class WebViewBundleConfig(
     val onError: ((Throwable) -> Unit)? = null,
 )
 
+/** Configuration for [WebViewBundle.install]. */
+class InstallOptions {
+    /** A [WebViewClient] whose callbacks are preserved; the bundle-serving client wraps it. */
+    var delegate: WebViewClient? = null
+
+    /** Disable adding the `window.wvbAndroid` [Bridge] interface. */
+    var disableBridge: Boolean = false
+
+    /** Register native handlers for web-side `invoke()` calls; runs against a fresh [Bridge]. */
+    var bridge: (Bridge.() -> Unit)? = null
+}
+
 /** A registered protocol paired with its FFI request handler. */
 private class RegisteredProtocol(
     val protocol: WebViewBundleProtocol,
@@ -74,7 +86,7 @@ class WebViewBundle private constructor(
      */
     fun handleRequest(request: WebResourceRequest): WebResourceResponse? {
         val url = request.url ?: return null
-        if (!url.scheme.equals("http", ignoreCase = true) ||
+        if (!url.scheme.equals("http", ignoreCase = true) &&
             !url.scheme.equals("https", ignoreCase = true)
         ) return null
         val rawHost = url.host ?: return null
@@ -112,23 +124,12 @@ class WebViewBundle private constructor(
         WebViewBundleClient(this, delegate)
 
     /**
-     * Wires [webView] to serve the registered bundles: applies the recommended
-     * settings, installs a bundle-serving [WebViewClient], routes Service Worker
-     * requests through the bundle, and installs the `window.wvbAndroid` [Bridge].
-     * Customize via the [configure] lambda (see [InstallOptions]).
-     *
-     * Returns an [AutoCloseable] that tears down the per-WebView bridge; close it
-     * when the WebView is destroyed (alongside `webView.destroy()`) rather than
-     * relying on [close]. A no-op when [InstallOptions.installBridge] is `false`.
+     * Install webview bundle features to given [webView].
      */
     fun install(webView: WebView, configure: InstallOptions.() -> Unit = {}): AutoCloseable {
         val options = InstallOptions().apply(configure)
-        options.applySettings(webView)
         webView.webViewClient = createWebViewClient(options.delegate)
-        if (options.installServiceWorker) {
-            installServiceWorkerClient()
-        }
-        val bridgeHandle = if (options.installBridge) {
+        val bridgeHandle = if (!options.disableBridge) {
             Bridge().also { bridge ->
                 options.bridge?.invoke(bridge)
                 bridge.add(WebViewBundleBridge(this@WebViewBundle))
@@ -137,7 +138,6 @@ class WebViewBundle private constructor(
         } else {
             AutoCloseable {}
         }
-        options.configureWebView?.invoke(webView)
         return bridgeHandle
     }
 

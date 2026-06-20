@@ -42,9 +42,4 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.androidx.annotation)
     implementation(libs.androidx.webkit)
-
-    // JVM unit tests run on Robolectric for real org.json / android.util.Log; the
-    // FFI native lib is Android-only, so handler dispatch is left to instrumented tests.
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("org.robolectric:robolectric:4.14.1")
 }
