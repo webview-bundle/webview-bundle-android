@@ -1,6 +1,5 @@
 package dev.wvb
 
-import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import androidx.webkit.WebViewCompat
 import androidx.webkit.WebViewFeature
@@ -51,10 +50,6 @@ class Bridge internal constructor() : AutoCloseable {
     internal fun attach(webView: WebView) {
         this.webView = webView
         if (WebViewFeature.isFeatureSupported(WebViewFeature.WEB_MESSAGE_LISTENER)) {
-            // Unlike addJavascriptInterface, this reports the calling frame, so a
-            // message from an embedded (possibly third-party) iframe can be rejected.
-            // The object is still injected everywhere ("*") for platform detection;
-            // only main-frame messages are dispatched.
             WebViewCompat.addWebMessageListener(
                 webView, INTERFACE_NAME, setOf("*"),
             ) { _, message, _, isMainFrame, _ ->
@@ -65,9 +60,10 @@ class Bridge internal constructor() : AutoCloseable {
                 }
             }
         } else {
-            // Old WebView without WEB_MESSAGE_LISTENER: fall back to the JS interface,
-            // which cannot identify the calling frame.
-            webView.addJavascriptInterface(JsInterface(), INTERFACE_NAME)
+            Log.bridge.warning(
+                "bridge not attached: this WebView does not supports WEB_MESSAGE_LISTENER " +
+                        "(needs a modern WebView / Chrome 88+)",
+            )
         }
     }
 
@@ -110,15 +106,6 @@ class Bridge internal constructor() : AutoCloseable {
                 error to encodeError(failure)
             }
             reply(name, callback, arg)
-        }
-    }
-
-    // Fallback receiver for WebViews without WEB_MESSAGE_LISTENER.
-    private inner class JsInterface {
-        @Suppress("unused")
-        @JavascriptInterface
-        fun postMessage(message: String) {
-            dispatch(message)
         }
     }
 
