@@ -17,20 +17,6 @@ import androidx.annotation.RequiresApi
 /**
  * A [WebViewClient] that serves webview-bundle resources by intercepting requests
  * to the registered protocol hosts.
- *
- * Obtained via [WebViewBundle.install] or [WebViewBundle.createWebViewClient] —
- * never constructed directly. Requests the bundle owns are served from
- * [WebViewBundle.handleRequest]; unhandled requests and a fixed set of common
- * callbacks are forwarded to the optional [delegate]: `shouldInterceptRequest`,
- * `shouldOverrideUrlLoading`, `onPageStarted`, `onPageCommitVisible`,
- * `onPageFinished`, `onLoadResource`, `doUpdateVisitedHistory`, `onReceivedError`,
- * `onReceivedHttpError`, `onReceivedSslError`, `onReceivedHttpAuthRequest`,
- * `onReceivedClientCertRequest`, and `onRenderProcessGone`.
- *
- * Any **other** [WebViewClient] override on the delegate is not invoked — the
- * framework dispatches to this class's concrete methods. If you need one, implement
- * your own [WebViewClient] and call [WebViewBundle.handleRequest] from
- * `shouldInterceptRequest`.
  */
 internal class WebViewBundleClient(
     private val owner: WebViewBundle,
@@ -42,13 +28,6 @@ internal class WebViewBundleClient(
         request: WebResourceRequest,
     ): WebResourceResponse? =
         owner.handleRequest(request) ?: delegate?.shouldInterceptRequest(view, request)
-
-    // --- delegation of the commonly-overridden callbacks ---------------------
-    // The framework dispatches to concrete overrides, so each forwarded callback
-    // must be spelled out. The bundle itself only needs shouldInterceptRequest;
-    // these simply preserve a wrapped client's behavior. The `delegate?.x() ?:
-    // super.x()` form runs the delegate when present (its non-null/Unit result
-    // suppresses super) and the default otherwise.
 
     override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean =
         delegate?.shouldOverrideUrlLoading(view, request)
@@ -80,7 +59,11 @@ internal class WebViewBundleClient(
         request: WebResourceRequest,
         error: WebResourceError,
     ) {
-        delegate?.onReceivedError(view, request, error) ?: super.onReceivedError(view, request, error)
+        delegate?.onReceivedError(view, request, error) ?: super.onReceivedError(
+            view,
+            request,
+            error
+        )
     }
 
     override fun onReceivedHttpError(
@@ -115,14 +98,7 @@ internal class WebViewBundleClient(
             ?: super.onReceivedClientCertRequest(view, request)
     }
 
-    // Boolean return: use an explicit null check, not elvis, so a delegate
-    // returning `false` (handled, don't kill the process) is honored. The
-    // framework only dispatches this on API 26+, so the API-26 calls are safe.
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onRenderProcessGone(view: WebView, detail: RenderProcessGoneDetail): Boolean =
-        if (delegate != null) {
-            delegate.onRenderProcessGone(view, detail)
-        } else {
-            super.onRenderProcessGone(view, detail)
-        }
+        delegate?.onRenderProcessGone(view, detail) ?: super.onRenderProcessGone(view, detail)
 }
