@@ -966,6 +966,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@wvb-playground/testing@npm:0.0.1":
+  version: 0.0.1
+  resolution: "@wvb-playground/testing@npm:0.0.1"
+  peerDependencies:
+    playwright-core: ^1.40.0
+    selenium-webdriver: ^4.0.0
+    webdriverio: ^8.0.0 || ^9.0.0
+  peerDependenciesMeta:
+    playwright-core:
+      optional: true
+    selenium-webdriver:
+      optional: true
+    webdriverio:
+      optional: true
+  checksum: 10c0/348f5199a5eea52b0af30c069d3d8687fb44abd3e420f856219d1911904b61715b1eb3d074c89d9fbc3826514ec72a8dcd6f15205574b77137c74137d9085759
+  languageName: node
+  linkType: hard
+
 "@wvb-playground/testing@npm:^0.0.0":
   version: 0.0.0
   resolution: "@wvb-playground/testing@npm:0.0.0"
@@ -984,7 +1002,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wvb-playground/webview-hacker-news@npm:^0.0.0":
+"@wvb-playground/webview-hacker-news@npm:0.0.0":
   version: 0.0.0
   resolution: "@wvb-playground/webview-hacker-news@npm:0.0.0"
   dependencies:
@@ -5539,8 +5557,8 @@ __metadata:
   resolution: "webview-bundle-android-e2e@workspace:."
   dependencies:
     "@types/node": "npm:^25"
-    "@wvb-playground/testing": "npm:^0.0.0"
-    "@wvb-playground/webview-hacker-news": "npm:^0.0.0"
+    "@wvb-playground/testing": "npm:0.0.1"
+    "@wvb-playground/webview-hacker-news": "npm:0.0.0"
     appium: "npm:^3.5.0"
     execa: "npm:^9.5.2"
     tinyglobby: "npm:^0.2.10"

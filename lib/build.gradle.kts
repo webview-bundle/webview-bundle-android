@@ -9,6 +9,8 @@ android {
 
     defaultConfig {
         minSdk = 24
+        // Keep the @JavascriptInterface bridge methods in minified consumer apps.
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     compileOptions {
@@ -25,6 +27,12 @@ android {
     packaging {
         jniLibs {
             keepDebugSymbols.add("**/*.so")
+        }
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
         }
     }
 }

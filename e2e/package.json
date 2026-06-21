@@ -9,8 +9,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@wvb-playground/testing": "^0.0.0",
-    "@wvb-playground/webview-hacker-news": "^0.0.0"
+    "@wvb-playground/testing": "0.0.1",
+    "@wvb-playground/webview-hacker-news": "0.0.0"
   },
   "devDependencies": {
     "@types/node": "^25",
