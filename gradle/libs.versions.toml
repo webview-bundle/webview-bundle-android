@@ -8,6 +8,9 @@ androidx-webkit       = "1.12.1"
 jna                   = "5.17.0"
 kotlin                = "2.3.21"
 kotlinx-coroutines    = "1.10.2"
+# 0.35.0 is the last release whose minimum AGP is 8.2.2 (works with our AGP
+# 8.10.1); 0.36.0+ require AGP 8.13.0. It targets the Central Portal by default.
+maven-publish         = "0.35.0"
 
 [libraries]
 androidx-annotation            = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
@@ -18,6 +21,7 @@ kotlinx-coroutines-core        = { module = "org.jetbrains.kotlinx:kotlinx-corou
 kotlinx-coroutines-android     = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
-android-library     = { id = "com.android.library", version.ref = "android-gradle-plugin" }
-kotlin-android      = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+android-application      = { id = "com.android.application", version.ref = "android-gradle-plugin" }
+android-library          = { id = "com.android.library", version.ref = "android-gradle-plugin" }
+kotlin-android           = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
