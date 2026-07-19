@@ -1,9 +1,7 @@
 package dev.wvb
 
 /**
- * A throwable that maps to the web-facing `{ code?, message }` bridge error
- * shape. Implement it to deliver a `code` alongside the `message`; other thrown
- * errors are encoded with their message and no `code`.
+ * A throwable that maps to the web-facing `{ code?, message }` bridge error shape.
  */
 interface BridgeFailure {
     val code: String?

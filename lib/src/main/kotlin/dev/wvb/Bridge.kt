@@ -13,16 +13,13 @@ import org.json.JSONObject
 
 /**
  * The native end of the `@wvb/bridge` `invoke()` bridge: the `window.wvbAndroid`
- * object the web side posts `{ name, params, success, error }` messages to. It
- * dispatches to a registered [handler] and replies via the JS success/error
- * callbacks.
+ * object the web side posts messages to.
  */
 class Bridge internal constructor() : AutoCloseable {
-    // Concurrent: registered on the UI thread, read from the background dispatch.
+    // Registered on the UI thread, read from the background dispatch.
     private val handlers = ConcurrentHashMap<String, suspend (params: Any?) -> Any?>()
 
-    // Handlers run on this background scope regardless of the delivering thread;
-    // only the final evaluateJavascript reply hops to the UI thread.
+    // Handlers run on this background scope regardless of the delivering thread.
     private val scope = CoroutineScope(SupervisorJob())
 
     @Volatile
@@ -31,9 +28,8 @@ class Bridge internal constructor() : AutoCloseable {
     /**
      * Registers a handler for the `invoke()` command [name], replacing any existing one.
      *
-     * [block] receives the decoded `params` (an `org.json` value or `null`), may
-     * suspend, and returns a JSON-encodable value. Throwing rejects the `Promise`
-     * with `{ code?, message }`; throw a [BridgeError] to control the `code`.
+     * [block] receives the decoded `params` and returns a JSON-encodable value; throwing
+     * rejects the `Promise`, and throwing a [BridgeError] controls its `code`.
      */
     @Suppress("unused")
     fun handler(name: String, block: suspend (params: Any?) -> Any?): Bridge {
@@ -84,8 +80,7 @@ class Bridge internal constructor() : AutoCloseable {
         val name = json.optString("name")
         val success = json.optString("success")
         val error = json.optString("error")
-        // No callback to reply through: the message is dropped and the web Promise
-        // hangs with no other signal, so log it loudly.
+        // No callback to reply through, so the web Promise would hang silently; log it loudly.
         if (success.isEmpty() || error.isEmpty()) {
             Log.bridge.error(
                 "invoke message dropped: missing success/error callback " +

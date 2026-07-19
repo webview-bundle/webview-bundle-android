@@ -698,6 +698,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tauri-apps/api@npm:^2":
+  version: 2.11.1
+  resolution: "@tauri-apps/api@npm:2.11.1"
+  checksum: 10c0/78a08a64ee7eab9d34bd4ba1bdc3a2440c7e9cc5737b3f1d77bd80fa38b0cb5e9601efe04da40c947c5da2ca38dc702bec21b4ae96b18ee5f3e82980d1f0b325
+  languageName: node
+  linkType: hard
+
 "@tootallnate/quickjs-emscripten@npm:^0.23.0":
   version: 0.23.0
   resolution: "@tootallnate/quickjs-emscripten@npm:0.23.0"
@@ -966,12 +973,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wvb-playground/testing@npm:0.0.1":
-  version: 0.0.1
-  resolution: "@wvb-playground/testing@npm:0.0.1"
+"@wvb-playground/testdriver@npm:0.1.0, @wvb-playground/testdriver@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@wvb-playground/testdriver@npm:0.1.0"
   peerDependencies:
-    playwright-core: ^1.40.0
-    selenium-webdriver: ^4.0.0
+    playwright-core: ^1
+    selenium-webdriver: ^4
     webdriverio: ^8.0.0 || ^9.0.0
   peerDependenciesMeta:
     playwright-core:
@@ -980,39 +987,28 @@ __metadata:
       optional: true
     webdriverio:
       optional: true
-  checksum: 10c0/348f5199a5eea52b0af30c069d3d8687fb44abd3e420f856219d1911904b61715b1eb3d074c89d9fbc3826514ec72a8dcd6f15205574b77137c74137d9085759
+  checksum: 10c0/8a3ff1b57476ee8e46f4ea180c1f02253142e6ad6eb4cc3a4b9af0a7693d9d1b4efd01bbb67e038281fcb233ca795f09a7ef658bf4d2f9d578566491cb4d2cd2
   languageName: node
   linkType: hard
 
-"@wvb-playground/testing@npm:^0.0.0":
-  version: 0.0.0
-  resolution: "@wvb-playground/testing@npm:0.0.0"
-  peerDependencies:
-    playwright-core: ^1.40.0
-    selenium-webdriver: ^4.0.0
-    webdriverio: ^8.0.0 || ^9.0.0
-  peerDependenciesMeta:
-    playwright-core:
-      optional: true
-    selenium-webdriver:
-      optional: true
-    webdriverio:
-      optional: true
-  checksum: 10c0/aff3809a52ced27cdba6a05dc7e60375ee72b6581d95e1bac684f25f94c275f0bcd68f0d8edab10f281427b1c3605758562c3b6b15d95bb0ae0454136982f2ab
-  languageName: node
-  linkType: hard
-
-"@wvb-playground/webview-hacker-news@npm:0.0.0":
-  version: 0.0.0
-  resolution: "@wvb-playground/webview-hacker-news@npm:0.0.0"
+"@wvb-playground/webview-testbed@npm:0.3.0":
+  version: 0.3.0
+  resolution: "@wvb-playground/webview-testbed@npm:0.3.0"
   dependencies:
-    "@wvb-playground/testing": "npm:^0.0.0"
+    "@wvb-playground/testdriver": "npm:^0.1.0"
+    "@wvb/bridge": "npm:0.1.0-next.fe10f84"
   peerDependencies:
     vitest: ^2.0.0 || ^3.0.0 || ^4.0.0
-  peerDependenciesMeta:
-    vitest:
-      optional: true
-  checksum: 10c0/722a88b4c43c1a9e7b274bebef3aa6126683aa1300d6e04186de65f090943f3512546b8ca17f08f5a5ae8f586560ede615f87cfc319112c9f23074f8b5c2f6be
+  checksum: 10c0/b4243848ce25c46480269003d8b8edc25a052643d82db9bb51ae4bfe4407b73fa58503ca0aac06f2d17b7e63fb68bcddb5aa96f891f117f81129d2f58bbffd90
+  languageName: node
+  linkType: hard
+
+"@wvb/bridge@npm:0.1.0-next.fe10f84":
+  version: 0.1.0-next.fe10f84
+  resolution: "@wvb/bridge@npm:0.1.0-next.fe10f84"
+  dependencies:
+    "@tauri-apps/api": "npm:^2"
+  checksum: 10c0/dda6994a2826e07e93463576e5e50c7a24a2c4943af47f550862c26f4a95169e8b5fba1e7636aa3e9b245243e32f23c13e18c849d57f028833df749af6368aea
   languageName: node
   linkType: hard
 
@@ -5557,8 +5553,8 @@ __metadata:
   resolution: "webview-bundle-android-e2e@workspace:."
   dependencies:
     "@types/node": "npm:^25"
-    "@wvb-playground/testing": "npm:0.0.1"
-    "@wvb-playground/webview-hacker-news": "npm:0.0.0"
+    "@wvb-playground/testdriver": "npm:0.1.0"
+    "@wvb-playground/webview-testbed": "npm:0.3.0"
     appium: "npm:^3.5.0"
     execa: "npm:^9.5.2"
     tinyglobby: "npm:^0.2.10"

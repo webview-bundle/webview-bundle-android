@@ -11,3 +11,6 @@ build
 local.properties
 
 /lib/src/main/jniLibs/**/*
+
+# misc
+.DS_Store*

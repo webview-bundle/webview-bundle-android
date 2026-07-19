@@ -8,7 +8,7 @@ internal object BridgeCodec {
     fun params(raw: Any?): JSONObject = raw as? JSONObject ?: JSONObject()
 }
 
-/** A required string param; throws [BridgeError] (`invalid_params`) if missing. */
+/** A required string param; throws [BridgeError] if missing. */
 internal fun JSONObject.requireString(key: String): String {
     if (!has(key) || isNull(key)) {
         throw BridgeError(code = "invalid_params", message = "expected string param \"$key\"")
@@ -20,10 +20,9 @@ internal fun JSONObject.requireString(key: String): String {
 internal fun JSONObject.optionalString(key: String): String? =
     if (!has(key) || isNull(key)) null else getString(key)
 
-// Response payloads. These mirror the JSON the web side consumes from the
-// Electron bridge (`@wvb/node`): the source kind is keyed `type` on the wire
-// though the FFI names it `kind`, and nullable fields are omitted (putOpt) to
-// match the TS `?` optionals.
+// These mirror the JSON the web side consumes from the Electron bridge
+// (`@wvb/node`): the source kind is keyed `type` on the wire, and nullable
+// fields are omitted (putOpt) to match the TS optionals.
 
 private fun BundleSourceKind.bridgeValue(): String = when (this) {
     BundleSourceKind.BUILTIN -> "builtin"
