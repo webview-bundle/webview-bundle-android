@@ -26,7 +26,7 @@ export interface TestContext {
 	driver: Driver;
 }
 
-/** Locates the built debug APK (fixed output path, then a glob fallback). */
+/** Locates the built debug APK. */
 export async function findApk(): Promise<string | undefined> {
 	const fixed = path.join(
 		ROOT,
@@ -86,19 +86,20 @@ export async function createTestContext(): Promise<TestContext> {
 			platformName: "Android",
 			"appium:automationName": "UiAutomator2",
 			"appium:udid": device.serial,
-			// Appium installs the APK and launches the activity.
 			"appium:app": apkPath,
 			"appium:appPackage": APP_PACKAGE,
 			"appium:appActivity": APP_ACTIVITY,
 			"appium:appWaitActivity": "*",
+			// The testapp's versionCode is constant, so without a full reset Appium
+			// skips reinstalling a rebuilt APK and keeps stale bundles/assets.
+			"appium:fullReset": true,
 			"appium:autoGrantPermissions": true,
 			"appium:newCommandTimeout": 240,
 			"appium:adbExecTimeout": 120_000,
 			"appium:uiautomator2ServerInstallTimeout": 120_000,
 			"appium:uiautomator2ServerLaunchTimeout": 120_000,
-			// The testapp hosts a debuggable WebView; let UiAutomator2 fetch a matching
-			// chromedriver for it (enabled by the server's `chromedriver_autodownload`
-			// insecure feature — see `startAppiumServer`).
+			// Requires the server's `chromedriver_autodownload` insecure feature
+			// (see `startAppiumServer`).
 			"appium:chromedriverAutodownload": true,
 			"appium:ensureWebviewsHavePages": true,
 			"appium:nativeWebScreenshot": true,
@@ -113,12 +114,7 @@ export async function createTestContext(): Promise<TestContext> {
 /** ms to wait for the testapp's WebView to expose a debuggable WEBVIEW context. */
 const WEBVIEW_CONTEXT_TIMEOUT = process.env.CI ? 120_000 : 60_000;
 
-/**
- * Switches `driver` into the testapp's WEBVIEW context so the
- * `@wvb-playground/testing` Appium driver can run CSS selectors and navigate via
- * `browser.url(...)`. The WebView loads `https://hacker-news.wvb/` on launch, so its
- * context appears shortly after the session starts.
- */
+/** Switches `driver` into the testapp's WEBVIEW context. */
 async function switchToWebview(driver: Driver): Promise<void> {
 	let contexts: string[] = [];
 	await driver.waitUntil(

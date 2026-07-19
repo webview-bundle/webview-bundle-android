@@ -66,12 +66,17 @@ internal class WebViewBundleBridge(private val wvb: WebViewBundle) : BridgeHandl
     private fun registerRemote(bridge: Bridge) {
         bridge.handler("remoteListBundles") { params ->
             val channel = BridgeCodec.params(params).optionalString("channel")
-            JSONArray(requireRemote().listBundles(channel).map { it.toJson() })
+            JSONArray(
+                requireRemote().listBundles(RemoteFetchOptions(channel = channel))
+                    .map { it.toJson() },
+            )
         }
         bridge.handler("remoteGetInfo") { params ->
             val p = BridgeCodec.params(params)
-            requireRemote().getInfo(p.requireString("bundleName"), p.optionalString("channel"))
-                .toJson()
+            requireRemote().getInfo(
+                p.requireString("bundleName"),
+                RemoteFetchOptions(channel = p.optionalString("channel")),
+            ).toJson()
         }
         bridge.handler("remoteDownload") { params ->
             val p = BridgeCodec.params(params)

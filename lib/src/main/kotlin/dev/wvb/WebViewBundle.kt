@@ -14,10 +14,7 @@ data class WebViewBundleRemoteConfig(
     val endpoint: String,
 )
 
-/**
- * Updater configuration for [WebViewBundleConfig]. When present, [WebViewBundle]
- * builds a [Remote] and [Updater] wired to the source, both exposed on the instance.
- */
+/** Updater configuration for [WebViewBundleConfig]. */
 data class WebViewBundleUpdaterConfig(
     val remote: WebViewBundleRemoteConfig,
     /** Release channel (e.g. `"stable"`, `"beta"`). */
@@ -32,7 +29,7 @@ data class WebViewBundleUpdaterConfig(
  * @property protocols protocols to register, evaluated in order (first whose
  *   matcher accepts the host wins). [WebViewBundleProtocol.bundle] matches every
  *   host, so register it last.
- * @property source bundle source options; defaults to app-private directories.
+ * @property source bundle source config; defaults to app-private directories.
  * @property updater when set, a [Remote] and [Updater] are created and exposed.
  * @property onError invoked on the WebView's request thread when a protocol fails
  *   to serve a request.
@@ -59,7 +56,7 @@ class InstallOptions {
 /** A registered protocol paired with its FFI request handler. */
 private class RegisteredProtocol(
     val protocol: WebViewBundleProtocol,
-    val handle: suspend (HttpMethod, String, Map<String, String>?) -> HttpResponse,
+    val handle: suspend (HttpMethod, String, Map<String, String>?, ByteArray?) -> HttpResponse,
     val closeable: AutoCloseable,
 )
 
@@ -105,7 +102,7 @@ class WebViewBundle private constructor(
         }
 
         return try {
-            val response = runBlocking { registered.handle(method, uri, headers) }
+            val response = runBlocking { registered.handle(method, uri, headers, null) }
             response.toWebResourceResponse()
         } catch (error: Exception) {
             // Only handler exceptions fail closed as a 500; fatal Errors (OOM, a
@@ -142,9 +139,8 @@ class WebViewBundle private constructor(
     }
 
     /**
-     * Releases the source, remote, and updater handles and clears the process-wide
-     * instance so a later [getInstance] rebuilds it. Rarely needed (app shutdown /
-     * tests); does not touch per-WebView bridges.
+     * Releases the underlying handles and clears the process-wide instance so a
+     * later [getInstance] rebuilds it. Does not touch per-WebView bridges.
      */
     override fun close() {
         synchronized(Companion) { if (instance === this) instance = null }
@@ -166,8 +162,7 @@ class WebViewBundle private constructor(
          * first call. Single-instance per process: [config] is honored only on the
          * first call; later calls return the existing instance and ignore it.
          *
-         * @throws Exception if the source or a native handle cannot be built; any
-         *   handles already allocated are released first.
+         * @throws Exception if the source or a native handle cannot be built.
          */
         fun getInstance(context: Context, config: WebViewBundleConfig): WebViewBundle =
             instance ?: synchronized(this) {
@@ -194,8 +189,12 @@ class WebViewBundle private constructor(
                         createdRemote,
                         UpdaterOptions(
                             channel = updaterConfig.channel,
-                            integrityPolicy = updaterConfig.integrityPolicy,
-                            signatureVerifier = updaterConfig.signatureVerifier,
+                            integrity = updaterConfig.integrityPolicy?.let {
+                                UpdaterIntegrityOptions(policy = it)
+                            },
+                            signature = updaterConfig.signatureVerifier?.let {
+                                UpdaterSignatureOptions(verify = SignatureVerification.Key(it))
+                            },
                         ),
                     )
                 }
@@ -203,7 +202,7 @@ class WebViewBundle private constructor(
                 config.protocols.forEach { protocol ->
                     registered += when (protocol) {
                         is WebViewBundleProtocol.Bundle -> {
-                            val handler = BundleUrlHandler(source)
+                            val handler = BundleProtocolHandler(source)
                             RegisteredProtocol(protocol, handler::handle, handler)
                         }
 
@@ -211,7 +210,7 @@ class WebViewBundle private constructor(
                             // Lowercase the host keys to match the case-insensitive
                             // matcher and the lowercased request host.
                             val handler =
-                                LocalUrlHandler(protocol.hosts.mapKeys { it.key.lowercase() })
+                                ProxyProtocolHandler(protocol.hosts.mapKeys { it.key.lowercase() })
                             RegisteredProtocol(protocol, handler::handle, handler)
                         }
                     }

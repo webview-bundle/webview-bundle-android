@@ -48,10 +48,8 @@ sealed class WebViewBundleProtocol {
     internal abstract fun matches(host: String): Boolean
 
     /**
-     * Serves entries from the bundle source, backed by an FFI [BundleUrlHandler].
-     *
-     * Handles every `https` host (bundle name = first host label) except those the
-     * optional [passthrough] sends to the network.
+     * Serves entries from the bundle source. Handles every `https` host except
+     * those the optional [passthrough] sends to the network.
      */
     class Bundle internal constructor(
         private val passthrough: BundlePassthrough?,
@@ -61,11 +59,8 @@ sealed class WebViewBundleProtocol {
     }
 
     /**
-     * Proxies requests to local HTTP servers, backed by an FFI [LocalUrlHandler].
-     *
-     * [hosts] maps a full request host to a local base URL, e.g.
-     * `mapOf("app.wvb" to "http://10.0.2.2:3000")`. The key is matched against the
-     * entire request host (case-insensitive).
+     * Proxies requests to local HTTP servers. [hosts] maps a full request host to
+     * a local base URL, e.g. `mapOf("app.wvb" to "http://10.0.2.2:3000")`.
      */
     class Local internal constructor(
         internal val hosts: Map<String, String>,
@@ -82,8 +77,8 @@ sealed class WebViewBundleProtocol {
         fun bundle(): Bundle = Bundle(null)
 
         /**
-         * A [Bundle] protocol that serves data from the bundle source, but passes
-         * the [passthrough] builder sends to the network:
+         * A [Bundle] protocol that passes hosts selected by the [passthrough]
+         * builder through to the network:
          *
          * ```kotlin
          * WebViewBundleProtocol.bundle {
@@ -92,9 +87,6 @@ sealed class WebViewBundleProtocol {
          *     passthrough { it.endsWith(".cdn.net") }
          * }
          * ```
-         *
-         * To instead serve only a specific domain, invert it with a predicate, e.g.
-         * `bundle { passthrough { host -> !host.endsWith(".wvb") } }`.
          */
         @Suppress("unUsed")
         fun bundle(passthrough: BundlePassthrough.() -> Unit): Bundle =
