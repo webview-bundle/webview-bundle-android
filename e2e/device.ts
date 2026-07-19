@@ -12,7 +12,6 @@ export interface AndroidDevice {
 	shutdown: () => Promise<void>;
 }
 
-/** Locates the Android SDK from the env or the platform's default install path. */
 function resolveSdk(): string {
 	const fromEnv = process.env.ANDROID_HOME ?? process.env.ANDROID_SDK_ROOT;
 	if (fromEnv && existsSync(fromEnv)) {
@@ -47,7 +46,6 @@ async function adb(
 	return { stdout: stdout ?? "" };
 }
 
-/** Serials of devices currently in the `device` (online) state. */
 async function listSerials(): Promise<string[]> {
 	const { stdout } = await adb(["devices"]);
 	return stdout
@@ -156,8 +154,8 @@ async function bootEmulator(avd: string): Promise<AndroidDevice> {
 }
 
 /**
- * Reuses an already-booted device/emulator, or boots an AVD (`ANDROID_AVD`, or the
- * first available) and waits for it to finish booting.
+ * Reuses an already-booted device/emulator, or boots an AVD and waits for it to
+ * finish booting.
  */
 export async function ensureAndroidDevice(
 	avdName = process.env.ANDROID_AVD,

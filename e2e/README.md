@@ -5,16 +5,16 @@ Appium-driven end-to-end tests for the `testapp` module, mirroring the iOS e2e.
 ## How it works
 
 The `testapp` (`MainActivity`) is a minimal WebView host: it serves the builtin
-`hacker-news` bundle over `https://hacker-news.wvb/` and loads it on launch. It
-carries **no** test logic of its own. The scenarios live in the shared
-`@wvb-playground/webview-hacker-news` package (the same suite the iOS e2e runs)
-and are expressed against the platform-agnostic `WebviewDriver` from
-`@wvb-playground/testing`.
+`testbed` bundle (0.2.0) over `https://testbed.wvb/` and loads it on launch, and
+wires its updater to the live playground remote
+(`https://playground-remote.wvb.dev`, which hosts 0.3.0). It carries **no** test
+logic of its own. The scenarios live in the shared
+`@wvb-playground/webview-testbed` package and are expressed against the
+platform-agnostic `WebviewDriver` from `@wvb-playground/testdriver`.
 
-The Appium session is switched into the testapp's **WEBVIEW** context, then each
-exported `testCase` is run through `createAppiumDriver(driver, { baseURL:
-"https://hacker-news.wvb" })`, which drives the live DOM (CSS selectors,
-in-app navigation via `goto`).
+The Appium session is switched into the testapp's **WEBVIEW** context, then the
+suite runs through `createAppiumDriver(driver, { baseURL: "https://testbed.wvb" })`,
+which drives the live DOM (CSS selectors, in-app navigation via `goto`).
 
 `vitest` orchestrates it:
 
@@ -24,8 +24,10 @@ in-app navigation via `goto`).
   (or reuses) an emulator, starts an Appium server (with
   `chromedriver_autodownload` enabled), opens a session that installs and
   launches the testapp, and switches into its WEBVIEW context.
-- **smoke.spec.ts** runs every `testCase` from
-  `@wvb-playground/webview-hacker-news/testing`.
+- **testbed.spec.ts** registers the `@wvb-playground/webview-testbed/testing`
+  suite (`defineTestbedSuite`) — one case per `@wvb/bridge` method — plus a strict
+  end-to-end check that downloads the real remote bundle and updates the source
+  from the builtin 0.2.0 to the remote 0.3.0.
 
 ## Prerequisites
 

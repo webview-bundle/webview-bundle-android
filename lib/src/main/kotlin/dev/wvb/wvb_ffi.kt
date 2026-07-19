@@ -620,6 +620,94 @@ internal open class UniffiForeignFutureResultVoid(
 internal interface UniffiForeignFutureCompleteVoid : com.sun.jna.Callback {
     fun callback(`callbackData`: Long,`result`: UniffiForeignFutureResultVoid.UniffiByValue,)
 }
+internal interface UniffiCallbackInterfaceIntegrityCheckMethod0 : com.sun.jna.Callback {
+    fun callback(`uniffiHandle`: Long,`data`: RustBuffer.ByValue,`integrity`: RustBuffer.ByValue,`uniffiFutureCallback`: UniffiForeignFutureCompleteI8,`uniffiCallbackData`: Long,`uniffiOutDroppedCallback`: UniffiForeignFutureDroppedCallbackStruct,)
+}
+internal interface UniffiCallbackInterfaceProxyResolverMethod0 : com.sun.jna.Callback {
+    fun callback(`uniffiHandle`: Long,`uri`: RustBuffer.ByValue,`uniffiFutureCallback`: UniffiForeignFutureCompleteRustBuffer,`uniffiCallbackData`: Long,`uniffiOutDroppedCallback`: UniffiForeignFutureDroppedCallbackStruct,)
+}
+internal interface UniffiCallbackInterfaceRemoteOnDownloadMethod0 : com.sun.jna.Callback {
+    fun callback(`uniffiHandle`: Long,`data`: RustBuffer.ByValue,`uniffiOutReturn`: Pointer,uniffiCallStatus: UniffiRustCallStatus,)
+}
+internal interface UniffiCallbackInterfaceSignatureVerifyMethod0 : com.sun.jna.Callback {
+    fun callback(`uniffiHandle`: Long,`message`: RustBuffer.ByValue,`signature`: RustBuffer.ByValue,`uniffiFutureCallback`: UniffiForeignFutureCompleteI8,`uniffiCallbackData`: Long,`uniffiOutDroppedCallback`: UniffiForeignFutureDroppedCallbackStruct,)
+}
+@Structure.FieldOrder("uniffiFree", "uniffiClone", "check")
+internal open class UniffiVTableCallbackInterfaceIntegrityCheck(
+    @JvmField internal var `uniffiFree`: UniffiCallbackInterfaceFree? = null,
+    @JvmField internal var `uniffiClone`: UniffiCallbackInterfaceClone? = null,
+    @JvmField internal var `check`: UniffiCallbackInterfaceIntegrityCheckMethod0? = null,
+) : Structure() {
+    class UniffiByValue(
+        `uniffiFree`: UniffiCallbackInterfaceFree? = null,
+        `uniffiClone`: UniffiCallbackInterfaceClone? = null,
+        `check`: UniffiCallbackInterfaceIntegrityCheckMethod0? = null,
+    ): UniffiVTableCallbackInterfaceIntegrityCheck(`uniffiFree`,`uniffiClone`,`check`,), Structure.ByValue
+
+   internal fun uniffiSetValue(other: UniffiVTableCallbackInterfaceIntegrityCheck) {
+        `uniffiFree` = other.`uniffiFree`
+        `uniffiClone` = other.`uniffiClone`
+        `check` = other.`check`
+    }
+
+}
+@Structure.FieldOrder("uniffiFree", "uniffiClone", "resolve")
+internal open class UniffiVTableCallbackInterfaceProxyResolver(
+    @JvmField internal var `uniffiFree`: UniffiCallbackInterfaceFree? = null,
+    @JvmField internal var `uniffiClone`: UniffiCallbackInterfaceClone? = null,
+    @JvmField internal var `resolve`: UniffiCallbackInterfaceProxyResolverMethod0? = null,
+) : Structure() {
+    class UniffiByValue(
+        `uniffiFree`: UniffiCallbackInterfaceFree? = null,
+        `uniffiClone`: UniffiCallbackInterfaceClone? = null,
+        `resolve`: UniffiCallbackInterfaceProxyResolverMethod0? = null,
+    ): UniffiVTableCallbackInterfaceProxyResolver(`uniffiFree`,`uniffiClone`,`resolve`,), Structure.ByValue
+
+   internal fun uniffiSetValue(other: UniffiVTableCallbackInterfaceProxyResolver) {
+        `uniffiFree` = other.`uniffiFree`
+        `uniffiClone` = other.`uniffiClone`
+        `resolve` = other.`resolve`
+    }
+
+}
+@Structure.FieldOrder("uniffiFree", "uniffiClone", "onDownload")
+internal open class UniffiVTableCallbackInterfaceRemoteOnDownload(
+    @JvmField internal var `uniffiFree`: UniffiCallbackInterfaceFree? = null,
+    @JvmField internal var `uniffiClone`: UniffiCallbackInterfaceClone? = null,
+    @JvmField internal var `onDownload`: UniffiCallbackInterfaceRemoteOnDownloadMethod0? = null,
+) : Structure() {
+    class UniffiByValue(
+        `uniffiFree`: UniffiCallbackInterfaceFree? = null,
+        `uniffiClone`: UniffiCallbackInterfaceClone? = null,
+        `onDownload`: UniffiCallbackInterfaceRemoteOnDownloadMethod0? = null,
+    ): UniffiVTableCallbackInterfaceRemoteOnDownload(`uniffiFree`,`uniffiClone`,`onDownload`,), Structure.ByValue
+
+   internal fun uniffiSetValue(other: UniffiVTableCallbackInterfaceRemoteOnDownload) {
+        `uniffiFree` = other.`uniffiFree`
+        `uniffiClone` = other.`uniffiClone`
+        `onDownload` = other.`onDownload`
+    }
+
+}
+@Structure.FieldOrder("uniffiFree", "uniffiClone", "verify")
+internal open class UniffiVTableCallbackInterfaceSignatureVerify(
+    @JvmField internal var `uniffiFree`: UniffiCallbackInterfaceFree? = null,
+    @JvmField internal var `uniffiClone`: UniffiCallbackInterfaceClone? = null,
+    @JvmField internal var `verify`: UniffiCallbackInterfaceSignatureVerifyMethod0? = null,
+) : Structure() {
+    class UniffiByValue(
+        `uniffiFree`: UniffiCallbackInterfaceFree? = null,
+        `uniffiClone`: UniffiCallbackInterfaceClone? = null,
+        `verify`: UniffiCallbackInterfaceSignatureVerifyMethod0? = null,
+    ): UniffiVTableCallbackInterfaceSignatureVerify(`uniffiFree`,`uniffiClone`,`verify`,), Structure.ByValue
+
+   internal fun uniffiSetValue(other: UniffiVTableCallbackInterfaceSignatureVerify) {
+        `uniffiFree` = other.`uniffiFree`
+        `uniffiClone` = other.`uniffiClone`
+        `verify` = other.`verify`
+    }
+
+}
 
 // A JNA Library to expose the extern-C FFI definitions.
 // This is an implementation detail which will be called internally by the public API.
@@ -669,7 +757,15 @@ internal object IntegrityCheckingUniffiLib {
     ): Short
     external fun uniffi_wvb_ffi_checksum_method_bundlebuilder_version(
     ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundledescriptor_async_get_data(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundledescriptor_async_get_data_checksum(
+    ): Short
     external fun uniffi_wvb_ffi_checksum_method_bundledescriptor_contains_path(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundledescriptor_get_data(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundledescriptor_get_data_checksum(
     ): Short
     external fun uniffi_wvb_ffi_checksum_method_bundledescriptor_get_index_entry(
     ): Short
@@ -691,9 +787,19 @@ internal object IntegrityCheckingUniffiLib {
     ): Short
     external fun uniffi_wvb_ffi_checksum_method_index_get_entry(
     ): Short
-    external fun uniffi_wvb_ffi_checksum_method_bundleurlhandler_handle(
+    external fun uniffi_wvb_ffi_checksum_method_integrity_serialize(
     ): Short
-    external fun uniffi_wvb_ffi_checksum_method_localurlhandler_handle(
+    external fun uniffi_wvb_ffi_checksum_method_integrity_validate(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_integrity_value(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_integritycheck_check(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_bundleprotocolhandler_handle(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_proxyprotocolhandler_handle(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_proxyresolver_resolve(
     ): Short
     external fun uniffi_wvb_ffi_checksum_method_remote_download(
     ): Short
@@ -702,6 +808,10 @@ internal object IntegrityCheckingUniffiLib {
     external fun uniffi_wvb_ffi_checksum_method_remote_get_info(
     ): Short
     external fun uniffi_wvb_ffi_checksum_method_remote_list_bundles(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_remoteondownload_on_download(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_method_signatureverify_verify(
     ): Short
     external fun uniffi_wvb_ffi_checksum_method_bundlesource_fetch_builtin_bundle(
     ): Short
@@ -755,9 +865,15 @@ internal object IntegrityCheckingUniffiLib {
     ): Short
     external fun uniffi_wvb_ffi_checksum_constructor_bundlebuilder_new(
     ): Short
-    external fun uniffi_wvb_ffi_checksum_constructor_bundleurlhandler_new(
+    external fun uniffi_wvb_ffi_checksum_constructor_integrity_compute(
     ): Short
-    external fun uniffi_wvb_ffi_checksum_constructor_localurlhandler_new(
+    external fun uniffi_wvb_ffi_checksum_constructor_integrity_parse(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_constructor_bundleprotocolhandler_new(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_constructor_proxyprotocolhandler_custom(
+    ): Short
+    external fun uniffi_wvb_ffi_checksum_constructor_proxyprotocolhandler_new(
     ): Short
     external fun uniffi_wvb_ffi_checksum_constructor_remote_new(
     ): Short
@@ -781,6 +897,10 @@ internal object UniffiLib {
 
     init {
         Native.register(UniffiLib::class.java, findLibraryName(componentName = "wvb_ffi"))
+        uniffiCallbackInterfaceIntegrityCheck.register(this)
+        uniffiCallbackInterfaceProxyResolver.register(this)
+        uniffiCallbackInterfaceRemoteOnDownload.register(this)
+        uniffiCallbackInterfaceSignatureVerify.register(this)
         
     }
     external fun uniffi_wvb_ffi_fn_clone_bundle(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
@@ -815,8 +935,16 @@ external fun uniffi_wvb_ffi_fn_clone_bundledescriptor(`handle`: Long,uniffi_out_
 ): Long
 external fun uniffi_wvb_ffi_fn_free_bundledescriptor(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
 ): Unit
+external fun uniffi_wvb_ffi_fn_method_bundledescriptor_async_get_data(`ptr`: Long,`filepath`: RustBuffer.ByValue,`path`: RustBuffer.ByValue,
+): Long
+external fun uniffi_wvb_ffi_fn_method_bundledescriptor_async_get_data_checksum(`ptr`: Long,`filepath`: RustBuffer.ByValue,`path`: RustBuffer.ByValue,
+): Long
 external fun uniffi_wvb_ffi_fn_method_bundledescriptor_contains_path(`ptr`: Long,`path`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
 ): Byte
+external fun uniffi_wvb_ffi_fn_method_bundledescriptor_get_data(`ptr`: Long,`filepath`: RustBuffer.ByValue,`path`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
+): RustBuffer.ByValue
+external fun uniffi_wvb_ffi_fn_method_bundledescriptor_get_data_checksum(`ptr`: Long,`filepath`: RustBuffer.ByValue,`path`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
+): RustBuffer.ByValue
 external fun uniffi_wvb_ffi_fn_method_bundledescriptor_get_index_entry(`ptr`: Long,`path`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
 ): RustBuffer.ByValue
 external fun uniffi_wvb_ffi_fn_method_bundledescriptor_header(`ptr`: Long,uniffi_out_err: UniffiRustCallStatus, 
@@ -845,35 +973,83 @@ external fun uniffi_wvb_ffi_fn_method_index_entries(`ptr`: Long,uniffi_out_err: 
 ): RustBuffer.ByValue
 external fun uniffi_wvb_ffi_fn_method_index_get_entry(`ptr`: Long,`path`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
 ): RustBuffer.ByValue
-external fun uniffi_wvb_ffi_fn_clone_bundleurlhandler(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+external fun uniffi_wvb_ffi_fn_clone_integrity(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
 ): Long
-external fun uniffi_wvb_ffi_fn_free_bundleurlhandler(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+external fun uniffi_wvb_ffi_fn_free_integrity(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
 ): Unit
-external fun uniffi_wvb_ffi_fn_constructor_bundleurlhandler_new(`source`: Long,uniffi_out_err: UniffiRustCallStatus, 
+external fun uniffi_wvb_ffi_fn_constructor_integrity_compute(`algorithm`: RustBuffer.ByValue,`data`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
 ): Long
-external fun uniffi_wvb_ffi_fn_method_bundleurlhandler_handle(`ptr`: Long,`method`: RustBuffer.ByValue,`uri`: RustBuffer.ByValue,`headers`: RustBuffer.ByValue,
+external fun uniffi_wvb_ffi_fn_constructor_integrity_parse(`integrity`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
 ): Long
-external fun uniffi_wvb_ffi_fn_clone_localurlhandler(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+external fun uniffi_wvb_ffi_fn_method_integrity_serialize(`ptr`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): RustBuffer.ByValue
+external fun uniffi_wvb_ffi_fn_method_integrity_validate(`ptr`: Long,`data`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
+): Byte
+external fun uniffi_wvb_ffi_fn_method_integrity_value(`ptr`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): RustBuffer.ByValue
+external fun uniffi_wvb_ffi_fn_clone_integritycheck(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
 ): Long
-external fun uniffi_wvb_ffi_fn_free_localurlhandler(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+external fun uniffi_wvb_ffi_fn_free_integritycheck(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
 ): Unit
-external fun uniffi_wvb_ffi_fn_constructor_localurlhandler_new(`hosts`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
+external fun uniffi_wvb_ffi_fn_init_callback_vtable_integritycheck(`vtable`: UniffiVTableCallbackInterfaceIntegrityCheck,
+): Unit
+external fun uniffi_wvb_ffi_fn_method_integritycheck_check(`ptr`: Long,`data`: RustBuffer.ByValue,`integrity`: RustBuffer.ByValue,
 ): Long
-external fun uniffi_wvb_ffi_fn_method_localurlhandler_handle(`ptr`: Long,`method`: RustBuffer.ByValue,`uri`: RustBuffer.ByValue,`headers`: RustBuffer.ByValue,
+external fun uniffi_wvb_ffi_fn_clone_bundleprotocolhandler(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): Long
+external fun uniffi_wvb_ffi_fn_free_bundleprotocolhandler(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): Unit
+external fun uniffi_wvb_ffi_fn_constructor_bundleprotocolhandler_new(`source`: Long,`options`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
+): Long
+external fun uniffi_wvb_ffi_fn_method_bundleprotocolhandler_handle(`ptr`: Long,`method`: RustBuffer.ByValue,`uri`: RustBuffer.ByValue,`headers`: RustBuffer.ByValue,`body`: RustBuffer.ByValue,
+): Long
+external fun uniffi_wvb_ffi_fn_clone_proxyprotocolhandler(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): Long
+external fun uniffi_wvb_ffi_fn_free_proxyprotocolhandler(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): Unit
+external fun uniffi_wvb_ffi_fn_constructor_proxyprotocolhandler_custom(`resolver`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): Long
+external fun uniffi_wvb_ffi_fn_constructor_proxyprotocolhandler_new(`hosts`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
+): Long
+external fun uniffi_wvb_ffi_fn_method_proxyprotocolhandler_handle(`ptr`: Long,`method`: RustBuffer.ByValue,`uri`: RustBuffer.ByValue,`headers`: RustBuffer.ByValue,`body`: RustBuffer.ByValue,
+): Long
+external fun uniffi_wvb_ffi_fn_clone_proxyresolver(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): Long
+external fun uniffi_wvb_ffi_fn_free_proxyresolver(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): Unit
+external fun uniffi_wvb_ffi_fn_init_callback_vtable_proxyresolver(`vtable`: UniffiVTableCallbackInterfaceProxyResolver,
+): Unit
+external fun uniffi_wvb_ffi_fn_method_proxyresolver_resolve(`ptr`: Long,`uri`: RustBuffer.ByValue,
 ): Long
 external fun uniffi_wvb_ffi_fn_clone_remote(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
 ): Long
 external fun uniffi_wvb_ffi_fn_free_remote(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
 ): Unit
-external fun uniffi_wvb_ffi_fn_constructor_remote_new(`endpoint`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
+external fun uniffi_wvb_ffi_fn_constructor_remote_new(`endpoint`: RustBuffer.ByValue,`options`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
 ): Long
 external fun uniffi_wvb_ffi_fn_method_remote_download(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`channel`: RustBuffer.ByValue,
 ): Long
 external fun uniffi_wvb_ffi_fn_method_remote_download_version(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`version`: RustBuffer.ByValue,
 ): Long
-external fun uniffi_wvb_ffi_fn_method_remote_get_info(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`channel`: RustBuffer.ByValue,
+external fun uniffi_wvb_ffi_fn_method_remote_get_info(`ptr`: Long,`bundleName`: RustBuffer.ByValue,`options`: RustBuffer.ByValue,
 ): Long
-external fun uniffi_wvb_ffi_fn_method_remote_list_bundles(`ptr`: Long,`channel`: RustBuffer.ByValue,
+external fun uniffi_wvb_ffi_fn_method_remote_list_bundles(`ptr`: Long,`options`: RustBuffer.ByValue,
+): Long
+external fun uniffi_wvb_ffi_fn_clone_remoteondownload(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): Long
+external fun uniffi_wvb_ffi_fn_free_remoteondownload(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): Unit
+external fun uniffi_wvb_ffi_fn_init_callback_vtable_remoteondownload(`vtable`: UniffiVTableCallbackInterfaceRemoteOnDownload,
+): Unit
+external fun uniffi_wvb_ffi_fn_method_remoteondownload_on_download(`ptr`: Long,`data`: RustBuffer.ByValue,uniffi_out_err: UniffiRustCallStatus, 
+): Unit
+external fun uniffi_wvb_ffi_fn_clone_signatureverify(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): Long
+external fun uniffi_wvb_ffi_fn_free_signatureverify(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
+): Unit
+external fun uniffi_wvb_ffi_fn_init_callback_vtable_signatureverify(`vtable`: UniffiVTableCallbackInterfaceSignatureVerify,
+): Unit
+external fun uniffi_wvb_ffi_fn_method_signatureverify_verify(`ptr`: Long,`message`: RustBuffer.ByValue,`signature`: RustBuffer.ByValue,
 ): Long
 external fun uniffi_wvb_ffi_fn_clone_bundlesource(`handle`: Long,uniffi_out_err: UniffiRustCallStatus, 
 ): Long
@@ -1068,28 +1244,28 @@ private fun uniffiCheckContractApiVersion(lib: IntegrityCheckingUniffiLib) {
 }
 @Suppress("UNUSED_PARAMETER")
 private fun uniffiCheckApiChecksums(lib: IntegrityCheckingUniffiLib) {
-    if (lib.uniffi_wvb_ffi_checksum_func_read_bundle() != 45171.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_func_read_bundle() != 59256.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_func_read_bundle_from_bytes() != 49816.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_func_read_bundle_from_bytes() != 25393.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_func_write_bundle() != 56814.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_func_write_bundle() != 55321.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_func_write_bundle_to_bytes() != 12678.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_func_write_bundle_to_bytes() != 60094.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_wvb_ffi_checksum_method_bundle_descriptor() != 24504.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundle_get_data() != 55398.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundle_get_data() != 54372.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundle_get_data_checksum() != 18429.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundle_get_data_checksum() != 13417.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlebuilder_build() != 30478.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlebuilder_build() != 58841.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_wvb_ffi_checksum_method_bundlebuilder_contains_entry() != 25173.toShort()) {
@@ -1098,7 +1274,7 @@ private fun uniffiCheckApiChecksums(lib: IntegrityCheckingUniffiLib) {
     if (lib.uniffi_wvb_ffi_checksum_method_bundlebuilder_entry_paths() != 50740.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlebuilder_insert_entry() != 22469.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlebuilder_insert_entry() != 62614.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_wvb_ffi_checksum_method_bundlebuilder_remove_entry() != 3328.toShort()) {
@@ -1107,7 +1283,19 @@ private fun uniffiCheckApiChecksums(lib: IntegrityCheckingUniffiLib) {
     if (lib.uniffi_wvb_ffi_checksum_method_bundlebuilder_version() != 60038.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundledescriptor_async_get_data() != 18640.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundledescriptor_async_get_data_checksum() != 58086.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
     if (lib.uniffi_wvb_ffi_checksum_method_bundledescriptor_contains_path() != 61140.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundledescriptor_get_data() != 22702.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundledescriptor_get_data_checksum() != 48839.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_wvb_ffi_checksum_method_bundledescriptor_get_index_entry() != 32313.toShort()) {
@@ -1116,7 +1304,7 @@ private fun uniffiCheckApiChecksums(lib: IntegrityCheckingUniffiLib) {
     if (lib.uniffi_wvb_ffi_checksum_method_bundledescriptor_header() != 28740.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundledescriptor_index() != 45942.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundledescriptor_index() != 31713.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_wvb_ffi_checksum_method_bundledescriptor_index_entries() != 42039.toShort()) {
@@ -1140,115 +1328,145 @@ private fun uniffiCheckApiChecksums(lib: IntegrityCheckingUniffiLib) {
     if (lib.uniffi_wvb_ffi_checksum_method_index_get_entry() != 50953.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundleurlhandler_handle() != 36637.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_integrity_serialize() != 62469.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_localurlhandler_handle() != 26868.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_integrity_validate() != 1043.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_remote_download() != 50807.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_integrity_value() != 613.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_remote_download_version() != 39083.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_integritycheck_check() != 15325.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_remote_get_info() != 50561.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundleprotocolhandler_handle() != 38322.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_remote_list_bundles() != 28549.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_proxyprotocolhandler_handle() != 48953.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_fetch_builtin_bundle() != 33213.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_proxyresolver_resolve() != 3972.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_fetch_bundle() != 38812.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_remote_download() != 21588.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_fetch_descriptor() != 28723.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_remote_download_version() != 8652.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_fetch_remote_bundle() != 44933.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_remote_get_info() != 26038.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_get_builtin_bundle_filepath() != 17928.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_remote_list_bundles() != 46632.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_get_remote_bundle_filepath() != 23450.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_remoteondownload_on_download() != 62542.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_list_bundles() != 34449.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_signatureverify_verify() != 61012.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_load_builtin_metadata() != 4913.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_fetch_builtin_bundle() != 46850.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_load_descriptor() != 30101.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_fetch_bundle() != 3805.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_load_remote_metadata() != 61273.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_fetch_descriptor() != 51584.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_load_version() != 32808.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_fetch_remote_bundle() != 65226.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_prune_remote_bundles() != 48913.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_get_builtin_bundle_filepath() != 24323.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_remote_retained_versions() != 47892.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_get_remote_bundle_filepath() != 7311.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_remove_remote_bundle() != 4825.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_list_bundles() != 57264.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_resolve_filepath() != 55355.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_load_builtin_metadata() != 45714.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_load_descriptor() != 38145.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_load_remote_metadata() != 53479.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_load_version() != 12691.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_prune_remote_bundles() != 10982.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_remote_retained_versions() != 40540.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_remove_remote_bundle() != 28722.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_resolve_filepath() != 59141.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_unload_descriptor() != 36116.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_update_version() != 52326.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_update_version() != 26121.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_write_remote_bundle() != 49447.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_bundlesource_write_remote_bundle() != 31819.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_wvb_ffi_checksum_method_loadeddescriptor_descriptor() != 52553.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_loadeddescriptor_get_data() != 27083.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_loadeddescriptor_get_data() != 42308.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_loadeddescriptor_get_data_checksum() != 38729.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_loadeddescriptor_get_data_checksum() != 3423.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_updater_download_update() != 45642.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_updater_download_update() != 48197.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_updater_get_update() != 5468.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_updater_get_update() != 7181.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_updater_install() != 28133.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_updater_install() != 17169.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_updater_list_remotes() != 35179.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_updater_list_remotes() != 43567.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_wvb_ffi_checksum_constructor_bundlebuilder_new() != 7081.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_constructor_bundleurlhandler_new() != 25981.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_constructor_integrity_compute() != 53699.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_constructor_localurlhandler_new() != 33598.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_constructor_integrity_parse() != 58850.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_constructor_remote_new() != 25828.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_constructor_bundleprotocolhandler_new() != 65404.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_constructor_bundlesource_new() != 59923.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_constructor_proxyprotocolhandler_custom() != 21782.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_constructor_updater_new() != 37366.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_constructor_proxyprotocolhandler_new() != 17067.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_constructor_remote_new() != 63643.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_constructor_bundlesource_new() != 38494.toShort()) {
+        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+    }
+    if (lib.uniffi_wvb_ffi_checksum_constructor_updater_new() != 63636.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
 }
@@ -1304,6 +1522,95 @@ internal suspend fun<T, F, E: kotlin.Exception> uniffiRustCallAsync(
         freeFunc(rustFuture)
     }
 }
+internal inline fun<T> uniffiTraitInterfaceCallAsync(
+    crossinline makeCall: suspend () -> T,
+    crossinline handleSuccess: (T) -> Unit,
+    crossinline handleError: (UniffiRustCallStatus.ByValue) -> Unit,
+    uniffiOutDroppedCallback: UniffiForeignFutureDroppedCallbackStruct,
+) {
+    // Using `GlobalScope` is labeled as a "delicate API" and generally discouraged in Kotlin programs, since it breaks structured concurrency.
+    // However, our parent task is a Rust future, so we're going to need to break structure concurrency in any case.
+    //
+    // Uniffi does its best to support structured concurrency across the FFI.
+    // If the Rust future is dropped, `uniffiForeignFutureDroppedCallbackImpl` is called, which will cancel the Kotlin coroutine if it's still running.
+    @OptIn(DelicateCoroutinesApi::class)
+    val job = GlobalScope.launch coroutineBlock@ {
+        // Note: it's important we call either `handleSuccess` or `handleError` exactly once.  Each
+        // call consumes an Arc reference, which means there should be no possibility of a double
+        // call.  The following code is structured so that will will never call both `handleSuccess`
+        // and `handleError`, even in the face of weird exceptions.
+        //
+        // In extreme circumstances we may not call either, for example if we fail to make the JNA
+        // call to `handleSuccess`.  This means we will leak the Arc reference, which is better than
+        // double-freeing it.
+        val callResult = try {
+            makeCall()
+        } catch(e: kotlin.Exception) {
+            handleError(
+                UniffiRustCallStatus.create(
+                    UNIFFI_CALL_UNEXPECTED_ERROR,
+                    FfiConverterString.lower(e.toString()),
+                )
+            )
+            return@coroutineBlock
+        }
+        handleSuccess(callResult)
+    }
+    val handle = uniffiForeignFutureHandleMap.insert(job)
+    uniffiOutDroppedCallback.uniffiSetValue(UniffiForeignFutureDroppedCallbackStruct(handle, uniffiForeignFutureDroppedCallbackImpl))
+}
+
+internal inline fun<T, reified E: Throwable> uniffiTraitInterfaceCallAsyncWithError(
+    crossinline makeCall: suspend () -> T,
+    crossinline handleSuccess: (T) -> Unit,
+    crossinline handleError: (UniffiRustCallStatus.ByValue) -> Unit,
+    crossinline lowerError: (E) -> RustBuffer.ByValue,
+    uniffiOutDroppedCallback: UniffiForeignFutureDroppedCallbackStruct,
+) {
+    // See uniffiTraitInterfaceCallAsync for details on `DelicateCoroutinesApi`
+    @OptIn(DelicateCoroutinesApi::class)
+    val job = GlobalScope.launch coroutineBlock@ {
+        // See the note in uniffiTraitInterfaceCallAsync for details on `handleSuccess` and
+        // `handleError`.
+        val callResult = try {
+            makeCall()
+        } catch(e: kotlin.Exception) {
+            if (e is E) {
+                handleError(
+                    UniffiRustCallStatus.create(
+                        UNIFFI_CALL_ERROR,
+                        lowerError(e),
+                    )
+                )
+            } else {
+                handleError(
+                    UniffiRustCallStatus.create(
+                        UNIFFI_CALL_UNEXPECTED_ERROR,
+                        FfiConverterString.lower(e.toString()),
+                    )
+                )
+            }
+            return@coroutineBlock
+        }
+        handleSuccess(callResult)
+    }
+    val handle = uniffiForeignFutureHandleMap.insert(job)
+    uniffiOutDroppedCallback.uniffiSetValue(UniffiForeignFutureDroppedCallbackStruct(handle, uniffiForeignFutureDroppedCallbackImpl))
+}
+
+internal val uniffiForeignFutureHandleMap = UniffiHandleMap<Job>()
+
+internal object uniffiForeignFutureDroppedCallbackImpl: UniffiForeignFutureDroppedCallback {
+    override fun callback(handle: Long) {
+        val job = uniffiForeignFutureHandleMap.remove(handle)
+        if (!job.isCompleted) {
+            job.cancel()
+        }
+    }
+}
+
+// For testing
+public fun uniffiForeignFutureHandleCount() = uniffiForeignFutureHandleMap.size
 
 // Public interface members begin here.
 
@@ -1382,7 +1689,38 @@ object UniffiWithHandle
  *
  * @suppress
  * */
-object NoHandle
+object NoHandle// Magic number for the Rust proxy to call using the same mechanism as every other method,
+// to free the callback once it's dropped by Rust.
+internal const val IDX_CALLBACK_FREE = 0
+// Callback return codes
+internal const val UNIFFI_CALLBACK_SUCCESS = 0
+internal const val UNIFFI_CALLBACK_ERROR = 1
+internal const val UNIFFI_CALLBACK_UNEXPECTED_ERROR = 2
+
+/**
+ * @suppress
+ */
+public abstract class FfiConverterCallbackInterface<CallbackInterface: Any>: FfiConverter<CallbackInterface, Long> {
+    internal val handleMap = UniffiHandleMap<CallbackInterface>()
+
+    internal fun drop(handle: Long) {
+        handleMap.remove(handle)
+    }
+
+    override fun lift(value: Long): CallbackInterface {
+        return handleMap.get(value)
+    }
+
+    override fun read(buf: ByteBuffer) = lift(buf.getLong())
+
+    override fun lower(value: CallbackInterface) = handleMap.insert(value)
+
+    override fun allocationSize(value: CallbackInterface) = 8UL
+
+    override fun write(value: CallbackInterface, buf: ByteBuffer) {
+        buf.putLong(lower(value))
+    }
+}
 /**
  * The cleaner interface for Object finalization code to run.
  * This is the entry point to any implementation that we're using.
@@ -1854,10 +2192,10 @@ open class Bundle: Disposable, AutoCloseable, BundleInterface
     /**
      * Returns the raw bytes for the entry at `path`, or `None` if the path does not exist.
      */
-    @Throws(Exception::class)override fun `getData`(`path`: kotlin.String): kotlin.ByteArray? {
+    @Throws(WebviewBundleException::class)override fun `getData`(`path`: kotlin.String): kotlin.ByteArray? {
             return FfiConverterOptionalByteArray.lift(
     callWithHandle {
-    uniffiRustCallWithError(Exception) { _status ->
+    uniffiRustCallWithError(WebviewBundleException) { _status ->
     UniffiLib.uniffi_wvb_ffi_fn_method_bundle_get_data(
         it,
         FfiConverterString.lower(`path`),_status)
@@ -1871,10 +2209,10 @@ open class Bundle: Disposable, AutoCloseable, BundleInterface
     /**
      * Returns the CRC-32 checksum of the data at `path`, or `None` if the path does not exist.
      */
-    @Throws(Exception::class)override fun `getDataChecksum`(`path`: kotlin.String): kotlin.UInt? {
+    @Throws(WebviewBundleException::class)override fun `getDataChecksum`(`path`: kotlin.String): kotlin.UInt? {
             return FfiConverterOptionalUInt.lift(
     callWithHandle {
-    uniffiRustCallWithError(Exception) { _status ->
+    uniffiRustCallWithError(WebviewBundleException) { _status ->
     UniffiLib.uniffi_wvb_ffi_fn_method_bundle_get_data_checksum(
         it,
         FfiConverterString.lower(`path`),_status)
@@ -2171,10 +2509,10 @@ open class BundleBuilder: Disposable, AutoCloseable, BundleBuilderInterface
      * Finalizes the builder and produces a [`Bundle`].
      * The builder remains usable after calling `build`.
      */
-    @Throws(Exception::class)override fun `build`(`options`: BuildOptions?): Bundle {
+    @Throws(WebviewBundleException::class)override fun `build`(`options`: BuildOptions?): Bundle {
             return FfiConverterTypeBundle.lift(
     callWithHandle {
-    uniffiRustCallWithError(Exception) { _status ->
+    uniffiRustCallWithError(WebviewBundleException) { _status ->
     UniffiLib.uniffi_wvb_ffi_fn_method_bundlebuilder_build(
         it,
         FfiConverterOptionalTypeBuildOptions.lower(`options`),_status)
@@ -2216,10 +2554,10 @@ open class BundleBuilder: Disposable, AutoCloseable, BundleBuilderInterface
      *
      * `content_type` is inferred from the data bytes and file extension when `None`.
      */
-    @Throws(Exception::class)override fun `insertEntry`(`path`: kotlin.String, `data`: kotlin.ByteArray, `contentType`: kotlin.String?, `headers`: Map<kotlin.String, kotlin.String>?): kotlin.Boolean {
+    @Throws(WebviewBundleException::class)override fun `insertEntry`(`path`: kotlin.String, `data`: kotlin.ByteArray, `contentType`: kotlin.String?, `headers`: Map<kotlin.String, kotlin.String>?): kotlin.Boolean {
             return FfiConverterBoolean.lift(
     callWithHandle {
-    uniffiRustCallWithError(Exception) { _status ->
+    uniffiRustCallWithError(WebviewBundleException) { _status ->
     UniffiLib.uniffi_wvb_ffi_fn_method_bundlebuilder_insert_entry(
         it,
         FfiConverterString.lower(`path`),FfiConverterByteArray.lower(`data`),FfiConverterOptionalString.lower(`contentType`),FfiConverterOptionalMapStringString.lower(`headers`),_status)
@@ -2397,7 +2735,34 @@ public object FfiConverterTypeBundleBuilder: FfiConverter<BundleBuilder, Long> {
  */
 public interface BundleDescriptorInterface {
     
+    /**
+     * Asynchronously reads the entry at `path` out of the bundle file at `filepath`.
+     *
+     * Returns `None` when `path` is not in the bundle.
+     */
+    suspend fun `asyncGetData`(`filepath`: kotlin.String, `path`: kotlin.String): kotlin.ByteArray?
+    
+    /**
+     * Asynchronously reads the stored xxHash-32 checksum of the entry at `path` out of the
+     * bundle file at `filepath`. Returns `None` when `path` is not in the bundle.
+     */
+    suspend fun `asyncGetDataChecksum`(`filepath`: kotlin.String, `path`: kotlin.String): kotlin.UInt?
+    
     fun `containsPath`(`path`: kotlin.String): kotlin.Boolean
+    
+    /**
+     * Reads the entry at `path` out of the bundle file at `filepath`.
+     *
+     * A descriptor carries only header and index metadata, so the bundle file is reopened
+     * to read the entry's bytes on demand. Returns `None` when `path` is not in the bundle.
+     */
+    fun `getData`(`filepath`: kotlin.String, `path`: kotlin.String): kotlin.ByteArray?
+    
+    /**
+     * Reads the stored xxHash-32 checksum of the entry at `path` out of the bundle file at
+     * `filepath`. Returns `None` when `path` is not in the bundle.
+     */
+    fun `getDataChecksum`(`filepath`: kotlin.String, `path`: kotlin.String): kotlin.UInt?
     
     fun `getIndexEntry`(`path`: kotlin.String): IndexEntry?
     
@@ -2407,13 +2772,7 @@ public interface BundleDescriptorInterface {
     fun `header`(): Header
     
     /**
-     * Returns an [`Index`] view backed by the full bundle.
-     *
-     * # Panics
-     * Panics when called on a metadata-only descriptor (obtained via
-     * `BundleSource::fetch_descriptor` or `LoadedDescriptor::descriptor`), because
-     * those variants have no data section. Use `BundleSource::fetch_bundle` instead
-     * when data access is required.
+     * Returns the bundle's [`Index`].
      */
     fun `index`(): Index
     
@@ -2521,6 +2880,57 @@ open class BundleDescriptor: Disposable, AutoCloseable, BundleDescriptorInterfac
         }
     }
 
+    
+    /**
+     * Asynchronously reads the entry at `path` out of the bundle file at `filepath`.
+     *
+     * Returns `None` when `path` is not in the bundle.
+     */
+    @Throws(WebviewBundleException::class)
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `asyncGetData`(`filepath`: kotlin.String, `path`: kotlin.String) : kotlin.ByteArray? {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_bundledescriptor_async_get_data(
+                uniffiHandle,
+                FfiConverterString.lower(`filepath`),FfiConverterString.lower(`path`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
+        // lift function
+        { FfiConverterOptionalByteArray.lift(it) },
+        // Error FFI converter
+        WebviewBundleException.ErrorHandler,
+    )
+    }
+
+    
+    /**
+     * Asynchronously reads the stored xxHash-32 checksum of the entry at `path` out of the
+     * bundle file at `filepath`. Returns `None` when `path` is not in the bundle.
+     */
+    @Throws(WebviewBundleException::class)
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `asyncGetDataChecksum`(`filepath`: kotlin.String, `path`: kotlin.String) : kotlin.UInt? {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_bundledescriptor_async_get_data_checksum(
+                uniffiHandle,
+                FfiConverterString.lower(`filepath`),FfiConverterString.lower(`path`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
+        // lift function
+        { FfiConverterOptionalUInt.lift(it) },
+        // Error FFI converter
+        WebviewBundleException.ErrorHandler,
+    )
+    }
+
     override fun `containsPath`(`path`: kotlin.String): kotlin.Boolean {
             return FfiConverterBoolean.lift(
     callWithHandle {
@@ -2528,6 +2938,44 @@ open class BundleDescriptor: Disposable, AutoCloseable, BundleDescriptorInterfac
     UniffiLib.uniffi_wvb_ffi_fn_method_bundledescriptor_contains_path(
         it,
         FfiConverterString.lower(`path`),_status)
+}
+    }
+    )
+    }
+    
+
+    
+    /**
+     * Reads the entry at `path` out of the bundle file at `filepath`.
+     *
+     * A descriptor carries only header and index metadata, so the bundle file is reopened
+     * to read the entry's bytes on demand. Returns `None` when `path` is not in the bundle.
+     */
+    @Throws(WebviewBundleException::class)override fun `getData`(`filepath`: kotlin.String, `path`: kotlin.String): kotlin.ByteArray? {
+            return FfiConverterOptionalByteArray.lift(
+    callWithHandle {
+    uniffiRustCallWithError(WebviewBundleException) { _status ->
+    UniffiLib.uniffi_wvb_ffi_fn_method_bundledescriptor_get_data(
+        it,
+        FfiConverterString.lower(`filepath`),FfiConverterString.lower(`path`),_status)
+}
+    }
+    )
+    }
+    
+
+    
+    /**
+     * Reads the stored xxHash-32 checksum of the entry at `path` out of the bundle file at
+     * `filepath`. Returns `None` when `path` is not in the bundle.
+     */
+    @Throws(WebviewBundleException::class)override fun `getDataChecksum`(`filepath`: kotlin.String, `path`: kotlin.String): kotlin.UInt? {
+            return FfiConverterOptionalUInt.lift(
+    callWithHandle {
+    uniffiRustCallWithError(WebviewBundleException) { _status ->
+    UniffiLib.uniffi_wvb_ffi_fn_method_bundledescriptor_get_data_checksum(
+        it,
+        FfiConverterString.lower(`filepath`),FfiConverterString.lower(`path`),_status)
 }
     }
     )
@@ -2565,13 +3013,7 @@ open class BundleDescriptor: Disposable, AutoCloseable, BundleDescriptorInterfac
 
     
     /**
-     * Returns an [`Index`] view backed by the full bundle.
-     *
-     * # Panics
-     * Panics when called on a metadata-only descriptor (obtained via
-     * `BundleSource::fetch_descriptor` or `LoadedDescriptor::descriptor`), because
-     * those variants have no data section. Use `BundleSource::fetch_bundle` instead
-     * when data access is required.
+     * Returns the bundle's [`Index`].
      */override fun `index`(): Index {
             return FfiConverterTypeIndex.lift(
     callWithHandle {
@@ -2632,6 +3074,296 @@ public object FfiConverterTypeBundleDescriptor: FfiConverter<BundleDescriptor, L
     override fun allocationSize(value: BundleDescriptor) = 8UL
 
     override fun write(value: BundleDescriptor, buf: ByteBuffer) {
+        buf.putLong(lower(value))
+    }
+}
+
+
+// This template implements a class for working with a Rust struct via a handle
+// to the live Rust struct on the other side of the FFI.
+//
+// There's some subtlety here, because we have to be careful not to operate on a Rust
+// struct after it has been dropped, and because we must expose a public API for freeing
+// theq Kotlin wrapper object in lieu of reliable finalizers. The core requirements are:
+//
+//   * Each instance holds an opaque handle to the underlying Rust struct.
+//     Method calls need to read this handle from the object's state and pass it in to
+//     the Rust FFI.
+//
+//   * When an instance is no longer needed, its handle should be passed to a
+//     special destructor function provided by the Rust FFI, which will drop the
+//     underlying Rust struct.
+//
+//   * Given an instance, calling code is expected to call the special
+//     `destroy` method in order to free it after use, either by calling it explicitly
+//     or by using a higher-level helper like the `use` method. Failing to do so risks
+//     leaking the underlying Rust struct.
+//
+//   * We can't assume that calling code will do the right thing, and must be prepared
+//     to handle Kotlin method calls executing concurrently with or even after a call to
+//     `destroy`, and to handle multiple (possibly concurrent!) calls to `destroy`.
+//
+//   * We must never allow Rust code to operate on the underlying Rust struct after
+//     the destructor has been called, and must never call the destructor more than once.
+//     Doing so may trigger memory unsafety.
+//
+//   * To mitigate many of the risks of leaking memory and use-after-free unsafety, a `Cleaner`
+//     is implemented to call the destructor when the Kotlin object becomes unreachable.
+//     This is done in a background thread. This is not a panacea, and client code should be aware that
+//      1. the thread may starve if some there are objects that have poorly performing
+//     `drop` methods or do significant work in their `drop` methods.
+//      2. the thread is shared across the whole library. This can be tuned by using `android_cleaner = true`,
+//         or `android = true` in the [`kotlin` section of the `uniffi.toml` file](https://mozilla.github.io/uniffi-rs/kotlin/configuration.html).
+//
+// If we try to implement this with mutual exclusion on access to the handle, there is the
+// possibility of a race between a method call and a concurrent call to `destroy`:
+//
+//    * Thread A starts a method call, reads the value of the handle, but is interrupted
+//      before it can pass the handle over the FFI to Rust.
+//    * Thread B calls `destroy` and frees the underlying Rust struct.
+//    * Thread A resumes, passing the already-read handle value to Rust and triggering
+//      a use-after-free.
+//
+// One possible solution would be to use a `ReadWriteLock`, with each method call taking
+// a read lock (and thus allowed to run concurrently) and the special `destroy` method
+// taking a write lock (and thus blocking on live method calls). However, we aim not to
+// generate methods with any hidden blocking semantics, and a `destroy` method that might
+// block if called incorrectly seems to meet that bar.
+//
+// So, we achieve our goals by giving each instance an associated `AtomicLong` counter to track
+// the number of in-flight method calls, and an `AtomicBoolean` flag to indicate whether `destroy`
+// has been called. These are updated according to the following rules:
+//
+//    * The initial value of the counter is 1, indicating a live object with no in-flight calls.
+//      The initial value for the flag is false.
+//
+//    * At the start of each method call, we atomically check the counter.
+//      If it is 0 then the underlying Rust struct has already been destroyed and the call is aborted.
+//      If it is nonzero them we atomically increment it by 1 and proceed with the method call.
+//
+//    * At the end of each method call, we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+//    * When `destroy` is called, we atomically flip the flag from false to true.
+//      If the flag was already true we silently fail.
+//      Otherwise we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+// Astute readers may observe that this all sounds very similar to the way that Rust's `Arc<T>` works,
+// and indeed it is, with the addition of a flag to guard against multiple calls to `destroy`.
+//
+// The overall effect is that the underlying Rust struct is destroyed only when `destroy` has been
+// called *and* all in-flight method calls have completed, avoiding violating any of the expectations
+// of the underlying Rust code.
+//
+// This makes a cleaner a better alternative to _not_ calling `destroy()` as
+// and when the object is finished with, but the abstraction is not perfect: if the Rust object's `drop`
+// method is slow, and/or there are many objects to cleanup, and it's on a low end Android device, then the cleaner
+// thread may be starved, and the app will leak memory.
+//
+// In this case, `destroy`ing manually may be a better solution.
+//
+// The cleaner can live side by side with the manual calling of `destroy`. In the order of responsiveness, uniffi objects
+// with Rust peers are reclaimed:
+//
+// 1. By calling the `destroy` method of the object, which calls `rustObject.free()`. If that doesn't happen:
+// 2. When the object becomes unreachable, AND the Cleaner thread gets to call `rustObject.free()`. If the thread is starved then:
+// 3. The memory is reclaimed when the process terminates.
+//
+// [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
+//
+
+
+/**
+ * Handles HTTP-like requests by serving bundle entries from a [`BundleSource`].
+ *
+ * By default the host portion of the URI identifies the bundle by name
+ * (e.g. `https://app.wvb/index.html` → bundle `"app"`, path `"/index.html"`);
+ * pass [`BundleProtocolOptions`] to resolve the bundle name or the path differently.
+ * Returns 200 with the entry body, 404 when the path is not found, or
+ * 200 with an empty body for HEAD requests.
+ */
+public interface BundleProtocolHandlerInterface {
+    
+    /**
+     * Serves the request from the bundle. `body` is accepted but unused: only GET/HEAD are served.
+     */
+    suspend fun `handle`(`method`: HttpMethod, `uri`: kotlin.String, `headers`: Map<kotlin.String, kotlin.String>? = null, `body`: kotlin.ByteArray? = null): HttpResponse
+    
+    companion object
+}
+
+/**
+ * Handles HTTP-like requests by serving bundle entries from a [`BundleSource`].
+ *
+ * By default the host portion of the URI identifies the bundle by name
+ * (e.g. `https://app.wvb/index.html` → bundle `"app"`, path `"/index.html"`);
+ * pass [`BundleProtocolOptions`] to resolve the bundle name or the path differently.
+ * Returns 200 with the entry body, 404 when the path is not found, or
+ * 200 with an empty body for HEAD requests.
+ */
+open class BundleProtocolHandler: Disposable, AutoCloseable, BundleProtocolHandlerInterface
+{
+
+    @Suppress("UNUSED_PARAMETER")
+    /**
+     * @suppress
+     */
+    constructor(withHandle: UniffiWithHandle, handle: Long) {
+        this.handle = handle
+        this.cleanable = UniffiLib.CLEANER.register(this, UniffiCleanAction(handle))
+    }
+
+    /**
+     * @suppress
+     *
+     * This constructor can be used to instantiate a fake object. Only used for tests. Any
+     * attempt to actually use an object constructed this way will fail as there is no
+     * connected Rust object.
+     */
+    @Suppress("UNUSED_PARAMETER")
+    constructor(noHandle: NoHandle) {
+        this.handle = 0
+        this.cleanable = null
+    }
+    constructor(`source`: BundleSource, `options`: BundleProtocolOptions? = null) :
+        this(UniffiWithHandle, 
+    uniffiRustCall() { _status ->
+    UniffiLib.uniffi_wvb_ffi_fn_constructor_bundleprotocolhandler_new(
+    
+        FfiConverterTypeBundleSource.lower(`source`),FfiConverterOptionalTypeBundleProtocolOptions.lower(`options`),_status)
+}
+    )
+
+    protected val handle: Long
+    protected val cleanable: UniffiCleaner.Cleanable?
+
+    private val wasDestroyed = AtomicBoolean(false)
+    private val callCounter = AtomicLong(1)
+
+    override fun destroy() {
+        // Only allow a single call to this method.
+        // TODO: maybe we should log a warning if called more than once?
+        if (this.wasDestroyed.compareAndSet(false, true)) {
+            // This decrement always matches the initial count of 1 given at creation time.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable?.clean()
+            }
+        }
+    }
+
+    @Synchronized
+    override fun close() {
+        this.destroy()
+    }
+
+    internal inline fun <R> callWithHandle(block: (handle: Long) -> R): R {
+        // Check and increment the call counter, to keep the object alive.
+        // This needs a compare-and-set retry loop in case of concurrent updates.
+        do {
+            val c = this.callCounter.get()
+            if (c == 0L) {
+                throw IllegalStateException("${this.javaClass.simpleName} object has already been destroyed")
+            }
+            if (c == Long.MAX_VALUE) {
+                throw IllegalStateException("${this.javaClass.simpleName} call counter would overflow")
+            }
+        } while (! this.callCounter.compareAndSet(c, c + 1L))
+        // Now we can safely do the method call without the handle being freed concurrently.
+        try {
+            return block(this.uniffiCloneHandle())
+        } finally {
+            // This decrement always matches the increment we performed above.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable?.clean()
+            }
+        }
+    }
+
+    // Use a static inner class instead of a closure so as not to accidentally
+    // capture `this` as part of the cleanable's action.
+    private class UniffiCleanAction(private val handle: Long) : Runnable {
+        override fun run() {
+            if (handle == 0.toLong()) {
+                // Fake object created with `NoHandle`, don't try to free.
+                return;
+            }
+            uniffiRustCall { status ->
+                UniffiLib.uniffi_wvb_ffi_fn_free_bundleprotocolhandler(handle, status)
+            }
+        }
+    }
+
+    /**
+     * @suppress
+     */
+    fun uniffiCloneHandle(): Long {
+        if (handle == 0.toLong()) {
+            throw InternalException("uniffiCloneHandle() called on NoHandle object");
+        }
+        return uniffiRustCall() { status ->
+            UniffiLib.uniffi_wvb_ffi_fn_clone_bundleprotocolhandler(handle, status)
+        }
+    }
+
+    
+    /**
+     * Serves the request from the bundle. `body` is accepted but unused: only GET/HEAD are served.
+     */
+    @Throws(WebviewBundleException::class)
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `handle`(`method`: HttpMethod, `uri`: kotlin.String, `headers`: Map<kotlin.String, kotlin.String>?, `body`: kotlin.ByteArray?) : HttpResponse {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_bundleprotocolhandler_handle(
+                uniffiHandle,
+                FfiConverterTypeHttpMethod.lower(`method`),FfiConverterString.lower(`uri`),FfiConverterOptionalMapStringString.lower(`headers`),FfiConverterOptionalByteArray.lower(`body`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
+        // lift function
+        { FfiConverterTypeHttpResponse.lift(it) },
+        // Error FFI converter
+        WebviewBundleException.ErrorHandler,
+    )
+    }
+
+    
+
+    
+
+
+    
+    
+    /**
+     * @suppress
+     */
+    companion object
+    
+}
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeBundleProtocolHandler: FfiConverter<BundleProtocolHandler, Long> {
+    override fun lower(value: BundleProtocolHandler): Long {
+        return value.uniffiCloneHandle()
+    }
+
+    override fun lift(value: Long): BundleProtocolHandler {
+        return BundleProtocolHandler(UniffiWithHandle, value)
+    }
+
+    override fun read(buf: ByteBuffer): BundleProtocolHandler {
+        return lift(buf.getLong())
+    }
+
+    override fun allocationSize(value: BundleProtocolHandler) = 8UL
+
+    override fun write(value: BundleProtocolHandler, buf: ByteBuffer) {
         buf.putLong(lower(value))
     }
 }
@@ -2865,7 +3597,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
     }
     constructor(`config`: BundleSourceConfig) :
         this(UniffiWithHandle, 
-    uniffiRustCall() { _status ->
+    uniffiRustCallWithError(WebviewBundleException) { _status ->
     UniffiLib.uniffi_wvb_ffi_fn_constructor_bundlesource_new(
     
         FfiConverterTypeBundleSourceConfig.lower(`config`),_status)
@@ -2948,7 +3680,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
      * Loads the full builtin bundle for `bundle_name` at `version`, bypassing the
      * remote source and version resolution.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `fetchBuiltinBundle`(`bundleName`: kotlin.String, `version`: kotlin.String) : Bundle {
         return uniffiRustCallAsync(
@@ -2964,7 +3696,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         // lift function
         { FfiConverterTypeBundle.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -2972,7 +3704,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
     /**
      * Loads the full bundle (header + index + data) for `bundle_name`.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `fetchBundle`(`bundleName`: kotlin.String) : Bundle {
         return uniffiRustCallAsync(
@@ -2988,7 +3720,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         // lift function
         { FfiConverterTypeBundle.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -2998,7 +3730,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
      * The returned descriptor does not support [`BundleDescriptor::index`]; use
      * [`fetch`](BundleSource::fetch_bundle) when entry data is needed.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `fetchDescriptor`(`bundleName`: kotlin.String) : BundleDescriptor {
         return uniffiRustCallAsync(
@@ -3014,7 +3746,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         // lift function
         { FfiConverterTypeBundleDescriptor.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -3023,7 +3755,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
      * Loads the full remote bundle for `bundle_name` at `version`, bypassing the
      * builtin source and version resolution.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `fetchRemoteBundle`(`bundleName`: kotlin.String, `version`: kotlin.String) : Bundle {
         return uniffiRustCallAsync(
@@ -3039,7 +3771,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         // lift function
         { FfiConverterTypeBundle.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -3048,10 +3780,10 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
      * Resolves the on-disk path of the builtin bundle `bundle_name` at `version`,
      * without checking whether the file exists.
      */
-    @Throws(Exception::class)override fun `getBuiltinBundleFilepath`(`bundleName`: kotlin.String, `version`: kotlin.String): kotlin.String {
+    @Throws(WebviewBundleException::class)override fun `getBuiltinBundleFilepath`(`bundleName`: kotlin.String, `version`: kotlin.String): kotlin.String {
             return FfiConverterString.lift(
     callWithHandle {
-    uniffiRustCallWithError(Exception) { _status ->
+    uniffiRustCallWithError(WebviewBundleException) { _status ->
     UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_get_builtin_bundle_filepath(
         it,
         FfiConverterString.lower(`bundleName`),FfiConverterString.lower(`version`),_status)
@@ -3066,10 +3798,10 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
      * Resolves the on-disk path of the remote bundle `bundle_name` at `version`,
      * without checking whether the file exists.
      */
-    @Throws(Exception::class)override fun `getRemoteBundleFilepath`(`bundleName`: kotlin.String, `version`: kotlin.String): kotlin.String {
+    @Throws(WebviewBundleException::class)override fun `getRemoteBundleFilepath`(`bundleName`: kotlin.String, `version`: kotlin.String): kotlin.String {
             return FfiConverterString.lift(
     callWithHandle {
-    uniffiRustCallWithError(Exception) { _status ->
+    uniffiRustCallWithError(WebviewBundleException) { _status ->
     UniffiLib.uniffi_wvb_ffi_fn_method_bundlesource_get_remote_bundle_filepath(
         it,
         FfiConverterString.lower(`bundleName`),FfiConverterString.lower(`version`),_status)
@@ -3080,7 +3812,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
     
 
     
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `listBundles`() : List<ListBundleItem> {
         return uniffiRustCallAsync(
@@ -3096,7 +3828,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         // lift function
         { FfiConverterSequenceTypeListBundleItem.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -3105,7 +3837,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
      * Loads the manifest metadata for the builtin bundle `bundle_name` at `version`,
      * or `None` if no such entry exists.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `loadBuiltinMetadata`(`bundleName`: kotlin.String, `version`: kotlin.String) : BundleManifestMetadata? {
         return uniffiRustCallAsync(
@@ -3121,7 +3853,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         // lift function
         { FfiConverterOptionalTypeBundleManifestMetadata.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -3132,7 +3864,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
      * return the cached descriptor until the active version changes or
      * [`unload_descriptor`](BundleSource::unload_descriptor) is called.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `loadDescriptor`(`bundleName`: kotlin.String) : LoadedDescriptor {
         return uniffiRustCallAsync(
@@ -3148,7 +3880,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         // lift function
         { FfiConverterTypeLoadedDescriptor.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -3157,7 +3889,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
      * Loads the manifest metadata for the remote bundle `bundle_name` at `version`,
      * or `None` if no such entry exists.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `loadRemoteMetadata`(`bundleName`: kotlin.String, `version`: kotlin.String) : BundleManifestMetadata? {
         return uniffiRustCallAsync(
@@ -3173,12 +3905,12 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         // lift function
         { FfiConverterOptionalTypeBundleManifestMetadata.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
     
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `loadVersion`(`bundleName`: kotlin.String) : BundleSourceVersion? {
         return uniffiRustCallAsync(
@@ -3194,7 +3926,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         // lift function
         { FfiConverterOptionalTypeBundleSourceVersion.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -3203,7 +3935,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
      * Removes every staged remote version except the retained set (current and
      * previous). Returns the versions that were removed.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `pruneRemoteBundles`(`bundleName`: kotlin.String) : List<kotlin.String> {
         return uniffiRustCallAsync(
@@ -3219,7 +3951,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         // lift function
         { FfiConverterSequenceString.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -3227,7 +3959,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
     /**
      * Returns the remote versions that pruning retains (the current and previous).
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `remoteRetainedVersions`(`bundleName`: kotlin.String) : List<kotlin.String> {
         return uniffiRustCallAsync(
@@ -3243,7 +3975,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         // lift function
         { FfiConverterSequenceString.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -3252,7 +3984,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
      * Removes a single staged remote bundle version: drops its manifest entry and
      * deletes its file from disk. Returns `true` if the entry existed.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `removeRemoteBundle`(`bundleName`: kotlin.String, `version`: kotlin.String) : kotlin.Boolean {
         return uniffiRustCallAsync(
@@ -3268,12 +4000,12 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         // lift function
         { FfiConverterBoolean.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
     
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `resolveFilepath`(`bundleName`: kotlin.String) : kotlin.String {
         return uniffiRustCallAsync(
@@ -3289,7 +4021,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         // lift function
         { FfiConverterString.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -3312,7 +4044,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
     
 
     
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `updateVersion`(`bundleName`: kotlin.String, `version`: kotlin.String) {
         return uniffiRustCallAsync(
@@ -3329,12 +4061,12 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         { Unit },
         
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
     
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `writeRemoteBundle`(`bundleName`: kotlin.String, `version`: kotlin.String, `bundle`: Bundle, `metadata`: BundleManifestMetadata) {
         return uniffiRustCallAsync(
@@ -3351,7 +4083,7 @@ open class BundleSource: Disposable, AutoCloseable, BundleSourceInterface
         { Unit },
         
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -3389,288 +4121,6 @@ public object FfiConverterTypeBundleSource: FfiConverter<BundleSource, Long> {
     override fun allocationSize(value: BundleSource) = 8UL
 
     override fun write(value: BundleSource, buf: ByteBuffer) {
-        buf.putLong(lower(value))
-    }
-}
-
-
-// This template implements a class for working with a Rust struct via a handle
-// to the live Rust struct on the other side of the FFI.
-//
-// There's some subtlety here, because we have to be careful not to operate on a Rust
-// struct after it has been dropped, and because we must expose a public API for freeing
-// theq Kotlin wrapper object in lieu of reliable finalizers. The core requirements are:
-//
-//   * Each instance holds an opaque handle to the underlying Rust struct.
-//     Method calls need to read this handle from the object's state and pass it in to
-//     the Rust FFI.
-//
-//   * When an instance is no longer needed, its handle should be passed to a
-//     special destructor function provided by the Rust FFI, which will drop the
-//     underlying Rust struct.
-//
-//   * Given an instance, calling code is expected to call the special
-//     `destroy` method in order to free it after use, either by calling it explicitly
-//     or by using a higher-level helper like the `use` method. Failing to do so risks
-//     leaking the underlying Rust struct.
-//
-//   * We can't assume that calling code will do the right thing, and must be prepared
-//     to handle Kotlin method calls executing concurrently with or even after a call to
-//     `destroy`, and to handle multiple (possibly concurrent!) calls to `destroy`.
-//
-//   * We must never allow Rust code to operate on the underlying Rust struct after
-//     the destructor has been called, and must never call the destructor more than once.
-//     Doing so may trigger memory unsafety.
-//
-//   * To mitigate many of the risks of leaking memory and use-after-free unsafety, a `Cleaner`
-//     is implemented to call the destructor when the Kotlin object becomes unreachable.
-//     This is done in a background thread. This is not a panacea, and client code should be aware that
-//      1. the thread may starve if some there are objects that have poorly performing
-//     `drop` methods or do significant work in their `drop` methods.
-//      2. the thread is shared across the whole library. This can be tuned by using `android_cleaner = true`,
-//         or `android = true` in the [`kotlin` section of the `uniffi.toml` file](https://mozilla.github.io/uniffi-rs/kotlin/configuration.html).
-//
-// If we try to implement this with mutual exclusion on access to the handle, there is the
-// possibility of a race between a method call and a concurrent call to `destroy`:
-//
-//    * Thread A starts a method call, reads the value of the handle, but is interrupted
-//      before it can pass the handle over the FFI to Rust.
-//    * Thread B calls `destroy` and frees the underlying Rust struct.
-//    * Thread A resumes, passing the already-read handle value to Rust and triggering
-//      a use-after-free.
-//
-// One possible solution would be to use a `ReadWriteLock`, with each method call taking
-// a read lock (and thus allowed to run concurrently) and the special `destroy` method
-// taking a write lock (and thus blocking on live method calls). However, we aim not to
-// generate methods with any hidden blocking semantics, and a `destroy` method that might
-// block if called incorrectly seems to meet that bar.
-//
-// So, we achieve our goals by giving each instance an associated `AtomicLong` counter to track
-// the number of in-flight method calls, and an `AtomicBoolean` flag to indicate whether `destroy`
-// has been called. These are updated according to the following rules:
-//
-//    * The initial value of the counter is 1, indicating a live object with no in-flight calls.
-//      The initial value for the flag is false.
-//
-//    * At the start of each method call, we atomically check the counter.
-//      If it is 0 then the underlying Rust struct has already been destroyed and the call is aborted.
-//      If it is nonzero them we atomically increment it by 1 and proceed with the method call.
-//
-//    * At the end of each method call, we atomically decrement and check the counter.
-//      If it has reached zero then we destroy the underlying Rust struct.
-//
-//    * When `destroy` is called, we atomically flip the flag from false to true.
-//      If the flag was already true we silently fail.
-//      Otherwise we atomically decrement and check the counter.
-//      If it has reached zero then we destroy the underlying Rust struct.
-//
-// Astute readers may observe that this all sounds very similar to the way that Rust's `Arc<T>` works,
-// and indeed it is, with the addition of a flag to guard against multiple calls to `destroy`.
-//
-// The overall effect is that the underlying Rust struct is destroyed only when `destroy` has been
-// called *and* all in-flight method calls have completed, avoiding violating any of the expectations
-// of the underlying Rust code.
-//
-// This makes a cleaner a better alternative to _not_ calling `destroy()` as
-// and when the object is finished with, but the abstraction is not perfect: if the Rust object's `drop`
-// method is slow, and/or there are many objects to cleanup, and it's on a low end Android device, then the cleaner
-// thread may be starved, and the app will leak memory.
-//
-// In this case, `destroy`ing manually may be a better solution.
-//
-// The cleaner can live side by side with the manual calling of `destroy`. In the order of responsiveness, uniffi objects
-// with Rust peers are reclaimed:
-//
-// 1. By calling the `destroy` method of the object, which calls `rustObject.free()`. If that doesn't happen:
-// 2. When the object becomes unreachable, AND the Cleaner thread gets to call `rustObject.free()`. If the thread is starved then:
-// 3. The memory is reclaimed when the process terminates.
-//
-// [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
-//
-
-
-/**
- * Handles HTTP-like requests by serving bundle entries from a [`BundleSource`].
- *
- * The host portion of the URI identifies the bundle by name
- * (e.g. `https://app.wvb/index.html` → bundle `"app"`, path `"/index.html"`).
- * Returns 200 with the entry body, 404 when the path is not found, or
- * 200 with an empty body for HEAD requests.
- */
-public interface BundleUrlHandlerInterface {
-    
-    suspend fun `handle`(`method`: HttpMethod, `uri`: kotlin.String, `headers`: Map<kotlin.String, kotlin.String>?): HttpResponse
-    
-    companion object
-}
-
-/**
- * Handles HTTP-like requests by serving bundle entries from a [`BundleSource`].
- *
- * The host portion of the URI identifies the bundle by name
- * (e.g. `https://app.wvb/index.html` → bundle `"app"`, path `"/index.html"`).
- * Returns 200 with the entry body, 404 when the path is not found, or
- * 200 with an empty body for HEAD requests.
- */
-open class BundleUrlHandler: Disposable, AutoCloseable, BundleUrlHandlerInterface
-{
-
-    @Suppress("UNUSED_PARAMETER")
-    /**
-     * @suppress
-     */
-    constructor(withHandle: UniffiWithHandle, handle: Long) {
-        this.handle = handle
-        this.cleanable = UniffiLib.CLEANER.register(this, UniffiCleanAction(handle))
-    }
-
-    /**
-     * @suppress
-     *
-     * This constructor can be used to instantiate a fake object. Only used for tests. Any
-     * attempt to actually use an object constructed this way will fail as there is no
-     * connected Rust object.
-     */
-    @Suppress("UNUSED_PARAMETER")
-    constructor(noHandle: NoHandle) {
-        this.handle = 0
-        this.cleanable = null
-    }
-    constructor(`source`: BundleSource) :
-        this(UniffiWithHandle, 
-    uniffiRustCall() { _status ->
-    UniffiLib.uniffi_wvb_ffi_fn_constructor_bundleurlhandler_new(
-    
-        FfiConverterTypeBundleSource.lower(`source`),_status)
-}
-    )
-
-    protected val handle: Long
-    protected val cleanable: UniffiCleaner.Cleanable?
-
-    private val wasDestroyed = AtomicBoolean(false)
-    private val callCounter = AtomicLong(1)
-
-    override fun destroy() {
-        // Only allow a single call to this method.
-        // TODO: maybe we should log a warning if called more than once?
-        if (this.wasDestroyed.compareAndSet(false, true)) {
-            // This decrement always matches the initial count of 1 given at creation time.
-            if (this.callCounter.decrementAndGet() == 0L) {
-                cleanable?.clean()
-            }
-        }
-    }
-
-    @Synchronized
-    override fun close() {
-        this.destroy()
-    }
-
-    internal inline fun <R> callWithHandle(block: (handle: Long) -> R): R {
-        // Check and increment the call counter, to keep the object alive.
-        // This needs a compare-and-set retry loop in case of concurrent updates.
-        do {
-            val c = this.callCounter.get()
-            if (c == 0L) {
-                throw IllegalStateException("${this.javaClass.simpleName} object has already been destroyed")
-            }
-            if (c == Long.MAX_VALUE) {
-                throw IllegalStateException("${this.javaClass.simpleName} call counter would overflow")
-            }
-        } while (! this.callCounter.compareAndSet(c, c + 1L))
-        // Now we can safely do the method call without the handle being freed concurrently.
-        try {
-            return block(this.uniffiCloneHandle())
-        } finally {
-            // This decrement always matches the increment we performed above.
-            if (this.callCounter.decrementAndGet() == 0L) {
-                cleanable?.clean()
-            }
-        }
-    }
-
-    // Use a static inner class instead of a closure so as not to accidentally
-    // capture `this` as part of the cleanable's action.
-    private class UniffiCleanAction(private val handle: Long) : Runnable {
-        override fun run() {
-            if (handle == 0.toLong()) {
-                // Fake object created with `NoHandle`, don't try to free.
-                return;
-            }
-            uniffiRustCall { status ->
-                UniffiLib.uniffi_wvb_ffi_fn_free_bundleurlhandler(handle, status)
-            }
-        }
-    }
-
-    /**
-     * @suppress
-     */
-    fun uniffiCloneHandle(): Long {
-        if (handle == 0.toLong()) {
-            throw InternalException("uniffiCloneHandle() called on NoHandle object");
-        }
-        return uniffiRustCall() { status ->
-            UniffiLib.uniffi_wvb_ffi_fn_clone_bundleurlhandler(handle, status)
-        }
-    }
-
-    
-    @Throws(Exception::class)
-    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    override suspend fun `handle`(`method`: HttpMethod, `uri`: kotlin.String, `headers`: Map<kotlin.String, kotlin.String>?) : HttpResponse {
-        return uniffiRustCallAsync(
-        callWithHandle { uniffiHandle ->
-            UniffiLib.uniffi_wvb_ffi_fn_method_bundleurlhandler_handle(
-                uniffiHandle,
-                FfiConverterTypeHttpMethod.lower(`method`),FfiConverterString.lower(`uri`),FfiConverterOptionalMapStringString.lower(`headers`),
-            )
-        },
-        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
-        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_rust_buffer(future, continuation) },
-        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
-        // lift function
-        { FfiConverterTypeHttpResponse.lift(it) },
-        // Error FFI converter
-        Exception.ErrorHandler,
-    )
-    }
-
-    
-
-    
-
-
-    
-    
-    /**
-     * @suppress
-     */
-    companion object
-    
-}
-
-
-/**
- * @suppress
- */
-public object FfiConverterTypeBundleUrlHandler: FfiConverter<BundleUrlHandler, Long> {
-    override fun lower(value: BundleUrlHandler): Long {
-        return value.uniffiCloneHandle()
-    }
-
-    override fun lift(value: Long): BundleUrlHandler {
-        return BundleUrlHandler(UniffiWithHandle, value)
-    }
-
-    override fun read(buf: ByteBuffer): BundleUrlHandler {
-        return lift(buf.getLong())
-    }
-
-    override fun allocationSize(value: BundleUrlHandler) = 8UL
-
-    override fun write(value: BundleUrlHandler, buf: ByteBuffer) {
         buf.putLong(lower(value))
     }
 }
@@ -4076,8 +4526,10 @@ public object FfiConverterTypeHeader: FfiConverter<Header, Long> {
 
 
 /**
- * View into the index section of a bundle. Backed by the parent [`Bundle`] via
- * an `Arc` so that individual entries can be read without copying the whole bundle.
+ * View into the index section of a bundle.
+ *
+ * Holds the index metadata itself, so it is available on a metadata-only descriptor
+ * (from `BundleSource::fetch_descriptor`) as well as on a fully loaded [`Bundle`].
  */
 public interface IndexInterface {
     
@@ -4094,8 +4546,10 @@ public interface IndexInterface {
 }
 
 /**
- * View into the index section of a bundle. Backed by the parent [`Bundle`] via
- * an `Arc` so that individual entries can be read without copying the whole bundle.
+ * View into the index section of a bundle.
+ *
+ * Holds the index metadata itself, so it is available on a metadata-only descriptor
+ * (from `BundleSource::fetch_descriptor`) as well as on a fully loaded [`Bundle`].
  */
 open class Index: Disposable, AutoCloseable, IndexInterface
 {
@@ -4370,6 +4824,678 @@ public object FfiConverterTypeIndex: FfiConverter<Index, Long> {
 
 
 /**
+ * A digest over some bytes, serialized as `<algorithm>:<base64>` (e.g. `"sha256:n4bQ..."`).
+ */
+public interface IntegrityInterface {
+    
+    /**
+     * Serializes to `<algorithm>:<base64>`.
+     */
+    fun `serialize`(): kotlin.String
+    
+    /**
+     * Whether `data` digests to this integrity.
+     */
+    fun `validate`(`data`: kotlin.ByteArray): kotlin.Boolean
+    
+    /**
+     * The raw digest bytes.
+     */
+    fun `value`(): kotlin.ByteArray
+    
+    companion object
+}
+
+/**
+ * A digest over some bytes, serialized as `<algorithm>:<base64>` (e.g. `"sha256:n4bQ..."`).
+ */
+open class Integrity: Disposable, AutoCloseable, IntegrityInterface
+{
+
+    @Suppress("UNUSED_PARAMETER")
+    /**
+     * @suppress
+     */
+    constructor(withHandle: UniffiWithHandle, handle: Long) {
+        this.handle = handle
+        this.cleanable = UniffiLib.CLEANER.register(this, UniffiCleanAction(handle))
+    }
+
+    /**
+     * @suppress
+     *
+     * This constructor can be used to instantiate a fake object. Only used for tests. Any
+     * attempt to actually use an object constructed this way will fail as there is no
+     * connected Rust object.
+     */
+    @Suppress("UNUSED_PARAMETER")
+    constructor(noHandle: NoHandle) {
+        this.handle = 0
+        this.cleanable = null
+    }
+
+    protected val handle: Long
+    protected val cleanable: UniffiCleaner.Cleanable?
+
+    private val wasDestroyed = AtomicBoolean(false)
+    private val callCounter = AtomicLong(1)
+
+    override fun destroy() {
+        // Only allow a single call to this method.
+        // TODO: maybe we should log a warning if called more than once?
+        if (this.wasDestroyed.compareAndSet(false, true)) {
+            // This decrement always matches the initial count of 1 given at creation time.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable?.clean()
+            }
+        }
+    }
+
+    @Synchronized
+    override fun close() {
+        this.destroy()
+    }
+
+    internal inline fun <R> callWithHandle(block: (handle: Long) -> R): R {
+        // Check and increment the call counter, to keep the object alive.
+        // This needs a compare-and-set retry loop in case of concurrent updates.
+        do {
+            val c = this.callCounter.get()
+            if (c == 0L) {
+                throw IllegalStateException("${this.javaClass.simpleName} object has already been destroyed")
+            }
+            if (c == Long.MAX_VALUE) {
+                throw IllegalStateException("${this.javaClass.simpleName} call counter would overflow")
+            }
+        } while (! this.callCounter.compareAndSet(c, c + 1L))
+        // Now we can safely do the method call without the handle being freed concurrently.
+        try {
+            return block(this.uniffiCloneHandle())
+        } finally {
+            // This decrement always matches the increment we performed above.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable?.clean()
+            }
+        }
+    }
+
+    // Use a static inner class instead of a closure so as not to accidentally
+    // capture `this` as part of the cleanable's action.
+    private class UniffiCleanAction(private val handle: Long) : Runnable {
+        override fun run() {
+            if (handle == 0.toLong()) {
+                // Fake object created with `NoHandle`, don't try to free.
+                return;
+            }
+            uniffiRustCall { status ->
+                UniffiLib.uniffi_wvb_ffi_fn_free_integrity(handle, status)
+            }
+        }
+    }
+
+    /**
+     * @suppress
+     */
+    fun uniffiCloneHandle(): Long {
+        if (handle == 0.toLong()) {
+            throw InternalException("uniffiCloneHandle() called on NoHandle object");
+        }
+        return uniffiRustCall() { status ->
+            UniffiLib.uniffi_wvb_ffi_fn_clone_integrity(handle, status)
+        }
+    }
+
+    
+    /**
+     * Serializes to `<algorithm>:<base64>`.
+     */override fun `serialize`(): kotlin.String {
+            return FfiConverterString.lift(
+    callWithHandle {
+    uniffiRustCall() { _status ->
+    UniffiLib.uniffi_wvb_ffi_fn_method_integrity_serialize(
+        it,
+        _status)
+}
+    }
+    )
+    }
+    
+
+    
+    /**
+     * Whether `data` digests to this integrity.
+     */override fun `validate`(`data`: kotlin.ByteArray): kotlin.Boolean {
+            return FfiConverterBoolean.lift(
+    callWithHandle {
+    uniffiRustCall() { _status ->
+    UniffiLib.uniffi_wvb_ffi_fn_method_integrity_validate(
+        it,
+        FfiConverterByteArray.lower(`data`),_status)
+}
+    }
+    )
+    }
+    
+
+    
+    /**
+     * The raw digest bytes.
+     */override fun `value`(): kotlin.ByteArray {
+            return FfiConverterByteArray.lift(
+    callWithHandle {
+    uniffiRustCall() { _status ->
+    UniffiLib.uniffi_wvb_ffi_fn_method_integrity_value(
+        it,
+        _status)
+}
+    }
+    )
+    }
+    
+
+    
+
+    
+
+
+    
+    companion object {
+        
+    /**
+     * Computes the integrity of `data` with `algorithm`.
+     */ fun `compute`(`algorithm`: IntegrityAlgorithm, `data`: kotlin.ByteArray): Integrity {
+            return FfiConverterTypeIntegrity.lift(
+    uniffiRustCall() { _status ->
+    UniffiLib.uniffi_wvb_ffi_fn_constructor_integrity_compute(
+    
+        FfiConverterTypeIntegrityAlgorithm.lower(`algorithm`),FfiConverterByteArray.lower(`data`),_status)
+}
+    )
+    }
+    
+
+        
+    /**
+     * Parses a serialized integrity string (e.g. `"sha256:n4bQ..."`).
+     */
+    @Throws(WebviewBundleException::class) fun `parse`(`integrity`: kotlin.String): Integrity {
+            return FfiConverterTypeIntegrity.lift(
+    uniffiRustCallWithError(WebviewBundleException) { _status ->
+    UniffiLib.uniffi_wvb_ffi_fn_constructor_integrity_parse(
+    
+        FfiConverterString.lower(`integrity`),_status)
+}
+    )
+    }
+    
+
+        
+    }
+    
+}
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeIntegrity: FfiConverter<Integrity, Long> {
+    override fun lower(value: Integrity): Long {
+        return value.uniffiCloneHandle()
+    }
+
+    override fun lift(value: Long): Integrity {
+        return Integrity(UniffiWithHandle, value)
+    }
+
+    override fun read(buf: ByteBuffer): Integrity {
+        return lift(buf.getLong())
+    }
+
+    override fun allocationSize(value: Integrity) = 8UL
+
+    override fun write(value: Integrity, buf: ByteBuffer) {
+        buf.putLong(lower(value))
+    }
+}
+
+
+// This template implements a class for working with a Rust struct via a handle
+// to the live Rust struct on the other side of the FFI.
+//
+// There's some subtlety here, because we have to be careful not to operate on a Rust
+// struct after it has been dropped, and because we must expose a public API for freeing
+// theq Kotlin wrapper object in lieu of reliable finalizers. The core requirements are:
+//
+//   * Each instance holds an opaque handle to the underlying Rust struct.
+//     Method calls need to read this handle from the object's state and pass it in to
+//     the Rust FFI.
+//
+//   * When an instance is no longer needed, its handle should be passed to a
+//     special destructor function provided by the Rust FFI, which will drop the
+//     underlying Rust struct.
+//
+//   * Given an instance, calling code is expected to call the special
+//     `destroy` method in order to free it after use, either by calling it explicitly
+//     or by using a higher-level helper like the `use` method. Failing to do so risks
+//     leaking the underlying Rust struct.
+//
+//   * We can't assume that calling code will do the right thing, and must be prepared
+//     to handle Kotlin method calls executing concurrently with or even after a call to
+//     `destroy`, and to handle multiple (possibly concurrent!) calls to `destroy`.
+//
+//   * We must never allow Rust code to operate on the underlying Rust struct after
+//     the destructor has been called, and must never call the destructor more than once.
+//     Doing so may trigger memory unsafety.
+//
+//   * To mitigate many of the risks of leaking memory and use-after-free unsafety, a `Cleaner`
+//     is implemented to call the destructor when the Kotlin object becomes unreachable.
+//     This is done in a background thread. This is not a panacea, and client code should be aware that
+//      1. the thread may starve if some there are objects that have poorly performing
+//     `drop` methods or do significant work in their `drop` methods.
+//      2. the thread is shared across the whole library. This can be tuned by using `android_cleaner = true`,
+//         or `android = true` in the [`kotlin` section of the `uniffi.toml` file](https://mozilla.github.io/uniffi-rs/kotlin/configuration.html).
+//
+// If we try to implement this with mutual exclusion on access to the handle, there is the
+// possibility of a race between a method call and a concurrent call to `destroy`:
+//
+//    * Thread A starts a method call, reads the value of the handle, but is interrupted
+//      before it can pass the handle over the FFI to Rust.
+//    * Thread B calls `destroy` and frees the underlying Rust struct.
+//    * Thread A resumes, passing the already-read handle value to Rust and triggering
+//      a use-after-free.
+//
+// One possible solution would be to use a `ReadWriteLock`, with each method call taking
+// a read lock (and thus allowed to run concurrently) and the special `destroy` method
+// taking a write lock (and thus blocking on live method calls). However, we aim not to
+// generate methods with any hidden blocking semantics, and a `destroy` method that might
+// block if called incorrectly seems to meet that bar.
+//
+// So, we achieve our goals by giving each instance an associated `AtomicLong` counter to track
+// the number of in-flight method calls, and an `AtomicBoolean` flag to indicate whether `destroy`
+// has been called. These are updated according to the following rules:
+//
+//    * The initial value of the counter is 1, indicating a live object with no in-flight calls.
+//      The initial value for the flag is false.
+//
+//    * At the start of each method call, we atomically check the counter.
+//      If it is 0 then the underlying Rust struct has already been destroyed and the call is aborted.
+//      If it is nonzero them we atomically increment it by 1 and proceed with the method call.
+//
+//    * At the end of each method call, we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+//    * When `destroy` is called, we atomically flip the flag from false to true.
+//      If the flag was already true we silently fail.
+//      Otherwise we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+// Astute readers may observe that this all sounds very similar to the way that Rust's `Arc<T>` works,
+// and indeed it is, with the addition of a flag to guard against multiple calls to `destroy`.
+//
+// The overall effect is that the underlying Rust struct is destroyed only when `destroy` has been
+// called *and* all in-flight method calls have completed, avoiding violating any of the expectations
+// of the underlying Rust code.
+//
+// This makes a cleaner a better alternative to _not_ calling `destroy()` as
+// and when the object is finished with, but the abstraction is not perfect: if the Rust object's `drop`
+// method is slow, and/or there are many objects to cleanup, and it's on a low end Android device, then the cleaner
+// thread may be starved, and the app will leak memory.
+//
+// In this case, `destroy`ing manually may be a better solution.
+//
+// The cleaner can live side by side with the manual calling of `destroy`. In the order of responsiveness, uniffi objects
+// with Rust peers are reclaimed:
+//
+// 1. By calling the `destroy` method of the object, which calls `rustObject.free()`. If that doesn't happen:
+// 2. When the object becomes unreachable, AND the Cleaner thread gets to call `rustObject.free()`. If the thread is starved then:
+// 3. The memory is reclaimed when the process terminates.
+//
+// [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
+//
+
+
+/**
+ * A custom checker that validates a bundle's bytes against its integrity string.
+ */
+public interface IntegrityCheck {
+    
+    suspend fun `check`(`data`: kotlin.ByteArray, `integrity`: kotlin.String): kotlin.Boolean
+    
+    companion object
+}
+
+/**
+ * A custom checker that validates a bundle's bytes against its integrity string.
+ */
+open class IntegrityCheckImpl: Disposable, AutoCloseable, IntegrityCheck
+{
+
+    @Suppress("UNUSED_PARAMETER")
+    /**
+     * @suppress
+     */
+    constructor(withHandle: UniffiWithHandle, handle: Long) {
+        this.handle = handle
+        this.cleanable = UniffiLib.CLEANER.register(this, UniffiCleanAction(handle))
+    }
+
+    /**
+     * @suppress
+     *
+     * This constructor can be used to instantiate a fake object. Only used for tests. Any
+     * attempt to actually use an object constructed this way will fail as there is no
+     * connected Rust object.
+     */
+    @Suppress("UNUSED_PARAMETER")
+    constructor(noHandle: NoHandle) {
+        this.handle = 0
+        this.cleanable = null
+    }
+
+    protected val handle: Long
+    protected val cleanable: UniffiCleaner.Cleanable?
+
+    private val wasDestroyed = AtomicBoolean(false)
+    private val callCounter = AtomicLong(1)
+
+    override fun destroy() {
+        // Only allow a single call to this method.
+        // TODO: maybe we should log a warning if called more than once?
+        if (this.wasDestroyed.compareAndSet(false, true)) {
+            // This decrement always matches the initial count of 1 given at creation time.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable?.clean()
+            }
+        }
+    }
+
+    @Synchronized
+    override fun close() {
+        this.destroy()
+    }
+
+    internal inline fun <R> callWithHandle(block: (handle: Long) -> R): R {
+        // Check and increment the call counter, to keep the object alive.
+        // This needs a compare-and-set retry loop in case of concurrent updates.
+        do {
+            val c = this.callCounter.get()
+            if (c == 0L) {
+                throw IllegalStateException("${this.javaClass.simpleName} object has already been destroyed")
+            }
+            if (c == Long.MAX_VALUE) {
+                throw IllegalStateException("${this.javaClass.simpleName} call counter would overflow")
+            }
+        } while (! this.callCounter.compareAndSet(c, c + 1L))
+        // Now we can safely do the method call without the handle being freed concurrently.
+        try {
+            return block(this.uniffiCloneHandle())
+        } finally {
+            // This decrement always matches the increment we performed above.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable?.clean()
+            }
+        }
+    }
+
+    // Use a static inner class instead of a closure so as not to accidentally
+    // capture `this` as part of the cleanable's action.
+    private class UniffiCleanAction(private val handle: Long) : Runnable {
+        override fun run() {
+            if (handle == 0.toLong()) {
+                // Fake object created with `NoHandle`, don't try to free.
+                return;
+            }
+            uniffiRustCall { status ->
+                UniffiLib.uniffi_wvb_ffi_fn_free_integritycheck(handle, status)
+            }
+        }
+    }
+
+    /**
+     * @suppress
+     */
+    fun uniffiCloneHandle(): Long {
+        if (handle == 0.toLong()) {
+            throw InternalException("uniffiCloneHandle() called on NoHandle object");
+        }
+        return uniffiRustCall() { status ->
+            UniffiLib.uniffi_wvb_ffi_fn_clone_integritycheck(handle, status)
+        }
+    }
+
+    
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `check`(`data`: kotlin.ByteArray, `integrity`: kotlin.String) : kotlin.Boolean {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_integritycheck_check(
+                uniffiHandle,
+                FfiConverterByteArray.lower(`data`),FfiConverterString.lower(`integrity`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_i8(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_i8(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_i8(future) },
+        // lift function
+        { FfiConverterBoolean.lift(it) },
+        // Error FFI converter
+        UniffiNullRustCallStatusErrorHandler,
+    )
+    }
+
+    
+
+    
+
+
+    
+    
+    /**
+     * @suppress
+     */
+    companion object
+    
+}
+
+
+
+// Put the implementation in an object so we don't pollute the top-level namespace
+internal object uniffiCallbackInterfaceIntegrityCheck {
+    internal object `check`: UniffiCallbackInterfaceIntegrityCheckMethod0 {
+        override fun callback(`uniffiHandle`: Long,`data`: RustBuffer.ByValue,`integrity`: RustBuffer.ByValue,`uniffiFutureCallback`: UniffiForeignFutureCompleteI8,`uniffiCallbackData`: Long,`uniffiOutDroppedCallback`: UniffiForeignFutureDroppedCallbackStruct,) {
+            val uniffiObj = FfiConverterTypeIntegrityCheck.handleMap.get(uniffiHandle)
+            val makeCall = suspend { ->
+                uniffiObj.`check`(
+                    FfiConverterByteArray.lift(`data`),
+                    FfiConverterString.lift(`integrity`),
+                )
+            }
+            val uniffiHandleSuccess = { returnValue: kotlin.Boolean ->
+                val uniffiResult = UniffiForeignFutureResultI8.UniffiByValue(
+                    FfiConverterBoolean.lower(returnValue),
+                    UniffiRustCallStatus.ByValue()
+                )
+                uniffiResult.write()
+                uniffiFutureCallback.callback(uniffiCallbackData, uniffiResult)
+            }
+            val uniffiHandleError = { callStatus: UniffiRustCallStatus.ByValue ->
+                uniffiFutureCallback.callback(
+                    uniffiCallbackData,
+                    UniffiForeignFutureResultI8.UniffiByValue(
+                        0.toByte(),
+                        callStatus,
+                    ),
+                )
+            }
+            uniffiTraitInterfaceCallAsync(
+                makeCall,
+                uniffiHandleSuccess,
+                uniffiHandleError,
+                uniffiOutDroppedCallback
+            )
+        }
+    }
+
+    internal object uniffiFree: UniffiCallbackInterfaceFree {
+        override fun callback(handle: Long) {
+            FfiConverterTypeIntegrityCheck.handleMap.remove(handle)
+        }
+    }
+
+    internal object uniffiClone: UniffiCallbackInterfaceClone {
+        override fun callback(handle: Long): Long {
+            return FfiConverterTypeIntegrityCheck.handleMap.clone(handle)
+        }
+    }
+
+    internal var vtable = UniffiVTableCallbackInterfaceIntegrityCheck.UniffiByValue(
+        uniffiFree,
+        uniffiClone,
+        `check`,
+    )
+
+    // Registers the foreign callback with the Rust side.
+    // This method is generated for each callback interface.
+    internal fun register(lib: UniffiLib) {
+        lib.uniffi_wvb_ffi_fn_init_callback_vtable_integritycheck(vtable)
+    }
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeIntegrityCheck: FfiConverter<IntegrityCheck, Long> {
+    internal val handleMap = UniffiHandleMap<IntegrityCheck>()
+
+    override fun lower(value: IntegrityCheck): Long {
+        if (value is IntegrityCheckImpl) {
+             // Rust-implemented object.  Clone the handle and return it
+            return value.uniffiCloneHandle()
+         } else {
+            // Kotlin object, generate a new vtable handle and return that.
+            return handleMap.insert(value)
+         }
+    }
+
+    override fun lift(value: Long): IntegrityCheck {
+        if ((value and 1.toLong()) == 0.toLong()) {
+            // Rust-generated handle, construct a new class that uses the handle to implement the
+            // interface
+            return IntegrityCheckImpl(UniffiWithHandle, value)
+        } else {
+            // Kotlin-generated handle, get the object from the handle map
+            return handleMap.remove(value)
+        }
+    }
+
+    override fun read(buf: ByteBuffer): IntegrityCheck {
+        return lift(buf.getLong())
+    }
+
+    override fun allocationSize(value: IntegrityCheck) = 8UL
+
+    override fun write(value: IntegrityCheck, buf: ByteBuffer) {
+        buf.putLong(lower(value))
+    }
+}
+
+
+// This template implements a class for working with a Rust struct via a handle
+// to the live Rust struct on the other side of the FFI.
+//
+// There's some subtlety here, because we have to be careful not to operate on a Rust
+// struct after it has been dropped, and because we must expose a public API for freeing
+// theq Kotlin wrapper object in lieu of reliable finalizers. The core requirements are:
+//
+//   * Each instance holds an opaque handle to the underlying Rust struct.
+//     Method calls need to read this handle from the object's state and pass it in to
+//     the Rust FFI.
+//
+//   * When an instance is no longer needed, its handle should be passed to a
+//     special destructor function provided by the Rust FFI, which will drop the
+//     underlying Rust struct.
+//
+//   * Given an instance, calling code is expected to call the special
+//     `destroy` method in order to free it after use, either by calling it explicitly
+//     or by using a higher-level helper like the `use` method. Failing to do so risks
+//     leaking the underlying Rust struct.
+//
+//   * We can't assume that calling code will do the right thing, and must be prepared
+//     to handle Kotlin method calls executing concurrently with or even after a call to
+//     `destroy`, and to handle multiple (possibly concurrent!) calls to `destroy`.
+//
+//   * We must never allow Rust code to operate on the underlying Rust struct after
+//     the destructor has been called, and must never call the destructor more than once.
+//     Doing so may trigger memory unsafety.
+//
+//   * To mitigate many of the risks of leaking memory and use-after-free unsafety, a `Cleaner`
+//     is implemented to call the destructor when the Kotlin object becomes unreachable.
+//     This is done in a background thread. This is not a panacea, and client code should be aware that
+//      1. the thread may starve if some there are objects that have poorly performing
+//     `drop` methods or do significant work in their `drop` methods.
+//      2. the thread is shared across the whole library. This can be tuned by using `android_cleaner = true`,
+//         or `android = true` in the [`kotlin` section of the `uniffi.toml` file](https://mozilla.github.io/uniffi-rs/kotlin/configuration.html).
+//
+// If we try to implement this with mutual exclusion on access to the handle, there is the
+// possibility of a race between a method call and a concurrent call to `destroy`:
+//
+//    * Thread A starts a method call, reads the value of the handle, but is interrupted
+//      before it can pass the handle over the FFI to Rust.
+//    * Thread B calls `destroy` and frees the underlying Rust struct.
+//    * Thread A resumes, passing the already-read handle value to Rust and triggering
+//      a use-after-free.
+//
+// One possible solution would be to use a `ReadWriteLock`, with each method call taking
+// a read lock (and thus allowed to run concurrently) and the special `destroy` method
+// taking a write lock (and thus blocking on live method calls). However, we aim not to
+// generate methods with any hidden blocking semantics, and a `destroy` method that might
+// block if called incorrectly seems to meet that bar.
+//
+// So, we achieve our goals by giving each instance an associated `AtomicLong` counter to track
+// the number of in-flight method calls, and an `AtomicBoolean` flag to indicate whether `destroy`
+// has been called. These are updated according to the following rules:
+//
+//    * The initial value of the counter is 1, indicating a live object with no in-flight calls.
+//      The initial value for the flag is false.
+//
+//    * At the start of each method call, we atomically check the counter.
+//      If it is 0 then the underlying Rust struct has already been destroyed and the call is aborted.
+//      If it is nonzero them we atomically increment it by 1 and proceed with the method call.
+//
+//    * At the end of each method call, we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+//    * When `destroy` is called, we atomically flip the flag from false to true.
+//      If the flag was already true we silently fail.
+//      Otherwise we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+// Astute readers may observe that this all sounds very similar to the way that Rust's `Arc<T>` works,
+// and indeed it is, with the addition of a flag to guard against multiple calls to `destroy`.
+//
+// The overall effect is that the underlying Rust struct is destroyed only when `destroy` has been
+// called *and* all in-flight method calls have completed, avoiding violating any of the expectations
+// of the underlying Rust code.
+//
+// This makes a cleaner a better alternative to _not_ calling `destroy()` as
+// and when the object is finished with, but the abstraction is not perfect: if the Rust object's `drop`
+// method is slow, and/or there are many objects to cleanup, and it's on a low end Android device, then the cleaner
+// thread may be starved, and the app will leak memory.
+//
+// In this case, `destroy`ing manually may be a better solution.
+//
+// The cleaner can live side by side with the manual calling of `destroy`. In the order of responsiveness, uniffi objects
+// with Rust peers are reclaimed:
+//
+// 1. By calling the `destroy` method of the object, which calls `rustObject.free()`. If that doesn't happen:
+// 2. When the object becomes unreachable, AND the Cleaner thread gets to call `rustObject.free()`. If the thread is starved then:
+// 3. The memory is reclaimed when the process terminates.
+//
+// [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
+//
+
+
+/**
  * A descriptor loaded (and cached) by a [`BundleSource`].
  *
  * Holds the parsed header/index together with the filepath it was loaded from, so
@@ -4400,7 +5526,7 @@ public interface LoadedDescriptorInterface {
     suspend fun `getData`(`path`: kotlin.String): kotlin.ByteArray?
     
     /**
-     * Reads the CRC-32 checksum for `path`, loading it lazily from disk.
+     * Reads the xxHash-32 checksum for `path`, loading it lazily from disk.
      * Returns `None` if `path` does not exist in the bundle.
      */
     suspend fun `getDataChecksum`(`path`: kotlin.String): kotlin.UInt?
@@ -4542,7 +5668,7 @@ open class LoadedDescriptor: Disposable, AutoCloseable, LoadedDescriptorInterfac
      * source's active version changes meanwhile. Returns `None` if `path` does not
      * exist in the bundle.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `getData`(`path`: kotlin.String) : kotlin.ByteArray? {
         return uniffiRustCallAsync(
@@ -4558,16 +5684,16 @@ open class LoadedDescriptor: Disposable, AutoCloseable, LoadedDescriptorInterfac
         // lift function
         { FfiConverterOptionalByteArray.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
     
     /**
-     * Reads the CRC-32 checksum for `path`, loading it lazily from disk.
+     * Reads the xxHash-32 checksum for `path`, loading it lazily from disk.
      * Returns `None` if `path` does not exist in the bundle.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `getDataChecksum`(`path`: kotlin.String) : kotlin.UInt? {
         return uniffiRustCallAsync(
@@ -4583,7 +5709,7 @@ open class LoadedDescriptor: Disposable, AutoCloseable, LoadedDescriptorInterfac
         // lift function
         { FfiConverterOptionalUInt.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -4722,27 +5848,30 @@ public object FfiConverterTypeLoadedDescriptor: FfiConverter<LoadedDescriptor, L
 
 
 /**
- * Proxies HTTP-like requests to a local HTTP server.
+ * Proxies HTTP-like requests to another HTTP server (typically a local dev server).
  *
- * `hosts` maps virtual hostnames to local server base URLs
- * (e.g. `{"myapp" => "http://localhost:8080"}`). Requests to an unknown
- * host are returned as an error.
+ * The target is resolved per request — either from a static host mapping
+ * (e.g. `{"myapp": "http://localhost:8080"}`, keyed by uri host) or by a custom
+ * [`ProxyResolver`]. A request whose target cannot be resolved fails with an error.
  */
-public interface LocalUrlHandlerInterface {
+public interface ProxyProtocolHandlerInterface {
     
-    suspend fun `handle`(`method`: HttpMethod, `uri`: kotlin.String, `headers`: Map<kotlin.String, kotlin.String>?): HttpResponse
+    /**
+     * Forwards the request — including `body`, for POST/PUT/PATCH — to the resolved target.
+     */
+    suspend fun `handle`(`method`: HttpMethod, `uri`: kotlin.String, `headers`: Map<kotlin.String, kotlin.String>? = null, `body`: kotlin.ByteArray? = null): HttpResponse
     
     companion object
 }
 
 /**
- * Proxies HTTP-like requests to a local HTTP server.
+ * Proxies HTTP-like requests to another HTTP server (typically a local dev server).
  *
- * `hosts` maps virtual hostnames to local server base URLs
- * (e.g. `{"myapp" => "http://localhost:8080"}`). Requests to an unknown
- * host are returned as an error.
+ * The target is resolved per request — either from a static host mapping
+ * (e.g. `{"myapp": "http://localhost:8080"}`, keyed by uri host) or by a custom
+ * [`ProxyResolver`]. A request whose target cannot be resolved fails with an error.
  */
-open class LocalUrlHandler: Disposable, AutoCloseable, LocalUrlHandlerInterface
+open class ProxyProtocolHandler: Disposable, AutoCloseable, ProxyProtocolHandlerInterface
 {
 
     @Suppress("UNUSED_PARAMETER")
@@ -4766,10 +5895,13 @@ open class LocalUrlHandler: Disposable, AutoCloseable, LocalUrlHandlerInterface
         this.handle = 0
         this.cleanable = null
     }
+    /**
+     * Proxy by a static host mapping, keyed by the uri host.
+     */
     constructor(`hosts`: Map<kotlin.String, kotlin.String>) :
         this(UniffiWithHandle, 
     uniffiRustCall() { _status ->
-    UniffiLib.uniffi_wvb_ffi_fn_constructor_localurlhandler_new(
+    UniffiLib.uniffi_wvb_ffi_fn_constructor_proxyprotocolhandler_new(
     
         FfiConverterMapStringString.lower(`hosts`),_status)
 }
@@ -4829,7 +5961,7 @@ open class LocalUrlHandler: Disposable, AutoCloseable, LocalUrlHandlerInterface
                 return;
             }
             uniffiRustCall { status ->
-                UniffiLib.uniffi_wvb_ffi_fn_free_localurlhandler(handle, status)
+                UniffiLib.uniffi_wvb_ffi_fn_free_proxyprotocolhandler(handle, status)
             }
         }
     }
@@ -4842,19 +5974,22 @@ open class LocalUrlHandler: Disposable, AutoCloseable, LocalUrlHandlerInterface
             throw InternalException("uniffiCloneHandle() called on NoHandle object");
         }
         return uniffiRustCall() { status ->
-            UniffiLib.uniffi_wvb_ffi_fn_clone_localurlhandler(handle, status)
+            UniffiLib.uniffi_wvb_ffi_fn_clone_proxyprotocolhandler(handle, status)
         }
     }
 
     
-    @Throws(Exception::class)
+    /**
+     * Forwards the request — including `body`, for POST/PUT/PATCH — to the resolved target.
+     */
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    override suspend fun `handle`(`method`: HttpMethod, `uri`: kotlin.String, `headers`: Map<kotlin.String, kotlin.String>?) : HttpResponse {
+    override suspend fun `handle`(`method`: HttpMethod, `uri`: kotlin.String, `headers`: Map<kotlin.String, kotlin.String>?, `body`: kotlin.ByteArray?) : HttpResponse {
         return uniffiRustCallAsync(
         callWithHandle { uniffiHandle ->
-            UniffiLib.uniffi_wvb_ffi_fn_method_localurlhandler_handle(
+            UniffiLib.uniffi_wvb_ffi_fn_method_proxyprotocolhandler_handle(
                 uniffiHandle,
-                FfiConverterTypeHttpMethod.lower(`method`),FfiConverterString.lower(`uri`),FfiConverterOptionalMapStringString.lower(`headers`),
+                FfiConverterTypeHttpMethod.lower(`method`),FfiConverterString.lower(`uri`),FfiConverterOptionalMapStringString.lower(`headers`),FfiConverterOptionalByteArray.lower(`body`),
             )
         },
         { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
@@ -4863,7 +5998,288 @@ open class LocalUrlHandler: Disposable, AutoCloseable, LocalUrlHandlerInterface
         // lift function
         { FfiConverterTypeHttpResponse.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
+    )
+    }
+
+    
+
+    
+
+
+    
+    companion object {
+        
+    /**
+     * Proxy by a custom resolver.
+     */ fun `custom`(`resolver`: ProxyResolver): ProxyProtocolHandler {
+            return FfiConverterTypeProxyProtocolHandler.lift(
+    uniffiRustCall() { _status ->
+    UniffiLib.uniffi_wvb_ffi_fn_constructor_proxyprotocolhandler_custom(
+    
+        FfiConverterTypeProxyResolver.lower(`resolver`),_status)
+}
+    )
+    }
+    
+
+        
+    }
+    
+}
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeProxyProtocolHandler: FfiConverter<ProxyProtocolHandler, Long> {
+    override fun lower(value: ProxyProtocolHandler): Long {
+        return value.uniffiCloneHandle()
+    }
+
+    override fun lift(value: Long): ProxyProtocolHandler {
+        return ProxyProtocolHandler(UniffiWithHandle, value)
+    }
+
+    override fun read(buf: ByteBuffer): ProxyProtocolHandler {
+        return lift(buf.getLong())
+    }
+
+    override fun allocationSize(value: ProxyProtocolHandler) = 8UL
+
+    override fun write(value: ProxyProtocolHandler, buf: ByteBuffer) {
+        buf.putLong(lower(value))
+    }
+}
+
+
+// This template implements a class for working with a Rust struct via a handle
+// to the live Rust struct on the other side of the FFI.
+//
+// There's some subtlety here, because we have to be careful not to operate on a Rust
+// struct after it has been dropped, and because we must expose a public API for freeing
+// theq Kotlin wrapper object in lieu of reliable finalizers. The core requirements are:
+//
+//   * Each instance holds an opaque handle to the underlying Rust struct.
+//     Method calls need to read this handle from the object's state and pass it in to
+//     the Rust FFI.
+//
+//   * When an instance is no longer needed, its handle should be passed to a
+//     special destructor function provided by the Rust FFI, which will drop the
+//     underlying Rust struct.
+//
+//   * Given an instance, calling code is expected to call the special
+//     `destroy` method in order to free it after use, either by calling it explicitly
+//     or by using a higher-level helper like the `use` method. Failing to do so risks
+//     leaking the underlying Rust struct.
+//
+//   * We can't assume that calling code will do the right thing, and must be prepared
+//     to handle Kotlin method calls executing concurrently with or even after a call to
+//     `destroy`, and to handle multiple (possibly concurrent!) calls to `destroy`.
+//
+//   * We must never allow Rust code to operate on the underlying Rust struct after
+//     the destructor has been called, and must never call the destructor more than once.
+//     Doing so may trigger memory unsafety.
+//
+//   * To mitigate many of the risks of leaking memory and use-after-free unsafety, a `Cleaner`
+//     is implemented to call the destructor when the Kotlin object becomes unreachable.
+//     This is done in a background thread. This is not a panacea, and client code should be aware that
+//      1. the thread may starve if some there are objects that have poorly performing
+//     `drop` methods or do significant work in their `drop` methods.
+//      2. the thread is shared across the whole library. This can be tuned by using `android_cleaner = true`,
+//         or `android = true` in the [`kotlin` section of the `uniffi.toml` file](https://mozilla.github.io/uniffi-rs/kotlin/configuration.html).
+//
+// If we try to implement this with mutual exclusion on access to the handle, there is the
+// possibility of a race between a method call and a concurrent call to `destroy`:
+//
+//    * Thread A starts a method call, reads the value of the handle, but is interrupted
+//      before it can pass the handle over the FFI to Rust.
+//    * Thread B calls `destroy` and frees the underlying Rust struct.
+//    * Thread A resumes, passing the already-read handle value to Rust and triggering
+//      a use-after-free.
+//
+// One possible solution would be to use a `ReadWriteLock`, with each method call taking
+// a read lock (and thus allowed to run concurrently) and the special `destroy` method
+// taking a write lock (and thus blocking on live method calls). However, we aim not to
+// generate methods with any hidden blocking semantics, and a `destroy` method that might
+// block if called incorrectly seems to meet that bar.
+//
+// So, we achieve our goals by giving each instance an associated `AtomicLong` counter to track
+// the number of in-flight method calls, and an `AtomicBoolean` flag to indicate whether `destroy`
+// has been called. These are updated according to the following rules:
+//
+//    * The initial value of the counter is 1, indicating a live object with no in-flight calls.
+//      The initial value for the flag is false.
+//
+//    * At the start of each method call, we atomically check the counter.
+//      If it is 0 then the underlying Rust struct has already been destroyed and the call is aborted.
+//      If it is nonzero them we atomically increment it by 1 and proceed with the method call.
+//
+//    * At the end of each method call, we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+//    * When `destroy` is called, we atomically flip the flag from false to true.
+//      If the flag was already true we silently fail.
+//      Otherwise we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+// Astute readers may observe that this all sounds very similar to the way that Rust's `Arc<T>` works,
+// and indeed it is, with the addition of a flag to guard against multiple calls to `destroy`.
+//
+// The overall effect is that the underlying Rust struct is destroyed only when `destroy` has been
+// called *and* all in-flight method calls have completed, avoiding violating any of the expectations
+// of the underlying Rust code.
+//
+// This makes a cleaner a better alternative to _not_ calling `destroy()` as
+// and when the object is finished with, but the abstraction is not perfect: if the Rust object's `drop`
+// method is slow, and/or there are many objects to cleanup, and it's on a low end Android device, then the cleaner
+// thread may be starved, and the app will leak memory.
+//
+// In this case, `destroy`ing manually may be a better solution.
+//
+// The cleaner can live side by side with the manual calling of `destroy`. In the order of responsiveness, uniffi objects
+// with Rust peers are reclaimed:
+//
+// 1. By calling the `destroy` method of the object, which calls `rustObject.free()`. If that doesn't happen:
+// 2. When the object becomes unreachable, AND the Cleaner thread gets to call `rustObject.free()`. If the thread is starved then:
+// 3. The memory is reclaimed when the process terminates.
+//
+// [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
+//
+
+
+/**
+ * Resolves the proxy target for a request uri, e.g. `http://localhost:3000`.
+ *
+ * The path and query of the request are appended to the returned target. Return `null` to
+ * not proxy the request; the handler then fails with `CannotResolveProxyServer`.
+ */
+public interface ProxyResolver {
+    
+    suspend fun `resolve`(`uri`: kotlin.String): kotlin.String?
+    
+    companion object
+}
+
+/**
+ * Resolves the proxy target for a request uri, e.g. `http://localhost:3000`.
+ *
+ * The path and query of the request are appended to the returned target. Return `null` to
+ * not proxy the request; the handler then fails with `CannotResolveProxyServer`.
+ */
+open class ProxyResolverImpl: Disposable, AutoCloseable, ProxyResolver
+{
+
+    @Suppress("UNUSED_PARAMETER")
+    /**
+     * @suppress
+     */
+    constructor(withHandle: UniffiWithHandle, handle: Long) {
+        this.handle = handle
+        this.cleanable = UniffiLib.CLEANER.register(this, UniffiCleanAction(handle))
+    }
+
+    /**
+     * @suppress
+     *
+     * This constructor can be used to instantiate a fake object. Only used for tests. Any
+     * attempt to actually use an object constructed this way will fail as there is no
+     * connected Rust object.
+     */
+    @Suppress("UNUSED_PARAMETER")
+    constructor(noHandle: NoHandle) {
+        this.handle = 0
+        this.cleanable = null
+    }
+
+    protected val handle: Long
+    protected val cleanable: UniffiCleaner.Cleanable?
+
+    private val wasDestroyed = AtomicBoolean(false)
+    private val callCounter = AtomicLong(1)
+
+    override fun destroy() {
+        // Only allow a single call to this method.
+        // TODO: maybe we should log a warning if called more than once?
+        if (this.wasDestroyed.compareAndSet(false, true)) {
+            // This decrement always matches the initial count of 1 given at creation time.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable?.clean()
+            }
+        }
+    }
+
+    @Synchronized
+    override fun close() {
+        this.destroy()
+    }
+
+    internal inline fun <R> callWithHandle(block: (handle: Long) -> R): R {
+        // Check and increment the call counter, to keep the object alive.
+        // This needs a compare-and-set retry loop in case of concurrent updates.
+        do {
+            val c = this.callCounter.get()
+            if (c == 0L) {
+                throw IllegalStateException("${this.javaClass.simpleName} object has already been destroyed")
+            }
+            if (c == Long.MAX_VALUE) {
+                throw IllegalStateException("${this.javaClass.simpleName} call counter would overflow")
+            }
+        } while (! this.callCounter.compareAndSet(c, c + 1L))
+        // Now we can safely do the method call without the handle being freed concurrently.
+        try {
+            return block(this.uniffiCloneHandle())
+        } finally {
+            // This decrement always matches the increment we performed above.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable?.clean()
+            }
+        }
+    }
+
+    // Use a static inner class instead of a closure so as not to accidentally
+    // capture `this` as part of the cleanable's action.
+    private class UniffiCleanAction(private val handle: Long) : Runnable {
+        override fun run() {
+            if (handle == 0.toLong()) {
+                // Fake object created with `NoHandle`, don't try to free.
+                return;
+            }
+            uniffiRustCall { status ->
+                UniffiLib.uniffi_wvb_ffi_fn_free_proxyresolver(handle, status)
+            }
+        }
+    }
+
+    /**
+     * @suppress
+     */
+    fun uniffiCloneHandle(): Long {
+        if (handle == 0.toLong()) {
+            throw InternalException("uniffiCloneHandle() called on NoHandle object");
+        }
+        return uniffiRustCall() { status ->
+            UniffiLib.uniffi_wvb_ffi_fn_clone_proxyresolver(handle, status)
+        }
+    }
+
+    
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `resolve`(`uri`: kotlin.String) : kotlin.String? {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_proxyresolver_resolve(
+                uniffiHandle,
+                FfiConverterString.lower(`uri`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_rust_buffer(future) },
+        // lift function
+        { FfiConverterOptionalString.lift(it) },
+        // Error FFI converter
+        UniffiNullRustCallStatusErrorHandler,
     )
     }
 
@@ -4882,25 +6298,102 @@ open class LocalUrlHandler: Disposable, AutoCloseable, LocalUrlHandlerInterface
 }
 
 
+
+// Put the implementation in an object so we don't pollute the top-level namespace
+internal object uniffiCallbackInterfaceProxyResolver {
+    internal object `resolve`: UniffiCallbackInterfaceProxyResolverMethod0 {
+        override fun callback(`uniffiHandle`: Long,`uri`: RustBuffer.ByValue,`uniffiFutureCallback`: UniffiForeignFutureCompleteRustBuffer,`uniffiCallbackData`: Long,`uniffiOutDroppedCallback`: UniffiForeignFutureDroppedCallbackStruct,) {
+            val uniffiObj = FfiConverterTypeProxyResolver.handleMap.get(uniffiHandle)
+            val makeCall = suspend { ->
+                uniffiObj.`resolve`(
+                    FfiConverterString.lift(`uri`),
+                )
+            }
+            val uniffiHandleSuccess = { returnValue: kotlin.String? ->
+                val uniffiResult = UniffiForeignFutureResultRustBuffer.UniffiByValue(
+                    FfiConverterOptionalString.lower(returnValue),
+                    UniffiRustCallStatus.ByValue()
+                )
+                uniffiResult.write()
+                uniffiFutureCallback.callback(uniffiCallbackData, uniffiResult)
+            }
+            val uniffiHandleError = { callStatus: UniffiRustCallStatus.ByValue ->
+                uniffiFutureCallback.callback(
+                    uniffiCallbackData,
+                    UniffiForeignFutureResultRustBuffer.UniffiByValue(
+                        RustBuffer.ByValue(),
+                        callStatus,
+                    ),
+                )
+            }
+            uniffiTraitInterfaceCallAsync(
+                makeCall,
+                uniffiHandleSuccess,
+                uniffiHandleError,
+                uniffiOutDroppedCallback
+            )
+        }
+    }
+
+    internal object uniffiFree: UniffiCallbackInterfaceFree {
+        override fun callback(handle: Long) {
+            FfiConverterTypeProxyResolver.handleMap.remove(handle)
+        }
+    }
+
+    internal object uniffiClone: UniffiCallbackInterfaceClone {
+        override fun callback(handle: Long): Long {
+            return FfiConverterTypeProxyResolver.handleMap.clone(handle)
+        }
+    }
+
+    internal var vtable = UniffiVTableCallbackInterfaceProxyResolver.UniffiByValue(
+        uniffiFree,
+        uniffiClone,
+        `resolve`,
+    )
+
+    // Registers the foreign callback with the Rust side.
+    // This method is generated for each callback interface.
+    internal fun register(lib: UniffiLib) {
+        lib.uniffi_wvb_ffi_fn_init_callback_vtable_proxyresolver(vtable)
+    }
+}
+
 /**
  * @suppress
  */
-public object FfiConverterTypeLocalUrlHandler: FfiConverter<LocalUrlHandler, Long> {
-    override fun lower(value: LocalUrlHandler): Long {
-        return value.uniffiCloneHandle()
+public object FfiConverterTypeProxyResolver: FfiConverter<ProxyResolver, Long> {
+    internal val handleMap = UniffiHandleMap<ProxyResolver>()
+
+    override fun lower(value: ProxyResolver): Long {
+        if (value is ProxyResolverImpl) {
+             // Rust-implemented object.  Clone the handle and return it
+            return value.uniffiCloneHandle()
+         } else {
+            // Kotlin object, generate a new vtable handle and return that.
+            return handleMap.insert(value)
+         }
     }
 
-    override fun lift(value: Long): LocalUrlHandler {
-        return LocalUrlHandler(UniffiWithHandle, value)
+    override fun lift(value: Long): ProxyResolver {
+        if ((value and 1.toLong()) == 0.toLong()) {
+            // Rust-generated handle, construct a new class that uses the handle to implement the
+            // interface
+            return ProxyResolverImpl(UniffiWithHandle, value)
+        } else {
+            // Kotlin-generated handle, get the object from the handle map
+            return handleMap.remove(value)
+        }
     }
 
-    override fun read(buf: ByteBuffer): LocalUrlHandler {
+    override fun read(buf: ByteBuffer): ProxyResolver {
         return lift(buf.getLong())
     }
 
-    override fun allocationSize(value: LocalUrlHandler) = 8UL
+    override fun allocationSize(value: ProxyResolver) = 8UL
 
-    override fun write(value: LocalUrlHandler, buf: ByteBuffer) {
+    override fun write(value: ProxyResolver, buf: ByteBuffer) {
         buf.putLong(lower(value))
     }
 }
@@ -5013,9 +6506,9 @@ public interface RemoteInterface {
     /**
      * Fetches metadata for the latest version of `bundle_name` without downloading the bundle.
      */
-    suspend fun `getInfo`(`bundleName`: kotlin.String, `channel`: kotlin.String?): RemoteBundleInfo
+    suspend fun `getInfo`(`bundleName`: kotlin.String, `options`: RemoteFetchOptions?): RemoteBundleInfo
     
-    suspend fun `listBundles`(`channel`: kotlin.String?): List<ListRemoteBundleInfo>
+    suspend fun `listBundles`(`options`: RemoteFetchOptions?): List<ListRemoteBundleInfo>
     
     companion object
 }
@@ -5050,12 +6543,12 @@ open class Remote: Disposable, AutoCloseable, RemoteInterface
     /**
      * Creates a client for the server at `endpoint` (e.g. `"https://bundles.example.com"`).
      */
-    constructor(`endpoint`: kotlin.String) :
+    constructor(`endpoint`: kotlin.String, `options`: RemoteOptions? = null) :
         this(UniffiWithHandle, 
-    uniffiRustCallWithError(Exception) { _status ->
+    uniffiRustCallWithError(WebviewBundleException) { _status ->
     UniffiLib.uniffi_wvb_ffi_fn_constructor_remote_new(
     
-        FfiConverterString.lower(`endpoint`),_status)
+        FfiConverterString.lower(`endpoint`),FfiConverterOptionalTypeRemoteOptions.lower(`options`),_status)
 }
     )
 
@@ -5131,7 +6624,7 @@ open class Remote: Disposable, AutoCloseable, RemoteInterface
     }
 
     
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `download`(`bundleName`: kotlin.String, `channel`: kotlin.String?) : DownloadResult {
         return uniffiRustCallAsync(
@@ -5147,12 +6640,12 @@ open class Remote: Disposable, AutoCloseable, RemoteInterface
         // lift function
         { FfiConverterTypeDownloadResult.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
     
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `downloadVersion`(`bundleName`: kotlin.String, `version`: kotlin.String) : DownloadResult {
         return uniffiRustCallAsync(
@@ -5168,7 +6661,7 @@ open class Remote: Disposable, AutoCloseable, RemoteInterface
         // lift function
         { FfiConverterTypeDownloadResult.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -5176,14 +6669,14 @@ open class Remote: Disposable, AutoCloseable, RemoteInterface
     /**
      * Fetches metadata for the latest version of `bundle_name` without downloading the bundle.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    override suspend fun `getInfo`(`bundleName`: kotlin.String, `channel`: kotlin.String?) : RemoteBundleInfo {
+    override suspend fun `getInfo`(`bundleName`: kotlin.String, `options`: RemoteFetchOptions?) : RemoteBundleInfo {
         return uniffiRustCallAsync(
         callWithHandle { uniffiHandle ->
             UniffiLib.uniffi_wvb_ffi_fn_method_remote_get_info(
                 uniffiHandle,
-                FfiConverterString.lower(`bundleName`),FfiConverterOptionalString.lower(`channel`),
+                FfiConverterString.lower(`bundleName`),FfiConverterOptionalTypeRemoteFetchOptions.lower(`options`),
             )
         },
         { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
@@ -5192,19 +6685,19 @@ open class Remote: Disposable, AutoCloseable, RemoteInterface
         // lift function
         { FfiConverterTypeRemoteBundleInfo.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
     
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    override suspend fun `listBundles`(`channel`: kotlin.String?) : List<ListRemoteBundleInfo> {
+    override suspend fun `listBundles`(`options`: RemoteFetchOptions?) : List<ListRemoteBundleInfo> {
         return uniffiRustCallAsync(
         callWithHandle { uniffiHandle ->
             UniffiLib.uniffi_wvb_ffi_fn_method_remote_list_bundles(
                 uniffiHandle,
-                FfiConverterOptionalString.lower(`channel`),
+                FfiConverterOptionalTypeRemoteFetchOptions.lower(`options`),
             )
         },
         { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_rust_buffer(future, callback, continuation) },
@@ -5213,7 +6706,7 @@ open class Remote: Disposable, AutoCloseable, RemoteInterface
         // lift function
         { FfiConverterSequenceTypeListRemoteBundleInfo.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -5251,6 +6744,658 @@ public object FfiConverterTypeRemote: FfiConverter<Remote, Long> {
     override fun allocationSize(value: Remote) = 8UL
 
     override fun write(value: Remote, buf: ByteBuffer) {
+        buf.putLong(lower(value))
+    }
+}
+
+
+// This template implements a class for working with a Rust struct via a handle
+// to the live Rust struct on the other side of the FFI.
+//
+// There's some subtlety here, because we have to be careful not to operate on a Rust
+// struct after it has been dropped, and because we must expose a public API for freeing
+// theq Kotlin wrapper object in lieu of reliable finalizers. The core requirements are:
+//
+//   * Each instance holds an opaque handle to the underlying Rust struct.
+//     Method calls need to read this handle from the object's state and pass it in to
+//     the Rust FFI.
+//
+//   * When an instance is no longer needed, its handle should be passed to a
+//     special destructor function provided by the Rust FFI, which will drop the
+//     underlying Rust struct.
+//
+//   * Given an instance, calling code is expected to call the special
+//     `destroy` method in order to free it after use, either by calling it explicitly
+//     or by using a higher-level helper like the `use` method. Failing to do so risks
+//     leaking the underlying Rust struct.
+//
+//   * We can't assume that calling code will do the right thing, and must be prepared
+//     to handle Kotlin method calls executing concurrently with or even after a call to
+//     `destroy`, and to handle multiple (possibly concurrent!) calls to `destroy`.
+//
+//   * We must never allow Rust code to operate on the underlying Rust struct after
+//     the destructor has been called, and must never call the destructor more than once.
+//     Doing so may trigger memory unsafety.
+//
+//   * To mitigate many of the risks of leaking memory and use-after-free unsafety, a `Cleaner`
+//     is implemented to call the destructor when the Kotlin object becomes unreachable.
+//     This is done in a background thread. This is not a panacea, and client code should be aware that
+//      1. the thread may starve if some there are objects that have poorly performing
+//     `drop` methods or do significant work in their `drop` methods.
+//      2. the thread is shared across the whole library. This can be tuned by using `android_cleaner = true`,
+//         or `android = true` in the [`kotlin` section of the `uniffi.toml` file](https://mozilla.github.io/uniffi-rs/kotlin/configuration.html).
+//
+// If we try to implement this with mutual exclusion on access to the handle, there is the
+// possibility of a race between a method call and a concurrent call to `destroy`:
+//
+//    * Thread A starts a method call, reads the value of the handle, but is interrupted
+//      before it can pass the handle over the FFI to Rust.
+//    * Thread B calls `destroy` and frees the underlying Rust struct.
+//    * Thread A resumes, passing the already-read handle value to Rust and triggering
+//      a use-after-free.
+//
+// One possible solution would be to use a `ReadWriteLock`, with each method call taking
+// a read lock (and thus allowed to run concurrently) and the special `destroy` method
+// taking a write lock (and thus blocking on live method calls). However, we aim not to
+// generate methods with any hidden blocking semantics, and a `destroy` method that might
+// block if called incorrectly seems to meet that bar.
+//
+// So, we achieve our goals by giving each instance an associated `AtomicLong` counter to track
+// the number of in-flight method calls, and an `AtomicBoolean` flag to indicate whether `destroy`
+// has been called. These are updated according to the following rules:
+//
+//    * The initial value of the counter is 1, indicating a live object with no in-flight calls.
+//      The initial value for the flag is false.
+//
+//    * At the start of each method call, we atomically check the counter.
+//      If it is 0 then the underlying Rust struct has already been destroyed and the call is aborted.
+//      If it is nonzero them we atomically increment it by 1 and proceed with the method call.
+//
+//    * At the end of each method call, we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+//    * When `destroy` is called, we atomically flip the flag from false to true.
+//      If the flag was already true we silently fail.
+//      Otherwise we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+// Astute readers may observe that this all sounds very similar to the way that Rust's `Arc<T>` works,
+// and indeed it is, with the addition of a flag to guard against multiple calls to `destroy`.
+//
+// The overall effect is that the underlying Rust struct is destroyed only when `destroy` has been
+// called *and* all in-flight method calls have completed, avoiding violating any of the expectations
+// of the underlying Rust code.
+//
+// This makes a cleaner a better alternative to _not_ calling `destroy()` as
+// and when the object is finished with, but the abstraction is not perfect: if the Rust object's `drop`
+// method is slow, and/or there are many objects to cleanup, and it's on a low end Android device, then the cleaner
+// thread may be starved, and the app will leak memory.
+//
+// In this case, `destroy`ing manually may be a better solution.
+//
+// The cleaner can live side by side with the manual calling of `destroy`. In the order of responsiveness, uniffi objects
+// with Rust peers are reclaimed:
+//
+// 1. By calling the `destroy` method of the object, which calls `rustObject.free()`. If that doesn't happen:
+// 2. When the object becomes unreachable, AND the Cleaner thread gets to call `rustObject.free()`. If the thread is starved then:
+// 3. The memory is reclaimed when the process terminates.
+//
+// [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
+//
+
+
+/**
+ * A callback invoked with download progress as a bundle downloads.
+ */
+public interface RemoteOnDownload {
+    
+    fun `onDownload`(`data`: RemoteOnDownloadData)
+    
+    companion object
+}
+
+/**
+ * A callback invoked with download progress as a bundle downloads.
+ */
+open class RemoteOnDownloadImpl: Disposable, AutoCloseable, RemoteOnDownload
+{
+
+    @Suppress("UNUSED_PARAMETER")
+    /**
+     * @suppress
+     */
+    constructor(withHandle: UniffiWithHandle, handle: Long) {
+        this.handle = handle
+        this.cleanable = UniffiLib.CLEANER.register(this, UniffiCleanAction(handle))
+    }
+
+    /**
+     * @suppress
+     *
+     * This constructor can be used to instantiate a fake object. Only used for tests. Any
+     * attempt to actually use an object constructed this way will fail as there is no
+     * connected Rust object.
+     */
+    @Suppress("UNUSED_PARAMETER")
+    constructor(noHandle: NoHandle) {
+        this.handle = 0
+        this.cleanable = null
+    }
+
+    protected val handle: Long
+    protected val cleanable: UniffiCleaner.Cleanable?
+
+    private val wasDestroyed = AtomicBoolean(false)
+    private val callCounter = AtomicLong(1)
+
+    override fun destroy() {
+        // Only allow a single call to this method.
+        // TODO: maybe we should log a warning if called more than once?
+        if (this.wasDestroyed.compareAndSet(false, true)) {
+            // This decrement always matches the initial count of 1 given at creation time.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable?.clean()
+            }
+        }
+    }
+
+    @Synchronized
+    override fun close() {
+        this.destroy()
+    }
+
+    internal inline fun <R> callWithHandle(block: (handle: Long) -> R): R {
+        // Check and increment the call counter, to keep the object alive.
+        // This needs a compare-and-set retry loop in case of concurrent updates.
+        do {
+            val c = this.callCounter.get()
+            if (c == 0L) {
+                throw IllegalStateException("${this.javaClass.simpleName} object has already been destroyed")
+            }
+            if (c == Long.MAX_VALUE) {
+                throw IllegalStateException("${this.javaClass.simpleName} call counter would overflow")
+            }
+        } while (! this.callCounter.compareAndSet(c, c + 1L))
+        // Now we can safely do the method call without the handle being freed concurrently.
+        try {
+            return block(this.uniffiCloneHandle())
+        } finally {
+            // This decrement always matches the increment we performed above.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable?.clean()
+            }
+        }
+    }
+
+    // Use a static inner class instead of a closure so as not to accidentally
+    // capture `this` as part of the cleanable's action.
+    private class UniffiCleanAction(private val handle: Long) : Runnable {
+        override fun run() {
+            if (handle == 0.toLong()) {
+                // Fake object created with `NoHandle`, don't try to free.
+                return;
+            }
+            uniffiRustCall { status ->
+                UniffiLib.uniffi_wvb_ffi_fn_free_remoteondownload(handle, status)
+            }
+        }
+    }
+
+    /**
+     * @suppress
+     */
+    fun uniffiCloneHandle(): Long {
+        if (handle == 0.toLong()) {
+            throw InternalException("uniffiCloneHandle() called on NoHandle object");
+        }
+        return uniffiRustCall() { status ->
+            UniffiLib.uniffi_wvb_ffi_fn_clone_remoteondownload(handle, status)
+        }
+    }
+
+    override fun `onDownload`(`data`: RemoteOnDownloadData)
+        = 
+    callWithHandle {
+    uniffiRustCall() { _status ->
+    UniffiLib.uniffi_wvb_ffi_fn_method_remoteondownload_on_download(
+        it,
+        FfiConverterTypeRemoteOnDownloadData.lower(`data`),_status)
+}
+    }
+    
+    
+
+    
+
+    
+
+
+    
+    
+    /**
+     * @suppress
+     */
+    companion object
+    
+}
+
+
+
+// Put the implementation in an object so we don't pollute the top-level namespace
+internal object uniffiCallbackInterfaceRemoteOnDownload {
+    internal object `onDownload`: UniffiCallbackInterfaceRemoteOnDownloadMethod0 {
+        override fun callback(`uniffiHandle`: Long,`data`: RustBuffer.ByValue,`uniffiOutReturn`: Pointer,uniffiCallStatus: UniffiRustCallStatus,) {
+            val uniffiObj = FfiConverterTypeRemoteOnDownload.handleMap.get(uniffiHandle)
+            val makeCall = { ->
+                uniffiObj.`onDownload`(
+                    FfiConverterTypeRemoteOnDownloadData.lift(`data`),
+                )
+            }
+            val writeReturn = { _: Unit -> Unit }
+            uniffiTraitInterfaceCall(uniffiCallStatus, makeCall, writeReturn)
+        }
+    }
+
+    internal object uniffiFree: UniffiCallbackInterfaceFree {
+        override fun callback(handle: Long) {
+            FfiConverterTypeRemoteOnDownload.handleMap.remove(handle)
+        }
+    }
+
+    internal object uniffiClone: UniffiCallbackInterfaceClone {
+        override fun callback(handle: Long): Long {
+            return FfiConverterTypeRemoteOnDownload.handleMap.clone(handle)
+        }
+    }
+
+    internal var vtable = UniffiVTableCallbackInterfaceRemoteOnDownload.UniffiByValue(
+        uniffiFree,
+        uniffiClone,
+        `onDownload`,
+    )
+
+    // Registers the foreign callback with the Rust side.
+    // This method is generated for each callback interface.
+    internal fun register(lib: UniffiLib) {
+        lib.uniffi_wvb_ffi_fn_init_callback_vtable_remoteondownload(vtable)
+    }
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeRemoteOnDownload: FfiConverter<RemoteOnDownload, Long> {
+    internal val handleMap = UniffiHandleMap<RemoteOnDownload>()
+
+    override fun lower(value: RemoteOnDownload): Long {
+        if (value is RemoteOnDownloadImpl) {
+             // Rust-implemented object.  Clone the handle and return it
+            return value.uniffiCloneHandle()
+         } else {
+            // Kotlin object, generate a new vtable handle and return that.
+            return handleMap.insert(value)
+         }
+    }
+
+    override fun lift(value: Long): RemoteOnDownload {
+        if ((value and 1.toLong()) == 0.toLong()) {
+            // Rust-generated handle, construct a new class that uses the handle to implement the
+            // interface
+            return RemoteOnDownloadImpl(UniffiWithHandle, value)
+        } else {
+            // Kotlin-generated handle, get the object from the handle map
+            return handleMap.remove(value)
+        }
+    }
+
+    override fun read(buf: ByteBuffer): RemoteOnDownload {
+        return lift(buf.getLong())
+    }
+
+    override fun allocationSize(value: RemoteOnDownload) = 8UL
+
+    override fun write(value: RemoteOnDownload, buf: ByteBuffer) {
+        buf.putLong(lower(value))
+    }
+}
+
+
+// This template implements a class for working with a Rust struct via a handle
+// to the live Rust struct on the other side of the FFI.
+//
+// There's some subtlety here, because we have to be careful not to operate on a Rust
+// struct after it has been dropped, and because we must expose a public API for freeing
+// theq Kotlin wrapper object in lieu of reliable finalizers. The core requirements are:
+//
+//   * Each instance holds an opaque handle to the underlying Rust struct.
+//     Method calls need to read this handle from the object's state and pass it in to
+//     the Rust FFI.
+//
+//   * When an instance is no longer needed, its handle should be passed to a
+//     special destructor function provided by the Rust FFI, which will drop the
+//     underlying Rust struct.
+//
+//   * Given an instance, calling code is expected to call the special
+//     `destroy` method in order to free it after use, either by calling it explicitly
+//     or by using a higher-level helper like the `use` method. Failing to do so risks
+//     leaking the underlying Rust struct.
+//
+//   * We can't assume that calling code will do the right thing, and must be prepared
+//     to handle Kotlin method calls executing concurrently with or even after a call to
+//     `destroy`, and to handle multiple (possibly concurrent!) calls to `destroy`.
+//
+//   * We must never allow Rust code to operate on the underlying Rust struct after
+//     the destructor has been called, and must never call the destructor more than once.
+//     Doing so may trigger memory unsafety.
+//
+//   * To mitigate many of the risks of leaking memory and use-after-free unsafety, a `Cleaner`
+//     is implemented to call the destructor when the Kotlin object becomes unreachable.
+//     This is done in a background thread. This is not a panacea, and client code should be aware that
+//      1. the thread may starve if some there are objects that have poorly performing
+//     `drop` methods or do significant work in their `drop` methods.
+//      2. the thread is shared across the whole library. This can be tuned by using `android_cleaner = true`,
+//         or `android = true` in the [`kotlin` section of the `uniffi.toml` file](https://mozilla.github.io/uniffi-rs/kotlin/configuration.html).
+//
+// If we try to implement this with mutual exclusion on access to the handle, there is the
+// possibility of a race between a method call and a concurrent call to `destroy`:
+//
+//    * Thread A starts a method call, reads the value of the handle, but is interrupted
+//      before it can pass the handle over the FFI to Rust.
+//    * Thread B calls `destroy` and frees the underlying Rust struct.
+//    * Thread A resumes, passing the already-read handle value to Rust and triggering
+//      a use-after-free.
+//
+// One possible solution would be to use a `ReadWriteLock`, with each method call taking
+// a read lock (and thus allowed to run concurrently) and the special `destroy` method
+// taking a write lock (and thus blocking on live method calls). However, we aim not to
+// generate methods with any hidden blocking semantics, and a `destroy` method that might
+// block if called incorrectly seems to meet that bar.
+//
+// So, we achieve our goals by giving each instance an associated `AtomicLong` counter to track
+// the number of in-flight method calls, and an `AtomicBoolean` flag to indicate whether `destroy`
+// has been called. These are updated according to the following rules:
+//
+//    * The initial value of the counter is 1, indicating a live object with no in-flight calls.
+//      The initial value for the flag is false.
+//
+//    * At the start of each method call, we atomically check the counter.
+//      If it is 0 then the underlying Rust struct has already been destroyed and the call is aborted.
+//      If it is nonzero them we atomically increment it by 1 and proceed with the method call.
+//
+//    * At the end of each method call, we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+//    * When `destroy` is called, we atomically flip the flag from false to true.
+//      If the flag was already true we silently fail.
+//      Otherwise we atomically decrement and check the counter.
+//      If it has reached zero then we destroy the underlying Rust struct.
+//
+// Astute readers may observe that this all sounds very similar to the way that Rust's `Arc<T>` works,
+// and indeed it is, with the addition of a flag to guard against multiple calls to `destroy`.
+//
+// The overall effect is that the underlying Rust struct is destroyed only when `destroy` has been
+// called *and* all in-flight method calls have completed, avoiding violating any of the expectations
+// of the underlying Rust code.
+//
+// This makes a cleaner a better alternative to _not_ calling `destroy()` as
+// and when the object is finished with, but the abstraction is not perfect: if the Rust object's `drop`
+// method is slow, and/or there are many objects to cleanup, and it's on a low end Android device, then the cleaner
+// thread may be starved, and the app will leak memory.
+//
+// In this case, `destroy`ing manually may be a better solution.
+//
+// The cleaner can live side by side with the manual calling of `destroy`. In the order of responsiveness, uniffi objects
+// with Rust peers are reclaimed:
+//
+// 1. By calling the `destroy` method of the object, which calls `rustObject.free()`. If that doesn't happen:
+// 2. When the object becomes unreachable, AND the Cleaner thread gets to call `rustObject.free()`. If the thread is starved then:
+// 3. The memory is reclaimed when the process terminates.
+//
+// [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
+//
+
+
+/**
+ * A custom function that verifies a bundle's signature.
+ */
+public interface SignatureVerify {
+    
+    suspend fun `verify`(`message`: kotlin.ByteArray, `signature`: kotlin.String): kotlin.Boolean
+    
+    companion object
+}
+
+/**
+ * A custom function that verifies a bundle's signature.
+ */
+open class SignatureVerifyImpl: Disposable, AutoCloseable, SignatureVerify
+{
+
+    @Suppress("UNUSED_PARAMETER")
+    /**
+     * @suppress
+     */
+    constructor(withHandle: UniffiWithHandle, handle: Long) {
+        this.handle = handle
+        this.cleanable = UniffiLib.CLEANER.register(this, UniffiCleanAction(handle))
+    }
+
+    /**
+     * @suppress
+     *
+     * This constructor can be used to instantiate a fake object. Only used for tests. Any
+     * attempt to actually use an object constructed this way will fail as there is no
+     * connected Rust object.
+     */
+    @Suppress("UNUSED_PARAMETER")
+    constructor(noHandle: NoHandle) {
+        this.handle = 0
+        this.cleanable = null
+    }
+
+    protected val handle: Long
+    protected val cleanable: UniffiCleaner.Cleanable?
+
+    private val wasDestroyed = AtomicBoolean(false)
+    private val callCounter = AtomicLong(1)
+
+    override fun destroy() {
+        // Only allow a single call to this method.
+        // TODO: maybe we should log a warning if called more than once?
+        if (this.wasDestroyed.compareAndSet(false, true)) {
+            // This decrement always matches the initial count of 1 given at creation time.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable?.clean()
+            }
+        }
+    }
+
+    @Synchronized
+    override fun close() {
+        this.destroy()
+    }
+
+    internal inline fun <R> callWithHandle(block: (handle: Long) -> R): R {
+        // Check and increment the call counter, to keep the object alive.
+        // This needs a compare-and-set retry loop in case of concurrent updates.
+        do {
+            val c = this.callCounter.get()
+            if (c == 0L) {
+                throw IllegalStateException("${this.javaClass.simpleName} object has already been destroyed")
+            }
+            if (c == Long.MAX_VALUE) {
+                throw IllegalStateException("${this.javaClass.simpleName} call counter would overflow")
+            }
+        } while (! this.callCounter.compareAndSet(c, c + 1L))
+        // Now we can safely do the method call without the handle being freed concurrently.
+        try {
+            return block(this.uniffiCloneHandle())
+        } finally {
+            // This decrement always matches the increment we performed above.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable?.clean()
+            }
+        }
+    }
+
+    // Use a static inner class instead of a closure so as not to accidentally
+    // capture `this` as part of the cleanable's action.
+    private class UniffiCleanAction(private val handle: Long) : Runnable {
+        override fun run() {
+            if (handle == 0.toLong()) {
+                // Fake object created with `NoHandle`, don't try to free.
+                return;
+            }
+            uniffiRustCall { status ->
+                UniffiLib.uniffi_wvb_ffi_fn_free_signatureverify(handle, status)
+            }
+        }
+    }
+
+    /**
+     * @suppress
+     */
+    fun uniffiCloneHandle(): Long {
+        if (handle == 0.toLong()) {
+            throw InternalException("uniffiCloneHandle() called on NoHandle object");
+        }
+        return uniffiRustCall() { status ->
+            UniffiLib.uniffi_wvb_ffi_fn_clone_signatureverify(handle, status)
+        }
+    }
+
+    
+    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+    override suspend fun `verify`(`message`: kotlin.ByteArray, `signature`: kotlin.String) : kotlin.Boolean {
+        return uniffiRustCallAsync(
+        callWithHandle { uniffiHandle ->
+            UniffiLib.uniffi_wvb_ffi_fn_method_signatureverify_verify(
+                uniffiHandle,
+                FfiConverterByteArray.lower(`message`),FfiConverterString.lower(`signature`),
+            )
+        },
+        { future, callback, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_poll_i8(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_wvb_ffi_rust_future_complete_i8(future, continuation) },
+        { future -> UniffiLib.ffi_wvb_ffi_rust_future_free_i8(future) },
+        // lift function
+        { FfiConverterBoolean.lift(it) },
+        // Error FFI converter
+        UniffiNullRustCallStatusErrorHandler,
+    )
+    }
+
+    
+
+    
+
+
+    
+    
+    /**
+     * @suppress
+     */
+    companion object
+    
+}
+
+
+
+// Put the implementation in an object so we don't pollute the top-level namespace
+internal object uniffiCallbackInterfaceSignatureVerify {
+    internal object `verify`: UniffiCallbackInterfaceSignatureVerifyMethod0 {
+        override fun callback(`uniffiHandle`: Long,`message`: RustBuffer.ByValue,`signature`: RustBuffer.ByValue,`uniffiFutureCallback`: UniffiForeignFutureCompleteI8,`uniffiCallbackData`: Long,`uniffiOutDroppedCallback`: UniffiForeignFutureDroppedCallbackStruct,) {
+            val uniffiObj = FfiConverterTypeSignatureVerify.handleMap.get(uniffiHandle)
+            val makeCall = suspend { ->
+                uniffiObj.`verify`(
+                    FfiConverterByteArray.lift(`message`),
+                    FfiConverterString.lift(`signature`),
+                )
+            }
+            val uniffiHandleSuccess = { returnValue: kotlin.Boolean ->
+                val uniffiResult = UniffiForeignFutureResultI8.UniffiByValue(
+                    FfiConverterBoolean.lower(returnValue),
+                    UniffiRustCallStatus.ByValue()
+                )
+                uniffiResult.write()
+                uniffiFutureCallback.callback(uniffiCallbackData, uniffiResult)
+            }
+            val uniffiHandleError = { callStatus: UniffiRustCallStatus.ByValue ->
+                uniffiFutureCallback.callback(
+                    uniffiCallbackData,
+                    UniffiForeignFutureResultI8.UniffiByValue(
+                        0.toByte(),
+                        callStatus,
+                    ),
+                )
+            }
+            uniffiTraitInterfaceCallAsync(
+                makeCall,
+                uniffiHandleSuccess,
+                uniffiHandleError,
+                uniffiOutDroppedCallback
+            )
+        }
+    }
+
+    internal object uniffiFree: UniffiCallbackInterfaceFree {
+        override fun callback(handle: Long) {
+            FfiConverterTypeSignatureVerify.handleMap.remove(handle)
+        }
+    }
+
+    internal object uniffiClone: UniffiCallbackInterfaceClone {
+        override fun callback(handle: Long): Long {
+            return FfiConverterTypeSignatureVerify.handleMap.clone(handle)
+        }
+    }
+
+    internal var vtable = UniffiVTableCallbackInterfaceSignatureVerify.UniffiByValue(
+        uniffiFree,
+        uniffiClone,
+        `verify`,
+    )
+
+    // Registers the foreign callback with the Rust side.
+    // This method is generated for each callback interface.
+    internal fun register(lib: UniffiLib) {
+        lib.uniffi_wvb_ffi_fn_init_callback_vtable_signatureverify(vtable)
+    }
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeSignatureVerify: FfiConverter<SignatureVerify, Long> {
+    internal val handleMap = UniffiHandleMap<SignatureVerify>()
+
+    override fun lower(value: SignatureVerify): Long {
+        if (value is SignatureVerifyImpl) {
+             // Rust-implemented object.  Clone the handle and return it
+            return value.uniffiCloneHandle()
+         } else {
+            // Kotlin object, generate a new vtable handle and return that.
+            return handleMap.insert(value)
+         }
+    }
+
+    override fun lift(value: Long): SignatureVerify {
+        if ((value and 1.toLong()) == 0.toLong()) {
+            // Rust-generated handle, construct a new class that uses the handle to implement the
+            // interface
+            return SignatureVerifyImpl(UniffiWithHandle, value)
+        } else {
+            // Kotlin-generated handle, get the object from the handle map
+            return handleMap.remove(value)
+        }
+    }
+
+    override fun read(buf: ByteBuffer): SignatureVerify {
+        return lift(buf.getLong())
+    }
+
+    override fun allocationSize(value: SignatureVerify) = 8UL
+
+    override fun write(value: SignatureVerify, buf: ByteBuffer) {
         buf.putLong(lower(value))
     }
 }
@@ -5415,7 +7560,7 @@ open class Updater: Disposable, AutoCloseable, UpdaterInterface
     }
     constructor(`source`: BundleSource, `remote`: Remote, `options`: UpdaterOptions?) :
         this(UniffiWithHandle, 
-    uniffiRustCallWithError(Exception) { _status ->
+    uniffiRustCallWithError(WebviewBundleException) { _status ->
     UniffiLib.uniffi_wvb_ffi_fn_constructor_updater_new(
     
         FfiConverterTypeBundleSource.lower(`source`),FfiConverterTypeRemote.lower(`remote`),FfiConverterOptionalTypeUpdaterOptions.lower(`options`),_status)
@@ -5498,7 +7643,7 @@ open class Updater: Disposable, AutoCloseable, UpdaterInterface
      * Downloads and persists an update for `bundle_name`.
      * Uses the latest remote version when `version` is `None`.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `downloadUpdate`(`bundleName`: kotlin.String, `version`: kotlin.String?) : RemoteBundleInfo {
         return uniffiRustCallAsync(
@@ -5514,7 +7659,7 @@ open class Updater: Disposable, AutoCloseable, UpdaterInterface
         // lift function
         { FfiConverterTypeRemoteBundleInfo.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -5523,7 +7668,7 @@ open class Updater: Disposable, AutoCloseable, UpdaterInterface
      * Checks whether a newer version of `bundle_name` is available on the remote.
      * Does not download the bundle.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `getUpdate`(`bundleName`: kotlin.String) : BundleUpdateInfo {
         return uniffiRustCallAsync(
@@ -5539,7 +7684,7 @@ open class Updater: Disposable, AutoCloseable, UpdaterInterface
         // lift function
         { FfiConverterTypeBundleUpdateInfo.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -5553,7 +7698,7 @@ open class Updater: Disposable, AutoCloseable, UpdaterInterface
      * On success the current version is updated, the cached descriptor is dropped,
      * and stale staged versions are pruned.
      */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `install`(`bundleName`: kotlin.String, `version`: kotlin.String) {
         return uniffiRustCallAsync(
@@ -5570,12 +7715,12 @@ open class Updater: Disposable, AutoCloseable, UpdaterInterface
         { Unit },
         
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
     
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `listRemotes`() : List<ListRemoteBundleInfo> {
         return uniffiRustCallAsync(
@@ -5591,7 +7736,7 @@ open class Updater: Disposable, AutoCloseable, UpdaterInterface
         // lift function
         { FfiConverterSequenceTypeListRemoteBundleInfo.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -5636,10 +7781,10 @@ public object FfiConverterTypeUpdater: FfiConverter<Updater, Long> {
 
 
 /**
- * Checksum options for the bundle header section.
+ * Options for the bundle header section.
  */
 data class BuildHeaderOptions (
-    var `checksumSeed`: kotlin.UInt?
+    var `checksum`: ChecksumWriteOptions? = null 
     
 ){
     
@@ -5656,26 +7801,26 @@ data class BuildHeaderOptions (
 public object FfiConverterTypeBuildHeaderOptions: FfiConverterRustBuffer<BuildHeaderOptions> {
     override fun read(buf: ByteBuffer): BuildHeaderOptions {
         return BuildHeaderOptions(
-            FfiConverterOptionalUInt.read(buf),
+            FfiConverterOptionalTypeChecksumWriteOptions.read(buf),
         )
     }
 
     override fun allocationSize(value: BuildHeaderOptions) = (
-            FfiConverterOptionalUInt.allocationSize(value.`checksumSeed`)
+            FfiConverterOptionalTypeChecksumWriteOptions.allocationSize(value.`checksum`)
     )
 
     override fun write(value: BuildHeaderOptions, buf: ByteBuffer) {
-            FfiConverterOptionalUInt.write(value.`checksumSeed`, buf)
+            FfiConverterOptionalTypeChecksumWriteOptions.write(value.`checksum`, buf)
     }
 }
 
 
 
 /**
- * Checksum options for the bundle index section.
+ * Pptions for the bundle index section.
  */
 data class BuildIndexOptions (
-    var `checksumSeed`: kotlin.UInt?
+    var `checksum`: ChecksumWriteOptions? = null 
     
 ){
     
@@ -5692,16 +7837,16 @@ data class BuildIndexOptions (
 public object FfiConverterTypeBuildIndexOptions: FfiConverterRustBuffer<BuildIndexOptions> {
     override fun read(buf: ByteBuffer): BuildIndexOptions {
         return BuildIndexOptions(
-            FfiConverterOptionalUInt.read(buf),
+            FfiConverterOptionalTypeChecksumWriteOptions.read(buf),
         )
     }
 
     override fun allocationSize(value: BuildIndexOptions) = (
-            FfiConverterOptionalUInt.allocationSize(value.`checksumSeed`)
+            FfiConverterOptionalTypeChecksumWriteOptions.allocationSize(value.`checksum`)
     )
 
     override fun write(value: BuildIndexOptions, buf: ByteBuffer) {
-            FfiConverterOptionalUInt.write(value.`checksumSeed`, buf)
+            FfiConverterOptionalTypeChecksumWriteOptions.write(value.`checksum`, buf)
     }
 }
 
@@ -5716,10 +7861,7 @@ data class BuildOptions (
     , 
     var `index`: BuildIndexOptions?
     , 
-    /**
-     * Seed for the CRC-32 checksum written into each data entry.
-     */
-    var `dataChecksumSeed`: kotlin.UInt?
+    var `dataChecksum`: ChecksumWriteOptions?
     
 ){
     
@@ -5738,20 +7880,20 @@ public object FfiConverterTypeBuildOptions: FfiConverterRustBuffer<BuildOptions>
         return BuildOptions(
             FfiConverterOptionalTypeBuildHeaderOptions.read(buf),
             FfiConverterOptionalTypeBuildIndexOptions.read(buf),
-            FfiConverterOptionalUInt.read(buf),
+            FfiConverterOptionalTypeChecksumWriteOptions.read(buf),
         )
     }
 
     override fun allocationSize(value: BuildOptions) = (
             FfiConverterOptionalTypeBuildHeaderOptions.allocationSize(value.`header`) +
             FfiConverterOptionalTypeBuildIndexOptions.allocationSize(value.`index`) +
-            FfiConverterOptionalUInt.allocationSize(value.`dataChecksumSeed`)
+            FfiConverterOptionalTypeChecksumWriteOptions.allocationSize(value.`dataChecksum`)
     )
 
     override fun write(value: BuildOptions, buf: ByteBuffer) {
             FfiConverterOptionalTypeBuildHeaderOptions.write(value.`header`, buf)
             FfiConverterOptionalTypeBuildIndexOptions.write(value.`index`, buf)
-            FfiConverterOptionalUInt.write(value.`dataChecksumSeed`, buf)
+            FfiConverterOptionalTypeChecksumWriteOptions.write(value.`dataChecksum`, buf)
     }
 }
 
@@ -5810,26 +7952,104 @@ public object FfiConverterTypeBundleManifestMetadata: FfiConverterRustBuffer<Bun
 
 
 /**
- * Directory paths used by [`BundleSource`] to locate bundles on disk.
+ * How a [`BundleProtocolHandler`] resolves the request uri.
  *
- * `builtin_dir` is read-only (e.g. the app bundle on iOS/Android).
- * `remote_dir` must be writable so downloaded bundles can be persisted.
- * Both manifest paths default to `<dir>/manifest.json` when `None`.
+ * Defaults to the first hostname segment as the bundle name, and a directory-index path
+ * (`/about` -> `/about/index.html`).
  */
-data class BundleSourceConfig (
-    var `builtinDir`: kotlin.String
+data class BundleProtocolOptions (
+    var `bundleResolver`: BundleResolver? = null 
     , 
-    var `remoteDir`: kotlin.String
-    , 
-    var `builtinManifestFilepath`: kotlin.String?
-    , 
-    var `remoteManifestFilepath`: kotlin.String?
+    var `pathResolver`: PathResolver? = null 
     
 ){
     
 
     
 
+    
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeBundleProtocolOptions: FfiConverterRustBuffer<BundleProtocolOptions> {
+    override fun read(buf: ByteBuffer): BundleProtocolOptions {
+        return BundleProtocolOptions(
+            FfiConverterOptionalTypeBundleResolver.read(buf),
+            FfiConverterOptionalTypePathResolver.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: BundleProtocolOptions) = (
+            FfiConverterOptionalTypeBundleResolver.allocationSize(value.`bundleResolver`) +
+            FfiConverterOptionalTypePathResolver.allocationSize(value.`pathResolver`)
+    )
+
+    override fun write(value: BundleProtocolOptions, buf: ByteBuffer) {
+            FfiConverterOptionalTypeBundleResolver.write(value.`bundleResolver`, buf)
+            FfiConverterOptionalTypePathResolver.write(value.`pathResolver`, buf)
+    }
+}
+
+
+
+data class BundleSourceConfig (
+    var `builtinDir`: kotlin.String
+    , 
+    var `remoteDir`: kotlin.String
+    , 
+    var `builtinManifestFilepath`: kotlin.String? = null 
+    , 
+    var `remoteManifestFilepath`: kotlin.String? = null 
+    , 
+    /**
+     * How bundles are checked against their manifest integrity metadata on load.
+     */
+    var `integrity`: BundleSourceIntegrityOptions? = null 
+    , 
+    /**
+     * How bundle signatures are verified on load.
+     */
+    var `signature`: BundleSourceSignatureOptions? = null 
+    , 
+    /**
+     * How each entry's checksum is verified when its data is read.
+     */
+    var `dataReadOptions`: DataReadOptions? = null 
+    , 
+    /**
+     * How a bundle's header checksum is verified when its descriptor is read on load.
+     */
+    var `headerReadOptions`: HeaderReadOptions? = null 
+    , 
+    /**
+     * How a bundle's index checksum is verified when its descriptor is read on load.
+     */
+    var `indexReadOptions`: IndexReadOptions? = null 
+    
+): Disposable{
+    
+
+    
+
+    
+    @Suppress("UNNECESSARY_SAFE_CALL") // codegen is much simpler if we unconditionally emit safe calls here
+    override fun destroy() {
+        
+    Disposable.destroy(
+        this.`builtinDir`,
+        this.`remoteDir`,
+        this.`builtinManifestFilepath`,
+        this.`remoteManifestFilepath`,
+        this.`integrity`,
+        this.`signature`,
+        this.`dataReadOptions`,
+        this.`headerReadOptions`,
+        this.`indexReadOptions`
+    )
+    }
     
     companion object
 }
@@ -5844,6 +8064,11 @@ public object FfiConverterTypeBundleSourceConfig: FfiConverterRustBuffer<BundleS
             FfiConverterString.read(buf),
             FfiConverterOptionalString.read(buf),
             FfiConverterOptionalString.read(buf),
+            FfiConverterOptionalTypeBundleSourceIntegrityOptions.read(buf),
+            FfiConverterOptionalTypeBundleSourceSignatureOptions.read(buf),
+            FfiConverterOptionalTypeDataReadOptions.read(buf),
+            FfiConverterOptionalTypeHeaderReadOptions.read(buf),
+            FfiConverterOptionalTypeIndexReadOptions.read(buf),
         )
     }
 
@@ -5851,7 +8076,12 @@ public object FfiConverterTypeBundleSourceConfig: FfiConverterRustBuffer<BundleS
             FfiConverterString.allocationSize(value.`builtinDir`) +
             FfiConverterString.allocationSize(value.`remoteDir`) +
             FfiConverterOptionalString.allocationSize(value.`builtinManifestFilepath`) +
-            FfiConverterOptionalString.allocationSize(value.`remoteManifestFilepath`)
+            FfiConverterOptionalString.allocationSize(value.`remoteManifestFilepath`) +
+            FfiConverterOptionalTypeBundleSourceIntegrityOptions.allocationSize(value.`integrity`) +
+            FfiConverterOptionalTypeBundleSourceSignatureOptions.allocationSize(value.`signature`) +
+            FfiConverterOptionalTypeDataReadOptions.allocationSize(value.`dataReadOptions`) +
+            FfiConverterOptionalTypeHeaderReadOptions.allocationSize(value.`headerReadOptions`) +
+            FfiConverterOptionalTypeIndexReadOptions.allocationSize(value.`indexReadOptions`)
     )
 
     override fun write(value: BundleSourceConfig, buf: ByteBuffer) {
@@ -5859,6 +8089,144 @@ public object FfiConverterTypeBundleSourceConfig: FfiConverterRustBuffer<BundleS
             FfiConverterString.write(value.`remoteDir`, buf)
             FfiConverterOptionalString.write(value.`builtinManifestFilepath`, buf)
             FfiConverterOptionalString.write(value.`remoteManifestFilepath`, buf)
+            FfiConverterOptionalTypeBundleSourceIntegrityOptions.write(value.`integrity`, buf)
+            FfiConverterOptionalTypeBundleSourceSignatureOptions.write(value.`signature`, buf)
+            FfiConverterOptionalTypeDataReadOptions.write(value.`dataReadOptions`, buf)
+            FfiConverterOptionalTypeHeaderReadOptions.write(value.`headerReadOptions`, buf)
+            FfiConverterOptionalTypeIndexReadOptions.write(value.`indexReadOptions`, buf)
+    }
+}
+
+
+
+/**
+ * How bundles are checked against the integrity recorded for them in the manifest when
+ * they are loaded from disk.
+ */
+data class BundleSourceIntegrityOptions (
+    /**
+     * How a bundle's integrity metadata is treated (default: [`IntegrityPolicy::Optional`]).
+     *
+     * [`IntegrityPolicy::Off`] disables the integrity check entirely.
+     */
+    var `policy`: IntegrityPolicy? = null 
+    , 
+    /**
+     * A custom checker that validates bundle bytes against their integrity string
+     * (default: the built-in checker, which compares the advertised hash).
+     */
+    var `check`: IntegrityCheck? = null 
+    , 
+    /**
+     * Which bundles are checked on load (default: [`BundleSourceVerifyMode::OnlyRemote`]).
+     */
+    var `checkMode`: BundleSourceVerifyMode? = null 
+    
+): Disposable{
+    
+
+    
+
+    
+    @Suppress("UNNECESSARY_SAFE_CALL") // codegen is much simpler if we unconditionally emit safe calls here
+    override fun destroy() {
+        
+    Disposable.destroy(
+        this.`policy`,
+        this.`check`,
+        this.`checkMode`
+    )
+    }
+    
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeBundleSourceIntegrityOptions: FfiConverterRustBuffer<BundleSourceIntegrityOptions> {
+    override fun read(buf: ByteBuffer): BundleSourceIntegrityOptions {
+        return BundleSourceIntegrityOptions(
+            FfiConverterOptionalTypeIntegrityPolicy.read(buf),
+            FfiConverterOptionalTypeIntegrityCheck.read(buf),
+            FfiConverterOptionalTypeBundleSourceVerifyMode.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: BundleSourceIntegrityOptions) = (
+            FfiConverterOptionalTypeIntegrityPolicy.allocationSize(value.`policy`) +
+            FfiConverterOptionalTypeIntegrityCheck.allocationSize(value.`check`) +
+            FfiConverterOptionalTypeBundleSourceVerifyMode.allocationSize(value.`checkMode`)
+    )
+
+    override fun write(value: BundleSourceIntegrityOptions, buf: ByteBuffer) {
+            FfiConverterOptionalTypeIntegrityPolicy.write(value.`policy`, buf)
+            FfiConverterOptionalTypeIntegrityCheck.write(value.`check`, buf)
+            FfiConverterOptionalTypeBundleSourceVerifyMode.write(value.`checkMode`, buf)
+    }
+}
+
+
+
+/**
+ * How bundle signatures are verified when bundles are loaded from disk.
+ *
+ * A bundle's signature signs its integrity string (e.g. `sha256:<base64>`), not the
+ * bundle bytes; verifying it proves the integrity string is authentic. It is verified
+ * independently of the integrity check, so pair it with an enabled
+ * [`BundleSourceConfig::integrity`] to also authenticate the bytes — signature
+ * verification alone does not read them.
+ */
+data class BundleSourceSignatureOptions (
+    /**
+     * Verifies that a bundle's integrity string was signed by the matching key — with a
+     * declarative public key or a custom function (default: off).
+     */
+    var `verify`: SignatureVerification? = null 
+    , 
+    /**
+     * Which bundles have their signature verified on load
+     * (default: [`BundleSourceVerifyMode::OnlyRemote`]).
+     */
+    var `verifyMode`: BundleSourceVerifyMode? = null 
+    
+): Disposable{
+    
+
+    
+
+    
+    @Suppress("UNNECESSARY_SAFE_CALL") // codegen is much simpler if we unconditionally emit safe calls here
+    override fun destroy() {
+        
+    Disposable.destroy(
+        this.`verify`,
+        this.`verifyMode`
+    )
+    }
+    
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeBundleSourceSignatureOptions: FfiConverterRustBuffer<BundleSourceSignatureOptions> {
+    override fun read(buf: ByteBuffer): BundleSourceSignatureOptions {
+        return BundleSourceSignatureOptions(
+            FfiConverterOptionalTypeSignatureVerification.read(buf),
+            FfiConverterOptionalTypeBundleSourceVerifyMode.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: BundleSourceSignatureOptions) = (
+            FfiConverterOptionalTypeSignatureVerification.allocationSize(value.`verify`) +
+            FfiConverterOptionalTypeBundleSourceVerifyMode.allocationSize(value.`verifyMode`)
+    )
+
+    override fun write(value: BundleSourceSignatureOptions, buf: ByteBuffer) {
+            FfiConverterOptionalTypeSignatureVerification.write(value.`verify`, buf)
+            FfiConverterOptionalTypeBundleSourceVerifyMode.write(value.`verifyMode`, buf)
     }
 }
 
@@ -5981,6 +8349,128 @@ public object FfiConverterTypeBundleUpdateInfo: FfiConverterRustBuffer<BundleUpd
 
 
 /**
+ * How each entry's xxHash-32 data checksum is verified when its data is read.
+ */
+data class ChecksumReadOptions (
+    /**
+     * Verify each entry's data checksum when its data is read (default: `true`).
+     */
+    var `verify`: kotlin.Boolean? = null 
+    , 
+    /**
+     * The seed the data checksums were built with (default: `0`).
+     */
+    var `seed`: kotlin.UInt? = null 
+    
+){
+    
+
+    
+
+    
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeChecksumReadOptions: FfiConverterRustBuffer<ChecksumReadOptions> {
+    override fun read(buf: ByteBuffer): ChecksumReadOptions {
+        return ChecksumReadOptions(
+            FfiConverterOptionalBoolean.read(buf),
+            FfiConverterOptionalUInt.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: ChecksumReadOptions) = (
+            FfiConverterOptionalBoolean.allocationSize(value.`verify`) +
+            FfiConverterOptionalUInt.allocationSize(value.`seed`)
+    )
+
+    override fun write(value: ChecksumReadOptions, buf: ByteBuffer) {
+            FfiConverterOptionalBoolean.write(value.`verify`, buf)
+            FfiConverterOptionalUInt.write(value.`seed`, buf)
+    }
+}
+
+
+
+data class ChecksumWriteOptions (
+    /**
+     * The seed the data checksums were built with (default: `0`).
+     */
+    var `seed`: kotlin.UInt? = null 
+    
+){
+    
+
+    
+
+    
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeChecksumWriteOptions: FfiConverterRustBuffer<ChecksumWriteOptions> {
+    override fun read(buf: ByteBuffer): ChecksumWriteOptions {
+        return ChecksumWriteOptions(
+            FfiConverterOptionalUInt.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: ChecksumWriteOptions) = (
+            FfiConverterOptionalUInt.allocationSize(value.`seed`)
+    )
+
+    override fun write(value: ChecksumWriteOptions, buf: ByteBuffer) {
+            FfiConverterOptionalUInt.write(value.`seed`, buf)
+    }
+}
+
+
+
+/**
+ * How each entry's data checksum is verified when its data is read.
+ */
+data class DataReadOptions (
+    /**
+     * How each entry's data checksum is verified.
+     */
+    var `checksum`: ChecksumReadOptions? = null 
+    
+){
+    
+
+    
+
+    
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeDataReadOptions: FfiConverterRustBuffer<DataReadOptions> {
+    override fun read(buf: ByteBuffer): DataReadOptions {
+        return DataReadOptions(
+            FfiConverterOptionalTypeChecksumReadOptions.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: DataReadOptions) = (
+            FfiConverterOptionalTypeChecksumReadOptions.allocationSize(value.`checksum`)
+    )
+
+    override fun write(value: DataReadOptions, buf: ByteBuffer) {
+            FfiConverterOptionalTypeChecksumReadOptions.write(value.`checksum`, buf)
+    }
+}
+
+
+
+/**
  * Result of a bundle download containing the parsed bundle, its raw bytes,
  * and the server-provided metadata.
  *
@@ -6035,6 +8525,136 @@ public object FfiConverterTypeDownloadResult: FfiConverterRustBuffer<DownloadRes
             FfiConverterTypeRemoteBundleInfo.write(value.`info`, buf)
             FfiConverterTypeBundle.write(value.`bundle`, buf)
             FfiConverterByteArray.write(value.`data`, buf)
+    }
+}
+
+
+
+/**
+ * How a bundle's header checksum is verified when its header is read.
+ */
+data class HeaderReadOptions (
+    /**
+     * How the header checksum is verified.
+     */
+    var `checksum`: ChecksumReadOptions? = null 
+    
+){
+    
+
+    
+
+    
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeHeaderReadOptions: FfiConverterRustBuffer<HeaderReadOptions> {
+    override fun read(buf: ByteBuffer): HeaderReadOptions {
+        return HeaderReadOptions(
+            FfiConverterOptionalTypeChecksumReadOptions.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: HeaderReadOptions) = (
+            FfiConverterOptionalTypeChecksumReadOptions.allocationSize(value.`checksum`)
+    )
+
+    override fun write(value: HeaderReadOptions, buf: ByteBuffer) {
+            FfiConverterOptionalTypeChecksumReadOptions.write(value.`checksum`, buf)
+    }
+}
+
+
+
+/**
+ * HTTP client options
+ */
+data class HttpOptions (
+    /**
+     * Headers sent with every request.
+     */
+    var `defaultHeaders`: Map<kotlin.String, kotlin.String>? = null 
+    , 
+    var `userAgent`: kotlin.String? = null 
+    , 
+    /**
+     * Total request timeout in milliseconds (default: `120000`).
+     *
+     * Bounds an otherwise-unbounded download: without it a stalled transfer would hang
+     * forever and keep holding the updater's per-bundle lock.
+     */
+    var `timeout`: kotlin.ULong? = null 
+    , 
+    /**
+     * Timeout in milliseconds for reading the response body.
+     */
+    var `readTimeout`: kotlin.ULong? = null 
+    , 
+    /**
+     * Timeout in milliseconds for establishing the connection.
+     */
+    var `connectTimeout`: kotlin.ULong? = null 
+    , 
+    var `poolIdleTimeout`: kotlin.ULong? = null 
+    , 
+    var `poolMaxIdlePerHost`: kotlin.UInt? = null 
+    , 
+    var `referer`: kotlin.Boolean? = null 
+    , 
+    var `tcpNodelay`: kotlin.Boolean? = null 
+    
+){
+    
+
+    
+
+    
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeHttpOptions: FfiConverterRustBuffer<HttpOptions> {
+    override fun read(buf: ByteBuffer): HttpOptions {
+        return HttpOptions(
+            FfiConverterOptionalMapStringString.read(buf),
+            FfiConverterOptionalString.read(buf),
+            FfiConverterOptionalULong.read(buf),
+            FfiConverterOptionalULong.read(buf),
+            FfiConverterOptionalULong.read(buf),
+            FfiConverterOptionalULong.read(buf),
+            FfiConverterOptionalUInt.read(buf),
+            FfiConverterOptionalBoolean.read(buf),
+            FfiConverterOptionalBoolean.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: HttpOptions) = (
+            FfiConverterOptionalMapStringString.allocationSize(value.`defaultHeaders`) +
+            FfiConverterOptionalString.allocationSize(value.`userAgent`) +
+            FfiConverterOptionalULong.allocationSize(value.`timeout`) +
+            FfiConverterOptionalULong.allocationSize(value.`readTimeout`) +
+            FfiConverterOptionalULong.allocationSize(value.`connectTimeout`) +
+            FfiConverterOptionalULong.allocationSize(value.`poolIdleTimeout`) +
+            FfiConverterOptionalUInt.allocationSize(value.`poolMaxIdlePerHost`) +
+            FfiConverterOptionalBoolean.allocationSize(value.`referer`) +
+            FfiConverterOptionalBoolean.allocationSize(value.`tcpNodelay`)
+    )
+
+    override fun write(value: HttpOptions, buf: ByteBuffer) {
+            FfiConverterOptionalMapStringString.write(value.`defaultHeaders`, buf)
+            FfiConverterOptionalString.write(value.`userAgent`, buf)
+            FfiConverterOptionalULong.write(value.`timeout`, buf)
+            FfiConverterOptionalULong.write(value.`readTimeout`, buf)
+            FfiConverterOptionalULong.write(value.`connectTimeout`, buf)
+            FfiConverterOptionalULong.write(value.`poolIdleTimeout`, buf)
+            FfiConverterOptionalUInt.write(value.`poolMaxIdlePerHost`, buf)
+            FfiConverterOptionalBoolean.write(value.`referer`, buf)
+            FfiConverterOptionalBoolean.write(value.`tcpNodelay`, buf)
     }
 }
 
@@ -6146,6 +8766,45 @@ public object FfiConverterTypeIndexEntry: FfiConverterRustBuffer<IndexEntry> {
             FfiConverterString.write(value.`contentType`, buf)
             FfiConverterULong.write(value.`contentLength`, buf)
             FfiConverterMapStringString.write(value.`headers`, buf)
+    }
+}
+
+
+
+/**
+ * How a bundle's index checksum is verified when its index is read.
+ */
+data class IndexReadOptions (
+    /**
+     * How the index checksum is verified.
+     */
+    var `checksum`: ChecksumReadOptions? = null 
+    
+){
+    
+
+    
+
+    
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeIndexReadOptions: FfiConverterRustBuffer<IndexReadOptions> {
+    override fun read(buf: ByteBuffer): IndexReadOptions {
+        return IndexReadOptions(
+            FfiConverterOptionalTypeChecksumReadOptions.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: IndexReadOptions) = (
+            FfiConverterOptionalTypeChecksumReadOptions.allocationSize(value.`checksum`)
+    )
+
+    override fun write(value: IndexReadOptions, buf: ByteBuffer) {
+            FfiConverterOptionalTypeChecksumReadOptions.write(value.`checksum`, buf)
     }
 }
 
@@ -6307,6 +8966,156 @@ public object FfiConverterTypeRemoteBundleInfo: FfiConverterRustBuffer<RemoteBun
 
 
 /**
+ * Options for fetching bundle metadata from the remote.
+ */
+data class RemoteFetchOptions (
+    /**
+     * Release channel (e.g. `"stable"`, `"beta"`). Passed as a query parameter to the remote.
+     */
+    var `channel`: kotlin.String? = null 
+    
+){
+    
+
+    
+
+    
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeRemoteFetchOptions: FfiConverterRustBuffer<RemoteFetchOptions> {
+    override fun read(buf: ByteBuffer): RemoteFetchOptions {
+        return RemoteFetchOptions(
+            FfiConverterOptionalString.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: RemoteFetchOptions) = (
+            FfiConverterOptionalString.allocationSize(value.`channel`)
+    )
+
+    override fun write(value: RemoteFetchOptions, buf: ByteBuffer) {
+            FfiConverterOptionalString.write(value.`channel`, buf)
+    }
+}
+
+
+
+/**
+ * Progress reported while a bundle is downloading.
+ */
+data class RemoteOnDownloadData (
+    /**
+     * Bytes downloaded so far.
+     */
+    var `downloadedBytes`: kotlin.ULong
+    , 
+    /**
+     * Total bytes to download, when the server advertised a content length.
+     */
+    var `totalBytes`: kotlin.ULong?
+    , 
+    /**
+     * The endpoint the bundle is being downloaded from.
+     */
+    var `endpoint`: kotlin.String
+    
+){
+    
+
+    
+
+    
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeRemoteOnDownloadData: FfiConverterRustBuffer<RemoteOnDownloadData> {
+    override fun read(buf: ByteBuffer): RemoteOnDownloadData {
+        return RemoteOnDownloadData(
+            FfiConverterULong.read(buf),
+            FfiConverterOptionalULong.read(buf),
+            FfiConverterString.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: RemoteOnDownloadData) = (
+            FfiConverterULong.allocationSize(value.`downloadedBytes`) +
+            FfiConverterOptionalULong.allocationSize(value.`totalBytes`) +
+            FfiConverterString.allocationSize(value.`endpoint`)
+    )
+
+    override fun write(value: RemoteOnDownloadData, buf: ByteBuffer) {
+            FfiConverterULong.write(value.`downloadedBytes`, buf)
+            FfiConverterOptionalULong.write(value.`totalBytes`, buf)
+            FfiConverterString.write(value.`endpoint`, buf)
+    }
+}
+
+
+
+/**
+ * Options for creating a [`Remote`] client.
+ */
+data class RemoteOptions (
+    /**
+     * HTTP client options.
+     */
+    var `http`: HttpOptions? = null 
+    , 
+    /**
+     * Download progress callback.
+     */
+    var `onDownload`: RemoteOnDownload? = null 
+    
+): Disposable{
+    
+
+    
+
+    
+    @Suppress("UNNECESSARY_SAFE_CALL") // codegen is much simpler if we unconditionally emit safe calls here
+    override fun destroy() {
+        
+    Disposable.destroy(
+        this.`http`,
+        this.`onDownload`
+    )
+    }
+    
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeRemoteOptions: FfiConverterRustBuffer<RemoteOptions> {
+    override fun read(buf: ByteBuffer): RemoteOptions {
+        return RemoteOptions(
+            FfiConverterOptionalTypeHttpOptions.read(buf),
+            FfiConverterOptionalTypeRemoteOnDownload.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: RemoteOptions) = (
+            FfiConverterOptionalTypeHttpOptions.allocationSize(value.`http`) +
+            FfiConverterOptionalTypeRemoteOnDownload.allocationSize(value.`onDownload`)
+    )
+
+    override fun write(value: RemoteOptions, buf: ByteBuffer) {
+            FfiConverterOptionalTypeHttpOptions.write(value.`http`, buf)
+            FfiConverterOptionalTypeRemoteOnDownload.write(value.`onDownload`, buf)
+    }
+}
+
+
+
+/**
  * Configuration passed to the updater to enable signature verification.
  */
 data class SignatureVerifierOptions (
@@ -6394,6 +9203,62 @@ public object FfiConverterTypeSignatureVerifyingKey: FfiConverterRustBuffer<Sign
 
 
 
+data class UpdaterIntegrityOptions (
+    /**
+     * How a bundle's integrity metadata is treated (default: [`IntegrityPolicy::Optional`]).
+     *
+     * [`IntegrityPolicy::Off`] disables the integrity check entirely.
+     */
+    var `policy`: IntegrityPolicy? = null 
+    , 
+    /**
+     * A custom checker that validates bundle bytes against their integrity string
+     * (default: the built-in checker, which compares the advertised hash).
+     */
+    var `check`: IntegrityCheck? = null 
+    
+): Disposable{
+    
+
+    
+
+    
+    @Suppress("UNNECESSARY_SAFE_CALL") // codegen is much simpler if we unconditionally emit safe calls here
+    override fun destroy() {
+        
+    Disposable.destroy(
+        this.`policy`,
+        this.`check`
+    )
+    }
+    
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeUpdaterIntegrityOptions: FfiConverterRustBuffer<UpdaterIntegrityOptions> {
+    override fun read(buf: ByteBuffer): UpdaterIntegrityOptions {
+        return UpdaterIntegrityOptions(
+            FfiConverterOptionalTypeIntegrityPolicy.read(buf),
+            FfiConverterOptionalTypeIntegrityCheck.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: UpdaterIntegrityOptions) = (
+            FfiConverterOptionalTypeIntegrityPolicy.allocationSize(value.`policy`) +
+            FfiConverterOptionalTypeIntegrityCheck.allocationSize(value.`check`)
+    )
+
+    override fun write(value: UpdaterIntegrityOptions, buf: ByteBuffer) {
+            FfiConverterOptionalTypeIntegrityPolicy.write(value.`policy`, buf)
+            FfiConverterOptionalTypeIntegrityCheck.write(value.`check`, buf)
+    }
+}
+
+
+
 /**
  * Optional configuration for the [`Updater`].
  */
@@ -6401,20 +9266,27 @@ data class UpdaterOptions (
     /**
      * Release channel (e.g. `"stable"`, `"beta"`). Passed as a query parameter to the remote.
      */
-    var `channel`: kotlin.String?
+    var `channel`: kotlin.String? = null 
     , 
-    var `integrityPolicy`: IntegrityPolicy?
+    var `integrity`: UpdaterIntegrityOptions? = null 
     , 
-    /**
-     * When set, the updater verifies the bundle signature before applying an update.
-     */
-    var `signatureVerifier`: SignatureVerifierOptions?
+    var `signature`: UpdaterSignatureOptions? = null 
     
-){
+): Disposable{
     
 
     
 
+    
+    @Suppress("UNNECESSARY_SAFE_CALL") // codegen is much simpler if we unconditionally emit safe calls here
+    override fun destroy() {
+        
+    Disposable.destroy(
+        this.`channel`,
+        this.`integrity`,
+        this.`signature`
+    )
+    }
     
     companion object
 }
@@ -6426,23 +9298,172 @@ public object FfiConverterTypeUpdaterOptions: FfiConverterRustBuffer<UpdaterOpti
     override fun read(buf: ByteBuffer): UpdaterOptions {
         return UpdaterOptions(
             FfiConverterOptionalString.read(buf),
-            FfiConverterOptionalTypeIntegrityPolicy.read(buf),
-            FfiConverterOptionalTypeSignatureVerifierOptions.read(buf),
+            FfiConverterOptionalTypeUpdaterIntegrityOptions.read(buf),
+            FfiConverterOptionalTypeUpdaterSignatureOptions.read(buf),
         )
     }
 
     override fun allocationSize(value: UpdaterOptions) = (
             FfiConverterOptionalString.allocationSize(value.`channel`) +
-            FfiConverterOptionalTypeIntegrityPolicy.allocationSize(value.`integrityPolicy`) +
-            FfiConverterOptionalTypeSignatureVerifierOptions.allocationSize(value.`signatureVerifier`)
+            FfiConverterOptionalTypeUpdaterIntegrityOptions.allocationSize(value.`integrity`) +
+            FfiConverterOptionalTypeUpdaterSignatureOptions.allocationSize(value.`signature`)
     )
 
     override fun write(value: UpdaterOptions, buf: ByteBuffer) {
             FfiConverterOptionalString.write(value.`channel`, buf)
-            FfiConverterOptionalTypeIntegrityPolicy.write(value.`integrityPolicy`, buf)
-            FfiConverterOptionalTypeSignatureVerifierOptions.write(value.`signatureVerifier`, buf)
+            FfiConverterOptionalTypeUpdaterIntegrityOptions.write(value.`integrity`, buf)
+            FfiConverterOptionalTypeUpdaterSignatureOptions.write(value.`signature`, buf)
     }
 }
+
+
+
+data class UpdaterSignatureOptions (
+    /**
+     * When set, the updater verifies the bundle signature over its integrity string before
+     * applying an update — with a declarative public key or a custom function.
+     * Verified independently of `integrity_policy` — keep the policy enabled for the
+     * signature to also authenticate the bundle bytes.
+     */
+    var `verify`: SignatureVerification? = null 
+    
+): Disposable{
+    
+
+    
+
+    
+    @Suppress("UNNECESSARY_SAFE_CALL") // codegen is much simpler if we unconditionally emit safe calls here
+    override fun destroy() {
+        
+    Disposable.destroy(
+        this.`verify`
+    )
+    }
+    
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeUpdaterSignatureOptions: FfiConverterRustBuffer<UpdaterSignatureOptions> {
+    override fun read(buf: ByteBuffer): UpdaterSignatureOptions {
+        return UpdaterSignatureOptions(
+            FfiConverterOptionalTypeSignatureVerification.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: UpdaterSignatureOptions) = (
+            FfiConverterOptionalTypeSignatureVerification.allocationSize(value.`verify`)
+    )
+
+    override fun write(value: UpdaterSignatureOptions, buf: ByteBuffer) {
+            FfiConverterOptionalTypeSignatureVerification.write(value.`verify`, buf)
+    }
+}
+
+
+
+/**
+ * How the bundle name is resolved from the request uri.
+ */
+sealed class BundleResolver {
+    
+    /**
+     * From the uri hostname.
+     *
+     * - `segment`: which part of the host to use (default: [`HostnameSegment::First`]).
+     * - `allow_wvb_suffix_only`: only resolve hosts ending in `.wvb` (default: false).
+     */
+    data class Hostname(
+        val `segment`: dev.wvb.HostnameSegment?, 
+        val `allowWvbSuffixOnly`: kotlin.Boolean?) : BundleResolver()
+        
+    {
+        
+
+        companion object
+    }
+    
+    /**
+     * From the uri pathname.
+     *
+     * - `segment_index`: 0-based over non-empty path segments (default: 0).
+     * e.g. `app://_/my-app/index.html` with index 0 -> bundle `my-app`.
+     */
+    data class Pathname(
+        val `segmentIndex`: kotlin.UInt?) : BundleResolver()
+        
+    {
+        
+
+        companion object
+    }
+    
+
+    
+
+    
+    
+
+
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeBundleResolver : FfiConverterRustBuffer<BundleResolver>{
+    override fun read(buf: ByteBuffer): BundleResolver {
+        return when(buf.getInt()) {
+            1 -> BundleResolver.Hostname(
+                FfiConverterOptionalTypeHostnameSegment.read(buf),
+                FfiConverterOptionalBoolean.read(buf),
+                )
+            2 -> BundleResolver.Pathname(
+                FfiConverterOptionalUInt.read(buf),
+                )
+            else -> throw RuntimeException("invalid enum value, something is very wrong!!")
+        }
+    }
+
+    override fun allocationSize(value: BundleResolver) = when(value) {
+        is BundleResolver.Hostname -> {
+            // Add the size for the Int that specifies the variant plus the size needed for all fields
+            (
+                4UL
+                + FfiConverterOptionalTypeHostnameSegment.allocationSize(value.`segment`)
+                + FfiConverterOptionalBoolean.allocationSize(value.`allowWvbSuffixOnly`)
+            )
+        }
+        is BundleResolver.Pathname -> {
+            // Add the size for the Int that specifies the variant plus the size needed for all fields
+            (
+                4UL
+                + FfiConverterOptionalUInt.allocationSize(value.`segmentIndex`)
+            )
+        }
+    }
+
+    override fun write(value: BundleResolver, buf: ByteBuffer) {
+        when(value) {
+            is BundleResolver.Hostname -> {
+                buf.putInt(1)
+                FfiConverterOptionalTypeHostnameSegment.write(value.`segment`, buf)
+                FfiConverterOptionalBoolean.write(value.`allowWvbSuffixOnly`, buf)
+                Unit
+            }
+            is BundleResolver.Pathname -> {
+                buf.putInt(2)
+                FfiConverterOptionalUInt.write(value.`segmentIndex`, buf)
+                Unit
+            }
+        }.let { /* this makes the `when` an expression, which ensures it is exhaustive */ }
+    }
+}
+
+
 
 
 
@@ -6484,74 +9505,165 @@ public object FfiConverterTypeBundleSourceKind: FfiConverterRustBuffer<BundleSou
 
 
 
+/**
+ * Which bundles a load-time verification applies to
+ */
+
+enum class BundleSourceVerifyMode {
+    
+    /**
+     * Verify both builtin and remote bundles.
+     *
+     * Builtin bundles ship inside the application, so the builtin manifest must carry the
+     * metadata being verified for the check to have anything to work with.
+     */
+    ALL,
+    /**
+     * Verify downloaded (remote) bundles only. This is the default.
+     */
+    ONLY_REMOTE;
+
+    
+
+
+    companion object
+}
 
 
 /**
- * Top-level error type exposed across the FFI boundary.
- *
- * Errors are flattened to string messages (`flat_error`) because structured
- * error types cannot be projected into all UniFFI target languages.
+ * @suppress
  */
-sealed class Exception(message: String): kotlin.Exception(message) {
-        
+public object FfiConverterTypeBundleSourceVerifyMode: FfiConverterRustBuffer<BundleSourceVerifyMode> {
+    override fun read(buf: ByteBuffer) = try {
+        BundleSourceVerifyMode.values()[buf.getInt() - 1]
+    } catch (e: IndexOutOfBoundsException) {
+        throw RuntimeException("invalid enum value, something is very wrong!!", e)
+    }
+
+    override fun allocationSize(value: BundleSourceVerifyMode) = 4UL
+
+    override fun write(value: BundleSourceVerifyMode, buf: ByteBuffer) {
+        buf.putInt(value.ordinal + 1)
+    }
+}
+
+
+
+
+
+/**
+ * Which hostname segment is used as the bundle name.
+ */
+sealed class HostnameSegment {
+    
     /**
-     * Propagated from the `wvb` core library.
+     * First segment. (e.g. `app.mydomain.com` -> `app`)
      */
-        class Core(message: String) : Exception(message)
-        
+    object First : HostnameSegment()
+    
+    
     /**
-     * Invalid HTTP header name or value.
+     * Full hostname. (e.g. `app.wvb` -> `app.wvb`)
      */
-        class Http(message: String) : Exception(message)
-        
+    object Full : HostnameSegment()
+    
+    
     /**
-     * Signature key parsing or verification failure.
+     * Strip the last segment. (e.g. `a.b.wvb` -> `a.b`)
      */
-        class Signature(message: String) : Exception(message)
+    object StripSuffix : HostnameSegment()
+    
+    
+    /**
+     * The nth segment, 0-based.
+     */
+    data class Nth(
+        val `index`: kotlin.UInt) : HostnameSegment()
+        
+    {
         
 
-    companion object ErrorHandler : UniffiRustCallStatusErrorHandler<Exception> {
-        override fun lift(error_buf: RustBuffer.ByValue): Exception = FfiConverterTypeError.lift(error_buf)
+        companion object
     }
+    
+
+    
+
+    
+    
+
+
+    companion object
 }
 
 /**
  * @suppress
  */
-public object FfiConverterTypeError : FfiConverterRustBuffer<Exception> {
-    override fun read(buf: ByteBuffer): Exception {
-        
-            return when(buf.getInt()) {
-            1 -> Exception.Core(FfiConverterString.read(buf))
-            2 -> Exception.Http(FfiConverterString.read(buf))
-            3 -> Exception.Signature(FfiConverterString.read(buf))
-            else -> throw RuntimeException("invalid error enum value, something is very wrong!!")
+public object FfiConverterTypeHostnameSegment : FfiConverterRustBuffer<HostnameSegment>{
+    override fun read(buf: ByteBuffer): HostnameSegment {
+        return when(buf.getInt()) {
+            1 -> HostnameSegment.First
+            2 -> HostnameSegment.Full
+            3 -> HostnameSegment.StripSuffix
+            4 -> HostnameSegment.Nth(
+                FfiConverterUInt.read(buf),
+                )
+            else -> throw RuntimeException("invalid enum value, something is very wrong!!")
         }
-        
     }
 
-    override fun allocationSize(value: Exception): ULong {
-        return 4UL
+    override fun allocationSize(value: HostnameSegment) = when(value) {
+        is HostnameSegment.First -> {
+            // Add the size for the Int that specifies the variant plus the size needed for all fields
+            (
+                4UL
+            )
+        }
+        is HostnameSegment.Full -> {
+            // Add the size for the Int that specifies the variant plus the size needed for all fields
+            (
+                4UL
+            )
+        }
+        is HostnameSegment.StripSuffix -> {
+            // Add the size for the Int that specifies the variant plus the size needed for all fields
+            (
+                4UL
+            )
+        }
+        is HostnameSegment.Nth -> {
+            // Add the size for the Int that specifies the variant plus the size needed for all fields
+            (
+                4UL
+                + FfiConverterUInt.allocationSize(value.`index`)
+            )
+        }
     }
 
-    override fun write(value: Exception, buf: ByteBuffer) {
+    override fun write(value: HostnameSegment, buf: ByteBuffer) {
         when(value) {
-            is Exception.Core -> {
+            is HostnameSegment.First -> {
                 buf.putInt(1)
                 Unit
             }
-            is Exception.Http -> {
+            is HostnameSegment.Full -> {
                 buf.putInt(2)
                 Unit
             }
-            is Exception.Signature -> {
+            is HostnameSegment.StripSuffix -> {
                 buf.putInt(3)
+                Unit
+            }
+            is HostnameSegment.Nth -> {
+                buf.putInt(4)
+                FfiConverterUInt.write(value.`index`, buf)
                 Unit
             }
         }.let { /* this makes the `when` an expression, which ensures it is exhaustive */ }
     }
-
 }
+
+
 
 
 
@@ -6638,18 +9750,18 @@ public object FfiConverterTypeIntegrityAlgorithm: FfiConverterRustBuffer<Integri
 
 
 /**
- * Controls how the updater handles a missing or mismatched integrity digest.
+ * How a bundle's integrity metadata is treated when the integrity check runs.
  *
- * - `Strict`: reject bundles whose digest doesn't match.
- * - `Optional`: verify when a digest is present, skip when absent.
- * - `None`: skip integrity verification entirely.
+ * - `Strict`: integrity metadata is required; a bundle without it fails the check.
+ * - `Optional`: integrity metadata is checked when present and tolerated when missing.
+ * - `Off`: the integrity check is disabled.
  */
 
 enum class IntegrityPolicy {
     
     STRICT,
     OPTIONAL,
-    NONE;
+    OFF;
 
     
 
@@ -6671,6 +9783,53 @@ public object FfiConverterTypeIntegrityPolicy: FfiConverterRustBuffer<IntegrityP
     override fun allocationSize(value: IntegrityPolicy) = 4UL
 
     override fun write(value: IntegrityPolicy, buf: ByteBuffer) {
+        buf.putInt(value.ordinal + 1)
+    }
+}
+
+
+
+
+
+/**
+ * How the file path in the bundle is resolved from the request uri.
+ */
+
+enum class PathResolver {
+    
+    /**
+     * Use the uri path as-is (only percent-decoded).
+     */
+    EXACT,
+    /**
+     * Directory index: `/` -> `/index.html` and `/about` -> `/about/index.html`.
+     */
+    DIRECTORY_INDEX,
+    /**
+     * `.html` extension: `/` -> `/index.html` and `/about` -> `/about.html`.
+     */
+    HTML_EXTENSION;
+
+    
+
+
+    companion object
+}
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypePathResolver: FfiConverterRustBuffer<PathResolver> {
+    override fun read(buf: ByteBuffer) = try {
+        PathResolver.values()[buf.getInt() - 1]
+    } catch (e: IndexOutOfBoundsException) {
+        throw RuntimeException("invalid enum value, something is very wrong!!", e)
+    }
+
+    override fun allocationSize(value: PathResolver) = 4UL
+
+    override fun write(value: PathResolver, buf: ByteBuffer) {
         buf.putInt(value.ordinal + 1)
     }
 }
@@ -6720,10 +9879,122 @@ public object FfiConverterTypeSignatureAlgorithm: FfiConverterRustBuffer<Signatu
 
 
 /**
+ * How a bundle's signature is verified: with a declarative public key, or a custom function.
+ */
+sealed class SignatureVerification: Disposable  {
+    
+    /**
+     * Verify with a public key of a known algorithm.
+     */
+    data class Key(
+        val `options`: dev.wvb.SignatureVerifierOptions) : SignatureVerification()
+        
+    {
+        
+
+        companion object
+    }
+    
+    /**
+     * Verify with a custom function over the integrity string.
+     */
+    data class Custom(
+        val `verify`: dev.wvb.SignatureVerify) : SignatureVerification()
+        
+    {
+        
+
+        companion object
+    }
+    
+
+    
+    @Suppress("UNNECESSARY_SAFE_CALL") // codegen is much simpler if we unconditionally emit safe calls here
+    override fun destroy() {
+        when(this) {
+            is SignatureVerification.Key -> {
+                
+    Disposable.destroy(
+        this.`options`
+    )
+                
+            }
+            is SignatureVerification.Custom -> {
+                
+    Disposable.destroy(
+        this.`verify`
+    )
+                
+            }
+        }.let { /* this makes the `when` an expression, which ensures it is exhaustive */ }
+    }
+    
+
+    
+    
+
+
+    companion object
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeSignatureVerification : FfiConverterRustBuffer<SignatureVerification>{
+    override fun read(buf: ByteBuffer): SignatureVerification {
+        return when(buf.getInt()) {
+            1 -> SignatureVerification.Key(
+                FfiConverterTypeSignatureVerifierOptions.read(buf),
+                )
+            2 -> SignatureVerification.Custom(
+                FfiConverterTypeSignatureVerify.read(buf),
+                )
+            else -> throw RuntimeException("invalid enum value, something is very wrong!!")
+        }
+    }
+
+    override fun allocationSize(value: SignatureVerification) = when(value) {
+        is SignatureVerification.Key -> {
+            // Add the size for the Int that specifies the variant plus the size needed for all fields
+            (
+                4UL
+                + FfiConverterTypeSignatureVerifierOptions.allocationSize(value.`options`)
+            )
+        }
+        is SignatureVerification.Custom -> {
+            // Add the size for the Int that specifies the variant plus the size needed for all fields
+            (
+                4UL
+                + FfiConverterTypeSignatureVerify.allocationSize(value.`verify`)
+            )
+        }
+    }
+
+    override fun write(value: SignatureVerification, buf: ByteBuffer) {
+        when(value) {
+            is SignatureVerification.Key -> {
+                buf.putInt(1)
+                FfiConverterTypeSignatureVerifierOptions.write(value.`options`, buf)
+                Unit
+            }
+            is SignatureVerification.Custom -> {
+                buf.putInt(2)
+                FfiConverterTypeSignatureVerify.write(value.`verify`, buf)
+                Unit
+            }
+        }.let { /* this makes the `when` an expression, which ensures it is exhaustive */ }
+    }
+}
+
+
+
+
+
+/**
  * Encoding format of the public key provided in [`SignatureVerifyingKey`].
  *
  * Not all combinations of algorithm + format are valid; unsupported pairs
- * return [`Error::Signature`] at construction time.
+ * return [`Error::BindingInvalidSignatureOptions`] at construction time.
  */
 
 enum class VerifyingKeyFormat {
@@ -6800,6 +10071,313 @@ public object FfiConverterTypeVersion: FfiConverterRustBuffer<Version> {
 
 
 
+
+/**
+ * WebviewBundle Error.
+ */
+sealed class WebviewBundleException(message: String): kotlin.Exception(message) {
+        
+        class CoreIo(message: String) : WebviewBundleException(message)
+        
+        class CoreCompress(message: String) : WebviewBundleException(message)
+        
+        class CoreDecompress(message: String) : WebviewBundleException(message)
+        
+        class CoreEncode(message: String) : WebviewBundleException(message)
+        
+        class CoreDecode(message: String) : WebviewBundleException(message)
+        
+        class CoreHttp(message: String) : WebviewBundleException(message)
+        
+        class CoreInvalidMagicNum(message: String) : WebviewBundleException(message)
+        
+        class CoreInvalidVersion(message: String) : WebviewBundleException(message)
+        
+        class CoreInvalidHeaderChecksum(message: String) : WebviewBundleException(message)
+        
+        class CoreInvalidIndexChecksum(message: String) : WebviewBundleException(message)
+        
+        class CoreChecksumMismatch(message: String) : WebviewBundleException(message)
+        
+        class CoreBundleNotFound(message: String) : WebviewBundleException(message)
+        
+        class CoreBundleEntryNotExists(message: String) : WebviewBundleException(message)
+        
+        class CoreBundleCannotBeRemoved(message: String) : WebviewBundleException(message)
+        
+        class CoreInvalidFilepath(message: String) : WebviewBundleException(message)
+        
+        class CoreSerdeJson(message: String) : WebviewBundleException(message)
+        
+        class CoreCannotResolveProxyServer(message: String) : WebviewBundleException(message)
+        
+        class CoreReqwest(message: String) : WebviewBundleException(message)
+        
+        class CoreInvalidRemoteUrl(message: String) : WebviewBundleException(message)
+        
+        class CoreInvalidRemoteBundle(message: String) : WebviewBundleException(message)
+        
+        class CoreRemoteBundleNotFound(message: String) : WebviewBundleException(message)
+        
+        class CoreRemoteForbidden(message: String) : WebviewBundleException(message)
+        
+        class CoreRemoteHttp(message: String) : WebviewBundleException(message)
+        
+        class CoreInvalidRemoteConfig(message: String) : WebviewBundleException(message)
+        
+        class CoreInvalidIntegrity(message: String) : WebviewBundleException(message)
+        
+        class CoreIntegrityRequired(message: String) : WebviewBundleException(message)
+        
+        class CoreIntegrityVerifyFailed(message: String) : WebviewBundleException(message)
+        
+        class CoreInvalidSignature(message: String) : WebviewBundleException(message)
+        
+        class CoreInvalidSigningKey(message: String) : WebviewBundleException(message)
+        
+        class CoreSignatureSignFailed(message: String) : WebviewBundleException(message)
+        
+        class CoreInvalidVerifyingKey(message: String) : WebviewBundleException(message)
+        
+        class CoreSignatureNotExists(message: String) : WebviewBundleException(message)
+        
+        class CoreSignatureVerifyFailed(message: String) : WebviewBundleException(message)
+        
+        class CoreGeneric(message: String) : WebviewBundleException(message)
+        
+    /**
+     * Invalid HTTP header name.
+     */
+        class BindingInvalidHeaderName(message: String) : WebviewBundleException(message)
+        
+    /**
+     * Invalid HTTP header value.
+     */
+        class BindingInvalidHeaderValue(message: String) : WebviewBundleException(message)
+        
+    /**
+     * The `SignatureVerifierOptions` passed across the boundary could not be turned into a
+     * verifier (unsupported algorithm/format pairing, or a key of the wrong shape).
+     */
+        class BindingInvalidSignatureOptions(message: String) : WebviewBundleException(message)
+        
+
+    companion object ErrorHandler : UniffiRustCallStatusErrorHandler<WebviewBundleException> {
+        override fun lift(error_buf: RustBuffer.ByValue): WebviewBundleException = FfiConverterTypeWebviewBundleError.lift(error_buf)
+    }
+}
+
+/**
+ * @suppress
+ */
+public object FfiConverterTypeWebviewBundleError : FfiConverterRustBuffer<WebviewBundleException> {
+    override fun read(buf: ByteBuffer): WebviewBundleException {
+        
+            return when(buf.getInt()) {
+            1 -> WebviewBundleException.CoreIo(FfiConverterString.read(buf))
+            2 -> WebviewBundleException.CoreCompress(FfiConverterString.read(buf))
+            3 -> WebviewBundleException.CoreDecompress(FfiConverterString.read(buf))
+            4 -> WebviewBundleException.CoreEncode(FfiConverterString.read(buf))
+            5 -> WebviewBundleException.CoreDecode(FfiConverterString.read(buf))
+            6 -> WebviewBundleException.CoreHttp(FfiConverterString.read(buf))
+            7 -> WebviewBundleException.CoreInvalidMagicNum(FfiConverterString.read(buf))
+            8 -> WebviewBundleException.CoreInvalidVersion(FfiConverterString.read(buf))
+            9 -> WebviewBundleException.CoreInvalidHeaderChecksum(FfiConverterString.read(buf))
+            10 -> WebviewBundleException.CoreInvalidIndexChecksum(FfiConverterString.read(buf))
+            11 -> WebviewBundleException.CoreChecksumMismatch(FfiConverterString.read(buf))
+            12 -> WebviewBundleException.CoreBundleNotFound(FfiConverterString.read(buf))
+            13 -> WebviewBundleException.CoreBundleEntryNotExists(FfiConverterString.read(buf))
+            14 -> WebviewBundleException.CoreBundleCannotBeRemoved(FfiConverterString.read(buf))
+            15 -> WebviewBundleException.CoreInvalidFilepath(FfiConverterString.read(buf))
+            16 -> WebviewBundleException.CoreSerdeJson(FfiConverterString.read(buf))
+            17 -> WebviewBundleException.CoreCannotResolveProxyServer(FfiConverterString.read(buf))
+            18 -> WebviewBundleException.CoreReqwest(FfiConverterString.read(buf))
+            19 -> WebviewBundleException.CoreInvalidRemoteUrl(FfiConverterString.read(buf))
+            20 -> WebviewBundleException.CoreInvalidRemoteBundle(FfiConverterString.read(buf))
+            21 -> WebviewBundleException.CoreRemoteBundleNotFound(FfiConverterString.read(buf))
+            22 -> WebviewBundleException.CoreRemoteForbidden(FfiConverterString.read(buf))
+            23 -> WebviewBundleException.CoreRemoteHttp(FfiConverterString.read(buf))
+            24 -> WebviewBundleException.CoreInvalidRemoteConfig(FfiConverterString.read(buf))
+            25 -> WebviewBundleException.CoreInvalidIntegrity(FfiConverterString.read(buf))
+            26 -> WebviewBundleException.CoreIntegrityRequired(FfiConverterString.read(buf))
+            27 -> WebviewBundleException.CoreIntegrityVerifyFailed(FfiConverterString.read(buf))
+            28 -> WebviewBundleException.CoreInvalidSignature(FfiConverterString.read(buf))
+            29 -> WebviewBundleException.CoreInvalidSigningKey(FfiConverterString.read(buf))
+            30 -> WebviewBundleException.CoreSignatureSignFailed(FfiConverterString.read(buf))
+            31 -> WebviewBundleException.CoreInvalidVerifyingKey(FfiConverterString.read(buf))
+            32 -> WebviewBundleException.CoreSignatureNotExists(FfiConverterString.read(buf))
+            33 -> WebviewBundleException.CoreSignatureVerifyFailed(FfiConverterString.read(buf))
+            34 -> WebviewBundleException.CoreGeneric(FfiConverterString.read(buf))
+            35 -> WebviewBundleException.BindingInvalidHeaderName(FfiConverterString.read(buf))
+            36 -> WebviewBundleException.BindingInvalidHeaderValue(FfiConverterString.read(buf))
+            37 -> WebviewBundleException.BindingInvalidSignatureOptions(FfiConverterString.read(buf))
+            else -> throw RuntimeException("invalid error enum value, something is very wrong!!")
+        }
+        
+    }
+
+    override fun allocationSize(value: WebviewBundleException): ULong {
+        return 4UL
+    }
+
+    override fun write(value: WebviewBundleException, buf: ByteBuffer) {
+        when(value) {
+            is WebviewBundleException.CoreIo -> {
+                buf.putInt(1)
+                Unit
+            }
+            is WebviewBundleException.CoreCompress -> {
+                buf.putInt(2)
+                Unit
+            }
+            is WebviewBundleException.CoreDecompress -> {
+                buf.putInt(3)
+                Unit
+            }
+            is WebviewBundleException.CoreEncode -> {
+                buf.putInt(4)
+                Unit
+            }
+            is WebviewBundleException.CoreDecode -> {
+                buf.putInt(5)
+                Unit
+            }
+            is WebviewBundleException.CoreHttp -> {
+                buf.putInt(6)
+                Unit
+            }
+            is WebviewBundleException.CoreInvalidMagicNum -> {
+                buf.putInt(7)
+                Unit
+            }
+            is WebviewBundleException.CoreInvalidVersion -> {
+                buf.putInt(8)
+                Unit
+            }
+            is WebviewBundleException.CoreInvalidHeaderChecksum -> {
+                buf.putInt(9)
+                Unit
+            }
+            is WebviewBundleException.CoreInvalidIndexChecksum -> {
+                buf.putInt(10)
+                Unit
+            }
+            is WebviewBundleException.CoreChecksumMismatch -> {
+                buf.putInt(11)
+                Unit
+            }
+            is WebviewBundleException.CoreBundleNotFound -> {
+                buf.putInt(12)
+                Unit
+            }
+            is WebviewBundleException.CoreBundleEntryNotExists -> {
+                buf.putInt(13)
+                Unit
+            }
+            is WebviewBundleException.CoreBundleCannotBeRemoved -> {
+                buf.putInt(14)
+                Unit
+            }
+            is WebviewBundleException.CoreInvalidFilepath -> {
+                buf.putInt(15)
+                Unit
+            }
+            is WebviewBundleException.CoreSerdeJson -> {
+                buf.putInt(16)
+                Unit
+            }
+            is WebviewBundleException.CoreCannotResolveProxyServer -> {
+                buf.putInt(17)
+                Unit
+            }
+            is WebviewBundleException.CoreReqwest -> {
+                buf.putInt(18)
+                Unit
+            }
+            is WebviewBundleException.CoreInvalidRemoteUrl -> {
+                buf.putInt(19)
+                Unit
+            }
+            is WebviewBundleException.CoreInvalidRemoteBundle -> {
+                buf.putInt(20)
+                Unit
+            }
+            is WebviewBundleException.CoreRemoteBundleNotFound -> {
+                buf.putInt(21)
+                Unit
+            }
+            is WebviewBundleException.CoreRemoteForbidden -> {
+                buf.putInt(22)
+                Unit
+            }
+            is WebviewBundleException.CoreRemoteHttp -> {
+                buf.putInt(23)
+                Unit
+            }
+            is WebviewBundleException.CoreInvalidRemoteConfig -> {
+                buf.putInt(24)
+                Unit
+            }
+            is WebviewBundleException.CoreInvalidIntegrity -> {
+                buf.putInt(25)
+                Unit
+            }
+            is WebviewBundleException.CoreIntegrityRequired -> {
+                buf.putInt(26)
+                Unit
+            }
+            is WebviewBundleException.CoreIntegrityVerifyFailed -> {
+                buf.putInt(27)
+                Unit
+            }
+            is WebviewBundleException.CoreInvalidSignature -> {
+                buf.putInt(28)
+                Unit
+            }
+            is WebviewBundleException.CoreInvalidSigningKey -> {
+                buf.putInt(29)
+                Unit
+            }
+            is WebviewBundleException.CoreSignatureSignFailed -> {
+                buf.putInt(30)
+                Unit
+            }
+            is WebviewBundleException.CoreInvalidVerifyingKey -> {
+                buf.putInt(31)
+                Unit
+            }
+            is WebviewBundleException.CoreSignatureNotExists -> {
+                buf.putInt(32)
+                Unit
+            }
+            is WebviewBundleException.CoreSignatureVerifyFailed -> {
+                buf.putInt(33)
+                Unit
+            }
+            is WebviewBundleException.CoreGeneric -> {
+                buf.putInt(34)
+                Unit
+            }
+            is WebviewBundleException.BindingInvalidHeaderName -> {
+                buf.putInt(35)
+                Unit
+            }
+            is WebviewBundleException.BindingInvalidHeaderValue -> {
+                buf.putInt(36)
+                Unit
+            }
+            is WebviewBundleException.BindingInvalidSignatureOptions -> {
+                buf.putInt(37)
+                Unit
+            }
+        }.let { /* this makes the `when` an expression, which ensures it is exhaustive */ }
+    }
+
+}
+
+
+
+
 /**
  * @suppress
  */
@@ -6825,6 +10403,70 @@ public object FfiConverterOptionalUInt: FfiConverterRustBuffer<kotlin.UInt?> {
         } else {
             buf.put(1)
             FfiConverterUInt.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalULong: FfiConverterRustBuffer<kotlin.ULong?> {
+    override fun read(buf: ByteBuffer): kotlin.ULong? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterULong.read(buf)
+    }
+
+    override fun allocationSize(value: kotlin.ULong?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterULong.allocationSize(value)
+        }
+    }
+
+    override fun write(value: kotlin.ULong?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterULong.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalBoolean: FfiConverterRustBuffer<kotlin.Boolean?> {
+    override fun read(buf: ByteBuffer): kotlin.Boolean? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterBoolean.read(buf)
+    }
+
+    override fun allocationSize(value: kotlin.Boolean?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterBoolean.allocationSize(value)
+        }
+    }
+
+    override fun write(value: kotlin.Boolean?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterBoolean.write(value, buf)
         }
     }
 }
@@ -6889,6 +10531,70 @@ public object FfiConverterOptionalByteArray: FfiConverterRustBuffer<kotlin.ByteA
         } else {
             buf.put(1)
             FfiConverterByteArray.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeIntegrityCheck: FfiConverterRustBuffer<IntegrityCheck?> {
+    override fun read(buf: ByteBuffer): IntegrityCheck? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeIntegrityCheck.read(buf)
+    }
+
+    override fun allocationSize(value: IntegrityCheck?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeIntegrityCheck.allocationSize(value)
+        }
+    }
+
+    override fun write(value: IntegrityCheck?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeIntegrityCheck.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeRemoteOnDownload: FfiConverterRustBuffer<RemoteOnDownload?> {
+    override fun read(buf: ByteBuffer): RemoteOnDownload? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeRemoteOnDownload.read(buf)
+    }
+
+    override fun allocationSize(value: RemoteOnDownload?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeRemoteOnDownload.allocationSize(value)
+        }
+    }
+
+    override fun write(value: RemoteOnDownload?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeRemoteOnDownload.write(value, buf)
         }
     }
 }
@@ -7027,6 +10733,102 @@ public object FfiConverterOptionalTypeBundleManifestMetadata: FfiConverterRustBu
 /**
  * @suppress
  */
+public object FfiConverterOptionalTypeBundleProtocolOptions: FfiConverterRustBuffer<BundleProtocolOptions?> {
+    override fun read(buf: ByteBuffer): BundleProtocolOptions? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeBundleProtocolOptions.read(buf)
+    }
+
+    override fun allocationSize(value: BundleProtocolOptions?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeBundleProtocolOptions.allocationSize(value)
+        }
+    }
+
+    override fun write(value: BundleProtocolOptions?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeBundleProtocolOptions.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeBundleSourceIntegrityOptions: FfiConverterRustBuffer<BundleSourceIntegrityOptions?> {
+    override fun read(buf: ByteBuffer): BundleSourceIntegrityOptions? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeBundleSourceIntegrityOptions.read(buf)
+    }
+
+    override fun allocationSize(value: BundleSourceIntegrityOptions?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeBundleSourceIntegrityOptions.allocationSize(value)
+        }
+    }
+
+    override fun write(value: BundleSourceIntegrityOptions?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeBundleSourceIntegrityOptions.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeBundleSourceSignatureOptions: FfiConverterRustBuffer<BundleSourceSignatureOptions?> {
+    override fun read(buf: ByteBuffer): BundleSourceSignatureOptions? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeBundleSourceSignatureOptions.read(buf)
+    }
+
+    override fun allocationSize(value: BundleSourceSignatureOptions?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeBundleSourceSignatureOptions.allocationSize(value)
+        }
+    }
+
+    override fun write(value: BundleSourceSignatureOptions?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeBundleSourceSignatureOptions.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
 public object FfiConverterOptionalTypeBundleSourceVersion: FfiConverterRustBuffer<BundleSourceVersion?> {
     override fun read(buf: ByteBuffer): BundleSourceVersion? {
         if (buf.get().toInt() == 0) {
@@ -7049,6 +10851,166 @@ public object FfiConverterOptionalTypeBundleSourceVersion: FfiConverterRustBuffe
         } else {
             buf.put(1)
             FfiConverterTypeBundleSourceVersion.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeChecksumReadOptions: FfiConverterRustBuffer<ChecksumReadOptions?> {
+    override fun read(buf: ByteBuffer): ChecksumReadOptions? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeChecksumReadOptions.read(buf)
+    }
+
+    override fun allocationSize(value: ChecksumReadOptions?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeChecksumReadOptions.allocationSize(value)
+        }
+    }
+
+    override fun write(value: ChecksumReadOptions?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeChecksumReadOptions.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeChecksumWriteOptions: FfiConverterRustBuffer<ChecksumWriteOptions?> {
+    override fun read(buf: ByteBuffer): ChecksumWriteOptions? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeChecksumWriteOptions.read(buf)
+    }
+
+    override fun allocationSize(value: ChecksumWriteOptions?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeChecksumWriteOptions.allocationSize(value)
+        }
+    }
+
+    override fun write(value: ChecksumWriteOptions?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeChecksumWriteOptions.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeDataReadOptions: FfiConverterRustBuffer<DataReadOptions?> {
+    override fun read(buf: ByteBuffer): DataReadOptions? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeDataReadOptions.read(buf)
+    }
+
+    override fun allocationSize(value: DataReadOptions?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeDataReadOptions.allocationSize(value)
+        }
+    }
+
+    override fun write(value: DataReadOptions?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeDataReadOptions.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeHeaderReadOptions: FfiConverterRustBuffer<HeaderReadOptions?> {
+    override fun read(buf: ByteBuffer): HeaderReadOptions? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeHeaderReadOptions.read(buf)
+    }
+
+    override fun allocationSize(value: HeaderReadOptions?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeHeaderReadOptions.allocationSize(value)
+        }
+    }
+
+    override fun write(value: HeaderReadOptions?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeHeaderReadOptions.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeHttpOptions: FfiConverterRustBuffer<HttpOptions?> {
+    override fun read(buf: ByteBuffer): HttpOptions? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeHttpOptions.read(buf)
+    }
+
+    override fun allocationSize(value: HttpOptions?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeHttpOptions.allocationSize(value)
+        }
+    }
+
+    override fun write(value: HttpOptions?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeHttpOptions.write(value, buf)
         }
     }
 }
@@ -7091,28 +11053,124 @@ public object FfiConverterOptionalTypeIndexEntry: FfiConverterRustBuffer<IndexEn
 /**
  * @suppress
  */
-public object FfiConverterOptionalTypeSignatureVerifierOptions: FfiConverterRustBuffer<SignatureVerifierOptions?> {
-    override fun read(buf: ByteBuffer): SignatureVerifierOptions? {
+public object FfiConverterOptionalTypeIndexReadOptions: FfiConverterRustBuffer<IndexReadOptions?> {
+    override fun read(buf: ByteBuffer): IndexReadOptions? {
         if (buf.get().toInt() == 0) {
             return null
         }
-        return FfiConverterTypeSignatureVerifierOptions.read(buf)
+        return FfiConverterTypeIndexReadOptions.read(buf)
     }
 
-    override fun allocationSize(value: SignatureVerifierOptions?): ULong {
+    override fun allocationSize(value: IndexReadOptions?): ULong {
         if (value == null) {
             return 1UL
         } else {
-            return 1UL + FfiConverterTypeSignatureVerifierOptions.allocationSize(value)
+            return 1UL + FfiConverterTypeIndexReadOptions.allocationSize(value)
         }
     }
 
-    override fun write(value: SignatureVerifierOptions?, buf: ByteBuffer) {
+    override fun write(value: IndexReadOptions?, buf: ByteBuffer) {
         if (value == null) {
             buf.put(0)
         } else {
             buf.put(1)
-            FfiConverterTypeSignatureVerifierOptions.write(value, buf)
+            FfiConverterTypeIndexReadOptions.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeRemoteFetchOptions: FfiConverterRustBuffer<RemoteFetchOptions?> {
+    override fun read(buf: ByteBuffer): RemoteFetchOptions? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeRemoteFetchOptions.read(buf)
+    }
+
+    override fun allocationSize(value: RemoteFetchOptions?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeRemoteFetchOptions.allocationSize(value)
+        }
+    }
+
+    override fun write(value: RemoteFetchOptions?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeRemoteFetchOptions.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeRemoteOptions: FfiConverterRustBuffer<RemoteOptions?> {
+    override fun read(buf: ByteBuffer): RemoteOptions? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeRemoteOptions.read(buf)
+    }
+
+    override fun allocationSize(value: RemoteOptions?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeRemoteOptions.allocationSize(value)
+        }
+    }
+
+    override fun write(value: RemoteOptions?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeRemoteOptions.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeUpdaterIntegrityOptions: FfiConverterRustBuffer<UpdaterIntegrityOptions?> {
+    override fun read(buf: ByteBuffer): UpdaterIntegrityOptions? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeUpdaterIntegrityOptions.read(buf)
+    }
+
+    override fun allocationSize(value: UpdaterIntegrityOptions?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeUpdaterIntegrityOptions.allocationSize(value)
+        }
+    }
+
+    override fun write(value: UpdaterIntegrityOptions?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeUpdaterIntegrityOptions.write(value, buf)
         }
     }
 }
@@ -7155,6 +11213,134 @@ public object FfiConverterOptionalTypeUpdaterOptions: FfiConverterRustBuffer<Upd
 /**
  * @suppress
  */
+public object FfiConverterOptionalTypeUpdaterSignatureOptions: FfiConverterRustBuffer<UpdaterSignatureOptions?> {
+    override fun read(buf: ByteBuffer): UpdaterSignatureOptions? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeUpdaterSignatureOptions.read(buf)
+    }
+
+    override fun allocationSize(value: UpdaterSignatureOptions?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeUpdaterSignatureOptions.allocationSize(value)
+        }
+    }
+
+    override fun write(value: UpdaterSignatureOptions?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeUpdaterSignatureOptions.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeBundleResolver: FfiConverterRustBuffer<BundleResolver?> {
+    override fun read(buf: ByteBuffer): BundleResolver? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeBundleResolver.read(buf)
+    }
+
+    override fun allocationSize(value: BundleResolver?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeBundleResolver.allocationSize(value)
+        }
+    }
+
+    override fun write(value: BundleResolver?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeBundleResolver.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeBundleSourceVerifyMode: FfiConverterRustBuffer<BundleSourceVerifyMode?> {
+    override fun read(buf: ByteBuffer): BundleSourceVerifyMode? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeBundleSourceVerifyMode.read(buf)
+    }
+
+    override fun allocationSize(value: BundleSourceVerifyMode?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeBundleSourceVerifyMode.allocationSize(value)
+        }
+    }
+
+    override fun write(value: BundleSourceVerifyMode?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeBundleSourceVerifyMode.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeHostnameSegment: FfiConverterRustBuffer<HostnameSegment?> {
+    override fun read(buf: ByteBuffer): HostnameSegment? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeHostnameSegment.read(buf)
+    }
+
+    override fun allocationSize(value: HostnameSegment?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeHostnameSegment.allocationSize(value)
+        }
+    }
+
+    override fun write(value: HostnameSegment?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeHostnameSegment.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
 public object FfiConverterOptionalTypeIntegrityPolicy: FfiConverterRustBuffer<IntegrityPolicy?> {
     override fun read(buf: ByteBuffer): IntegrityPolicy? {
         if (buf.get().toInt() == 0) {
@@ -7177,6 +11363,70 @@ public object FfiConverterOptionalTypeIntegrityPolicy: FfiConverterRustBuffer<In
         } else {
             buf.put(1)
             FfiConverterTypeIntegrityPolicy.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypePathResolver: FfiConverterRustBuffer<PathResolver?> {
+    override fun read(buf: ByteBuffer): PathResolver? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypePathResolver.read(buf)
+    }
+
+    override fun allocationSize(value: PathResolver?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypePathResolver.allocationSize(value)
+        }
+    }
+
+    override fun write(value: PathResolver?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypePathResolver.write(value, buf)
+        }
+    }
+}
+
+
+
+
+/**
+ * @suppress
+ */
+public object FfiConverterOptionalTypeSignatureVerification: FfiConverterRustBuffer<SignatureVerification?> {
+    override fun read(buf: ByteBuffer): SignatureVerification? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeSignatureVerification.read(buf)
+    }
+
+    override fun allocationSize(value: SignatureVerification?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeSignatureVerification.allocationSize(value)
+        }
+    }
+
+    override fun write(value: SignatureVerification?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeSignatureVerification.write(value, buf)
         }
     }
 }
@@ -7417,7 +11667,7 @@ public object FfiConverterMapStringTypeIndexEntry: FfiConverterRustBuffer<Map<ko
         /**
          * Reads a bundle from a file path using async I/O.
          */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
      suspend fun `readBundle`(`filepath`: kotlin.String) : Bundle {
         return uniffiRustCallAsync(
@@ -7428,7 +11678,7 @@ public object FfiConverterMapStringTypeIndexEntry: FfiConverterRustBuffer<Map<ko
         // lift function
         { FfiConverterTypeBundle.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
@@ -7436,9 +11686,9 @@ public object FfiConverterMapStringTypeIndexEntry: FfiConverterRustBuffer<Map<ko
          * Deserializes a bundle from an in-memory byte slice.
          * Prefer [`read_bundle`] for large files to avoid loading everything into memory.
          */
-    @Throws(Exception::class) fun `readBundleFromBytes`(`data`: kotlin.ByteArray): Bundle {
+    @Throws(WebviewBundleException::class) fun `readBundleFromBytes`(`data`: kotlin.ByteArray): Bundle {
             return FfiConverterTypeBundle.lift(
-    uniffiRustCallWithError(Exception) { _status ->
+    uniffiRustCallWithError(WebviewBundleException) { _status ->
     UniffiLib.uniffi_wvb_ffi_fn_func_read_bundle_from_bytes(
     
         FfiConverterByteArray.lower(`data`),_status)
@@ -7450,7 +11700,7 @@ public object FfiConverterMapStringTypeIndexEntry: FfiConverterRustBuffer<Map<ko
         /**
          * Writes a bundle to a file path using async I/O. Returns the number of bytes written.
          */
-    @Throws(Exception::class)
+    @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
      suspend fun `writeBundle`(`bundle`: Bundle, `filepath`: kotlin.String) : kotlin.ULong {
         return uniffiRustCallAsync(
@@ -7461,16 +11711,16 @@ public object FfiConverterMapStringTypeIndexEntry: FfiConverterRustBuffer<Map<ko
         // lift function
         { FfiConverterULong.lift(it) },
         // Error FFI converter
-        Exception.ErrorHandler,
+        WebviewBundleException.ErrorHandler,
     )
     }
 
         /**
          * Serializes a bundle into an in-memory byte vector.
          */
-    @Throws(Exception::class) fun `writeBundleToBytes`(`bundle`: Bundle): kotlin.ByteArray {
+    @Throws(WebviewBundleException::class) fun `writeBundleToBytes`(`bundle`: Bundle): kotlin.ByteArray {
             return FfiConverterByteArray.lift(
-    uniffiRustCallWithError(Exception) { _status ->
+    uniffiRustCallWithError(WebviewBundleException) { _status ->
     UniffiLib.uniffi_wvb_ffi_fn_func_write_bundle_to_bytes(
     
         FfiConverterTypeBundle.lower(`bundle`),_status)

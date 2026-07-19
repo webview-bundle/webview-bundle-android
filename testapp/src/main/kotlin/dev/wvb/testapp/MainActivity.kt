@@ -17,6 +17,8 @@ import android.widget.LinearLayout
 import dev.wvb.WebViewBundle
 import dev.wvb.WebViewBundleConfig
 import dev.wvb.WebViewBundleProtocol
+import dev.wvb.WebViewBundleRemoteConfig
+import dev.wvb.WebViewBundleUpdaterConfig
 
 class MainActivity : Activity() {
 
@@ -30,6 +32,9 @@ class MainActivity : Activity() {
             this,
             WebViewBundleConfig(
                 protocols = listOf(WebViewBundleProtocol.bundle()),
+                updater = WebViewBundleUpdaterConfig(
+                    remote = WebViewBundleRemoteConfig(endpoint = REMOTE_ENDPOINT),
+                ),
                 onError = { error -> Log.e(TAG, "handler error", error) },
             ),
         )
@@ -94,6 +99,9 @@ class MainActivity : Activity() {
 
     private companion object {
         const val TAG = "WvbTestApp"
-        const val START_URL = "https://hacker-news.wvb/"
+        const val START_URL = "https://testbed.wvb/"
+
+        /** The playground remote the e2e testbed spec downloads the `testbed` bundle from. */
+        const val REMOTE_ENDPOINT = "https://playground-remote.wvb.dev"
     }
 }

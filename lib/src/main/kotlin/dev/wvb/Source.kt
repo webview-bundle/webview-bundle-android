@@ -7,19 +7,12 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicLong
 
 /**
- * Options for building a [BundleSource] with sensible Android defaults.
- *
- * Every field is optional and falls back to an app-private directory when
- * omitted:
- * - [builtinDir] -> `<filesDir>/wvb/builtin` — the read-only bundles shipped with
- *   the app. The native source reads real files, so APK `assets` are copied here
- *   first (see [builtinAssetsDir] / [installBuiltinBundlesFromAssets]).
- * - [remoteDir] -> `<filesDir>/wvb/remote` — the writable directory holding
- *   bundles downloaded at runtime.
+ * Options for building a [BundleSource] with sensible Android defaults. Every field
+ * is optional and falls back to an app-private directory when omitted.
  *
  * @property builtinAssetsDir when non-null, the APK `assets/<builtinAssetsDir>`
- *   directory is extracted into [builtinDir] when the source is built. Set to
- *   `null` to disable extraction (e.g. when you populate [builtinDir] yourself).
+ *   directory is extracted into [builtinDir] when the source is built; `null`
+ *   disables extraction (e.g. when you populate [builtinDir] yourself).
  */
 public data class SourceOptions(
     val builtinDir: String? = null,
@@ -27,42 +20,54 @@ public data class SourceOptions(
     val builtinManifestFilepath: String? = null,
     val remoteManifestFilepath: String? = null,
     val builtinAssetsDir: String? = "bundles",
+    val integrity: BundleSourceIntegrityOptions? = null,
+    val signature: BundleSourceSignatureOptions? = null,
+    val dataReadOptions: DataReadOptions? = null,
+    val headerReadOptions: HeaderReadOptions? = null,
+    val indexReadOptions: IndexReadOptions? = null,
 )
 
-/** `<filesDir>/wvb/builtin` — the read-only directory for bundles shipped with the app. */
+/** `<filesDir>/.wvb/builtin/bundles` — the read-only directory for bundles shipped with the app. */
 public fun defaultBuiltinDir(context: Context): String =
-    File(context.filesDir, "wvb/builtin").absolutePath
+    File(context.filesDir, ".wvb/builtin/bundles").absolutePath
 
-/** `<filesDir>/wvb/remote` — the writable directory for bundles downloaded at runtime. */
+/** `<filesDir>/.wvb/remote/bundles` — the writable directory for bundles downloaded at runtime. */
 public fun defaultRemoteDir(context: Context): String =
-    File(context.filesDir, "wvb/remote").absolutePath
+    File(context.filesDir, ".wvb/remote/bundles").absolutePath
 
 /**
- * Builds a [BundleSource] from [options], filling in default directories, copying
+ * Builds a [BundleSource] from [config], filling in default directories, copying
  * bundled assets into the builtin dir, and creating the writable remote dir.
  *
- * Performs file I/O (asset extraction, `mkdirs`); prefer building off the main
- * thread when shipping large builtin bundles.
+ * Performs blocking file I/O; prefer building off the main thread when shipping
+ * large builtin bundles.
  */
-public fun makeBundleSource(context: Context, options: SourceOptions = SourceOptions()): BundleSource {
-    val builtinDir = options.builtinDir ?: defaultBuiltinDir(context)
-    val remoteDir = options.remoteDir ?: defaultRemoteDir(context)
+public fun makeBundleSource(
+    context: Context,
+    config: SourceOptions,
+): BundleSource {
+    val builtinDir = config.builtinDir ?: defaultBuiltinDir(context)
+    val remoteDir = config.remoteDir ?: defaultRemoteDir(context)
 
     File(builtinDir).mkdirs()
     File(remoteDir).mkdirs()
 
-    options.builtinAssetsDir?.let { assetDir ->
+    config.builtinAssetsDir?.let { assetDir ->
         installBuiltinBundlesFromAssets(context, assetDir, builtinDir)
     }
 
-    return BundleSource(
-        BundleSourceConfig(
-            builtinDir = builtinDir,
-            remoteDir = remoteDir,
-            builtinManifestFilepath = options.builtinManifestFilepath,
-            remoteManifestFilepath = options.remoteManifestFilepath,
-        ),
+    val bundleConfig = BundleSourceConfig(
+        builtinDir = builtinDir,
+        remoteDir = remoteDir,
+        builtinManifestFilepath = config.builtinManifestFilepath,
+        remoteManifestFilepath = config.remoteManifestFilepath,
+        integrity = config.integrity,
+        signature = config.signature,
+        dataReadOptions = config.dataReadOptions,
+        headerReadOptions = config.headerReadOptions,
+        indexReadOptions = config.indexReadOptions,
     )
+    return BundleSource(bundleConfig)
 }
 
 /** Per-destination locks serializing concurrent same-process extraction. */
@@ -73,23 +78,10 @@ private val tmpCounter = AtomicLong(0)
 
 /**
  * Copies bundles shipped in the APK `assets/[assetDir]` (default `bundles/`) into
- * [builtinDir] so the native [BundleSource] can read them as real files. The
- * directory tree (the manifest plus every `.wvb`) is copied recursively as an
- * additive overlay — files removed from the assets in a later app version are
- * **not** deleted from [builtinDir]; clear it yourself for a clean slate.
- *
- * Cheap on repeat launches: within the same installed APK a file is copied only
- * when missing or a different size. The whole tree is re-extracted after an app
- * update (detected via the APK's install timestamp), so a same-size content change
- * — e.g. a `manifest.json` bumping `"0.0.1"` -> `"0.0.2"` — is not missed. No-op
- * when the asset directory does not exist. Returns the destination [builtinDir].
- * Throws [java.io.IOException] on a genuine copy failure (e.g. the disk is full).
- *
- * Concurrency-safe: same-process callers targeting the same [builtinDir] are
- * serialized, and each file is written to a unique temp and atomically renamed, so
- * concurrent extractions (multiple threads, or multiple processes sharing the
- * directory) and concurrent readers always observe a complete file — never a torn
- * or interleaved one.
+ * [builtinDir] so the native [BundleSource] can read them as real files, returning
+ * the destination. Copies recursively as an additive overlay — files removed from
+ * the assets in a later app version are **not** deleted from [builtinDir]. No-op
+ * when the asset directory does not exist.
  */
 public fun installBuiltinBundlesFromAssets(
     context: Context,
@@ -97,15 +89,12 @@ public fun installBuiltinBundlesFromAssets(
     builtinDir: String? = null,
 ): String {
     val destRoot = builtinDir ?: defaultBuiltinDir(context)
-    // Serialize same-process extraction per destination so concurrent constructors
-    // don't redo each other's work; cross-process safety comes from the unique
-    // temp + atomic rename in copyAssetFile.
+    // Serialize same-process extraction per destination; cross-process safety
+    // comes from the unique temp + atomic rename in copyAssetFile.
     val lock = extractionLocks.getOrPut(File(destRoot).absolutePath) { Any() }
     synchronized(lock) {
-        // Re-extract whenever the APK changed. A per-file size comparison alone
-        // misses same-size content changes (e.g. a manifest.json bumping
-        // "0.0.1" -> "0.0.2"), which would otherwise serve stale bundles after an
-        // app update; the APK's install timestamp changes on every (re)install.
+        // Re-extract whenever the APK changed: a per-file size comparison alone
+        // misses same-size content changes that would otherwise serve stale bundles.
         val stampFile = File(destRoot, ".asset-stamp")
         val currentStamp = currentAssetStamp(context)
         val storedStamp = runCatching { stampFile.readText().trim() }.getOrNull()
@@ -128,15 +117,13 @@ private fun currentAssetStamp(context: Context): String? =
     }.getOrNull()
 
 /**
- * Recursively copies an asset directory into [dest] (additive overlay), copying
- * changed files only; never deletes existing destination entries. When [force] is
- * set every file is rewritten regardless of size (used after an app update).
+ * Recursively copies an asset directory into [dest] as an additive overlay, copying
+ * changed files only and never deleting existing destination entries. [force]
+ * rewrites every file regardless of size.
  */
 private fun copyAssetTree(context: Context, assetPath: String, dest: File, force: Boolean) {
-    // `list` returns the children of a directory, or an empty array for a file
-    // (and for an empty directory, which bundle dirs never are). A genuine
-    // IOException is allowed to propagate rather than be silently treated as "no
-    // children".
+    // `list` returns a directory's children, or an empty array for a file (and for
+    // an empty directory, which bundle dirs never are).
     val children = context.assets.list(assetPath) ?: emptyArray()
 
     if (children.isEmpty()) {
@@ -152,18 +139,11 @@ private fun copyAssetTree(context: Context, assetPath: String, dest: File, force
 }
 
 /**
- * Copies a single asset file to [dest] when missing or a different size.
- *
- * Unless [force] is set, the asset stream's [java.io.InputStream.available] (the
- * full uncompressed length up front, for `AssetManager` streams compressed or not)
- * is compared against the already-extracted file's length to skip unchanged copies;
- * [force] rewrites the file regardless (size alone can't detect a same-size content
- * change). The bytes are written to a **unique** sibling temp and atomically
- * renamed, so a process killed mid-copy — or a concurrent extraction from another
- * thread or process — cannot leave a torn destination (the temp name carries the
- * pid and a counter, so concurrent copies never share one). A path that turns out
- * not to be a readable file (e.g. an empty asset directory) is skipped; a real
- * [java.io.IOException] propagates.
+ * Copies a single asset file to [dest] when missing or a different size; [force]
+ * rewrites regardless. `AssetManager` streams report the full uncompressed length
+ * via [java.io.InputStream.available], so a size comparison is a valid skip check.
+ * The bytes are written to a unique sibling temp and atomically renamed so a
+ * concurrent or interrupted copy can never leave a torn destination.
  */
 private fun copyAssetFile(context: Context, assetPath: String, dest: File, force: Boolean) {
     val input = try {
@@ -181,9 +161,8 @@ private fun copyAssetFile(context: Context, assetPath: String, dest: File, force
         )
         try {
             tmp.outputStream().use { output -> stream.copyTo(output) }
-            // renameTo over an existing destination is an atomic replace on the
-            // app's (single) filesystem. If it fails, fail loudly rather than fall
-            // back to a non-atomic copy a concurrent reader could observe torn.
+            // Atomic replace on the app's single filesystem; fail loudly rather
+            // than fall back to a non-atomic copy a concurrent reader could see torn.
             if (!tmp.renameTo(dest)) {
                 throw java.io.IOException("failed to atomically move $tmp -> $dest")
             }

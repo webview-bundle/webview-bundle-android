@@ -2,10 +2,7 @@ package dev.wvb
 
 import android.util.Log as AndroidLog
 
-/**
- * Severity of an SDK log event; mirrors Rust `tracing` levels so core events can
- * forward into the same pipeline (see [CoreLog]).
- */
+/** Severity of an SDK log event; mirrors Rust `tracing` levels. */
 internal enum class LogLevel { TRACE, DEBUG, INFO, WARNING, ERROR }
 
 /** Unified logcat channels. Filter on the `webview-bundle.*` tags. */
@@ -31,11 +28,7 @@ internal object Log {
     }
 }
 
-/**
- * Seam for forwarding the Rust core's `tracing` into the unified `core` channel.
- * The level/route mapping is implemented; wiring it to an FFI log-subscriber
- * callback is pending (the FFI exposes none yet).
- */
+/** Seam for forwarding the Rust core's `tracing` into the unified `core` channel. */
 internal object CoreLog {
     fun forward(level: LogLevel, target: String, message: String) {
         Log.core.log(level, "[$target] $message")

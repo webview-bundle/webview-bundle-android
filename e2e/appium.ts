@@ -60,8 +60,8 @@ export async function startAppiumServer(
 			"/",
 			"--log-level",
 			"error",
-			// Lets UiAutomator2 download a chromedriver matching the device's WebView
-			// when one isn't already cached, so the WEBVIEW context can be entered.
+			// Lets UiAutomator2 auto-download a chromedriver matching the device's
+			// WebView, so the WEBVIEW context can be entered.
 			// Appium 3 requires the feature be namespaced by driver (or `*` for all).
 			"--allow-insecure",
 			"*:chromedriver_autodownload",
