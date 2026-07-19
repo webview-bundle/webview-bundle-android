@@ -4,6 +4,9 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.vanniktech.maven.publish)
+    // Generates the API reference that fills the published -javadoc.jar, which
+    // javadoc.io then hosts automatically from Maven Central.
+    alias(libs.plugins.dokka)
 }
 
 val publishVersion = (findProperty("VERSION") as String?) ?: "0.0.0-LOCAL"

@@ -5,6 +5,7 @@
 android-gradle-plugin = "8.10.1"
 androidx-annotation   = "1.8.1"
 androidx-webkit       = "1.12.1"
+dokka                 = "2.2.0"
 jna                   = "5.17.0"
 kotlin                = "2.3.21"
 kotlinx-coroutines    = "1.10.2"
@@ -23,5 +24,6 @@ kotlinx-coroutines-android     = { module = "org.jetbrains.kotlinx:kotlinx-corou
 [plugins]
 android-application      = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 android-library          = { id = "com.android.library", version.ref = "android-gradle-plugin" }
+dokka                    = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlin-android           = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
