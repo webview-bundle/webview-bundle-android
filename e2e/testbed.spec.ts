@@ -18,9 +18,10 @@ describe("testbed (android)", () => {
 	const REMOTE_VERSION = "0.3.0";
 
 	// Loading the app shell (a full navigation) and the network download need more
-	// headroom than the driver's default.
+	// headroom than the driver's default. RESULT_TIMEOUT exceeds the FFI's 120s
+	// request timeout so a slow-but-completing call still renders before we give up.
 	const NAV_TIMEOUT = 30_000;
-	const RESULT_TIMEOUT = 90_000;
+	const RESULT_TIMEOUT = 150_000;
 
 	let browser: Driver;
 	let driver: WebviewDriver;
@@ -33,10 +34,6 @@ describe("testbed (android)", () => {
 		});
 	});
 
-	defineTestbedSuite(() => driver);
-
-	// A real remote download + install the generic suite can't assert — it accepts
-	// ok|error, so it exercises the download but never proves it succeeded.
 	async function open(): Promise<void> {
 		await driver.goto("/");
 		await driver.waitForVisible(sel.appShell, { timeoutMs: NAV_TIMEOUT });
@@ -74,6 +71,10 @@ describe("testbed (android)", () => {
 		}
 	}
 
+	// Runs FIRST — on the clean fullReset state and fresh network connections. It is the
+	// only test that *asserts* the real download succeeds, so it must run the update flow
+	// before the generic suite issues 20+ requests that can leave a dead keep-alive
+	// connection for the next call to reuse (which stalls it until the request timeout).
 	test(
 		"downloads + installs the real remote update (builtin 0.2.0 -> remote 0.3.0)",
 		async () => {
@@ -115,6 +116,11 @@ describe("testbed (android)", () => {
 			await driver.waitForVisible(sel.appShell, { timeoutMs: NAV_TIMEOUT });
 			expect(await driver.text(".app__version")).toContain(REMOTE_VERSION);
 		},
-		240_000,
+		300_000,
 	);
+
+	// The platform-agnostic suite the testbed package ships (each `@wvb/bridge` method
+	// asserted to render an ok|error outcome). Runs after the strict update test so it
+	// can't perturb that test's clean starting state.
+	defineTestbedSuite(() => driver);
 });
