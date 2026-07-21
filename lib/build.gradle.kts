@@ -11,6 +11,17 @@ plugins {
 
 val publishVersion = (findProperty("VERSION") as String?) ?: "0.0.0-LOCAL"
 
+// Name the generated API docs after the artifact instead of Dokka's default, which is the Gradle
+// module path (`:lib`) — that name ends up in the published -javadoc.jar and on javadoc.io.
+dokka {
+    moduleName.set("webview-bundle-android")
+    dokkaSourceSets.configureEach {
+        // The default source-set name is the Gradle path + variant (`:lib/main`), which shows up in
+        // the docs' platform-filter chip; relabel it so no `:lib` leaks into the published docs.
+        displayName.set("android")
+    }
+}
+
 android {
     namespace = "dev.wvb"
     compileSdk = 35
