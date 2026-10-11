@@ -1388,7 +1388,7 @@ private fun uniffiCheckApiChecksums(lib: IntegrityCheckingUniffiLib) {
     if (lib.uniffi_wvb_ffi_checksum_method_remote_download() != 26520.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_wvb_ffi_checksum_method_remote_get_update() != 30874.toShort()) {
+    if (lib.uniffi_wvb_ffi_checksum_method_remote_get_update() != 57748.toShort()) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_wvb_ffi_checksum_method_remoteondownload_on_download() != 24193.toShort()) {
@@ -5753,7 +5753,7 @@ public interface RemoteInterface {
     suspend fun `download`(`url`: kotlin.String, `filepath`: kotlin.String, `cancellation`: Cancellation? = null)
     
     /**
-     * Gets the current update document, or `None` when its ETag has not changed.
+     * Gets the current update document, or `None` for no content (204) or an unchanged ETag (304).
      */
     suspend fun `getUpdate`(`options`: RemoteGetUpdateOptions?): RemoteUpdateResponse?
     
@@ -5900,7 +5900,7 @@ open class Remote: Disposable, AutoCloseable, RemoteInterface
 
     
     /**
-     * Gets the current update document, or `None` when its ETag has not changed.
+     * Gets the current update document, or `None` for no content (204) or an unchanged ETag (304).
      */
     @Throws(WebviewBundleException::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
