@@ -1,13 +1,13 @@
 {
   "manifestVersion": 1,
-  "entries": {
+  "bundles": {
     "testbed": {
+      "currentVersion": "0.4.0",
       "versions": {
-        "0.2.0": {
-          "integrity": "sha256:jdi4x7cstlNgnReMU7NS1OE5EYmiLF87GYBSYh9tqxE="
+        "0.4.0": {
+          "integrity": "sha256:J63kXbcRISIgXrj9gR/2E8O3XsLdybzE+bwa2nMgio8="
         }
-      },
-      "currentVersion": "0.2.0"
+      }
     }
   }
 }

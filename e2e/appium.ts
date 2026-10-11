@@ -3,7 +3,7 @@ import path from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { execa, type ResultPromise } from "execa";
 
-export const APPIUM_PORT = 4723;
+export const APPIUM_PORT = Number(process.env.APPIUM_PORT ?? 4723);
 
 if (!process.env.APPIUM_HOME) {
 	process.env.APPIUM_HOME = path.join(os.homedir(), ".appium");

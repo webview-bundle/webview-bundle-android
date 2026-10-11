@@ -11,7 +11,8 @@ import kotlinx.coroutines.runBlocking
 /** Remote endpoint configuration for [WebViewBundleUpdaterConfig]. */
 data class WebViewBundleRemoteConfig(
     /** The base URL of the remote server, e.g. `"https://bundles.example.com"`. */
-    val endpoint: String,
+    val baseUrl: String,
+    val options: RemoteOptions? = null,
 )
 
 /** Updater configuration for [WebViewBundleConfig]. */
@@ -19,8 +20,10 @@ data class WebViewBundleUpdaterConfig(
     val remote: WebViewBundleRemoteConfig,
     /** Release channel (e.g. `"stable"`, `"beta"`). */
     val channel: String? = null,
-    val integrityPolicy: IntegrityPolicy? = null,
-    val signatureVerifier: SignatureVerifierOptions? = null,
+    val integrity: UpdaterIntegrityOptions? = null,
+    val signature: UpdaterSignatureOptions? = null,
+    /** Persisted update document; defaults to `<remoteDir>/update.json`. */
+    val updateFilepath: String? = null,
 )
 
 /**
@@ -65,7 +68,7 @@ private class RegisteredProtocol(
  */
 class WebViewBundle private constructor(
     /** The bundle source requests are served from. */
-    val source: BundleSource,
+    val source: Source,
     /** The remote endpoint, when an [WebViewBundleUpdaterConfig] was provided. */
     val remote: Remote?,
     /** The updater, when an [WebViewBundleUpdaterConfig] was provided. */
@@ -174,27 +177,27 @@ class WebViewBundle private constructor(
             getInstance(context, config)
 
         private fun create(context: Context, config: WebViewBundleConfig): WebViewBundle {
-            val source = makeBundleSource(context, config.source)
+            WvbAndroid.initialize(context)
+            val source = makeSource(context, config.source)
 
             var remote: Remote? = null
             var updater: Updater? = null
             val registered = mutableListOf<RegisteredProtocol>()
             try {
                 config.updater?.let { updaterConfig ->
-                    val createdRemote = Remote(updaterConfig.remote.endpoint)
+                    val createdRemote = Remote(updaterConfig.remote.baseUrl, updaterConfig.remote.options)
                     remote =
                         createdRemote // assign before Updater(), so a throw there still closes it
                     updater = Updater(
                         source,
                         createdRemote,
+                        updaterConfig.updateFilepath ?: java.io.File(
+                            config.source.remoteDir ?: defaultRemoteDir(context), "update.json"
+                        ).absolutePath,
                         UpdaterOptions(
                             channel = updaterConfig.channel,
-                            integrity = updaterConfig.integrityPolicy?.let {
-                                UpdaterIntegrityOptions(policy = it)
-                            },
-                            signature = updaterConfig.signatureVerifier?.let {
-                                UpdaterSignatureOptions(verify = SignatureVerification.Key(it))
-                            },
+                            integrity = updaterConfig.integrity,
+                            signature = updaterConfig.signature,
                         ),
                     )
                 }

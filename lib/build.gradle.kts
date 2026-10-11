@@ -28,6 +28,7 @@ android {
 
     defaultConfig {
         minSdk = 24
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // Keep the @JavascriptInterface bridge methods in minified consumer apps.
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -57,6 +58,12 @@ android {
 }
 
 dependencies {
+    // Match the rustls-platform-verifier-android crate used by the installed FFI.
+    implementation("org.rustls:rustls-platform-verifier:0.2.0")
+    androidTestImplementation("androidx.test:runner:1.6.2")
+    androidTestImplementation("junit:junit:4.13.2")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.json:json:20240303")
     implementation("net.java.dev.jna:jna:${libs.versions.jna.get()}@aar")
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.androidx.annotation)

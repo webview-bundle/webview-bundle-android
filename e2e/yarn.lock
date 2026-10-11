@@ -698,13 +698,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tauri-apps/api@npm:^2":
-  version: 2.11.1
-  resolution: "@tauri-apps/api@npm:2.11.1"
-  checksum: 10c0/78a08a64ee7eab9d34bd4ba1bdc3a2440c7e9cc5737b3f1d77bd80fa38b0cb5e9601efe04da40c947c5da2ca38dc702bec21b4ae96b18ee5f3e82980d1f0b325
-  languageName: node
-  linkType: hard
-
 "@tootallnate/quickjs-emscripten@npm:^0.23.0":
   version: 0.23.0
   resolution: "@tootallnate/quickjs-emscripten@npm:0.23.0"
@@ -991,24 +984,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wvb-playground/webview-testbed@npm:0.3.0":
-  version: 0.3.0
-  resolution: "@wvb-playground/webview-testbed@npm:0.3.0"
+"@wvb-playground/webview-testbed@file:./fixtures/webview-testbed-0.4.0.tgz::locator=webview-bundle-android-e2e%40workspace%3A.":
+  version: 0.4.0
+  resolution: "@wvb-playground/webview-testbed@file:./fixtures/webview-testbed-0.4.0.tgz#./fixtures/webview-testbed-0.4.0.tgz::hash=7cded0&locator=webview-bundle-android-e2e%40workspace%3A."
   dependencies:
     "@wvb-playground/testdriver": "npm:^0.1.0"
-    "@wvb/bridge": "npm:0.1.0-next.fe10f84"
   peerDependencies:
-    vitest: ^2.0.0 || ^3.0.0 || ^4.0.0
-  checksum: 10c0/b4243848ce25c46480269003d8b8edc25a052643d82db9bb51ae4bfe4407b73fa58503ca0aac06f2d17b7e63fb68bcddb5aa96f891f117f81129d2f58bbffd90
-  languageName: node
-  linkType: hard
-
-"@wvb/bridge@npm:0.1.0-next.fe10f84":
-  version: 0.1.0-next.fe10f84
-  resolution: "@wvb/bridge@npm:0.1.0-next.fe10f84"
-  dependencies:
-    "@tauri-apps/api": "npm:^2"
-  checksum: 10c0/dda6994a2826e07e93463576e5e50c7a24a2c4943af47f550862c26f4a95169e8b5fba1e7636aa3e9b245243e32f23c13e18c849d57f028833df749af6368aea
+    vitest: ^4.0.0
+  checksum: 10c0/8ad4d176b228df9f8c1da9fff2a5ede0b64ebc553bf25ae4eea2b7cadce529fc90f289cc82a5ccf33c9e033842a4bee80f9dba47ee412c83349ed8089c1aa10d
   languageName: node
   linkType: hard
 
@@ -5554,7 +5537,7 @@ __metadata:
   dependencies:
     "@types/node": "npm:^25"
     "@wvb-playground/testdriver": "npm:0.1.0"
-    "@wvb-playground/webview-testbed": "npm:0.3.0"
+    "@wvb-playground/webview-testbed": "file:./fixtures/webview-testbed-0.4.0.tgz"
     appium: "npm:^3.5.0"
     execa: "npm:^9.5.2"
     tinyglobby: "npm:^0.2.10"

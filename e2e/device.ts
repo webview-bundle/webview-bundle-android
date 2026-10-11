@@ -154,7 +154,7 @@ async function bootEmulator(avd: string): Promise<AndroidDevice> {
 }
 
 /**
- * Reuses an already-booted device/emulator, or boots an AVD and waits for it to
+ * Reuses an already-booted emulator, or boots an AVD and waits for it to
  * finish booting.
  */
 export async function ensureAndroidDevice(
@@ -163,6 +163,8 @@ export async function ensureAndroidDevice(
 	await adb(["start-server"]);
 
 	for (const serial of await listSerials()) {
+		// The fixture remote uses 10.0.2.2, which is only reachable from an emulator.
+		if (!serial.startsWith("emulator-")) continue;
 		if (await isBooted(serial)) {
 			console.log(`[device] reusing running device: ${serial}`);
 			return {

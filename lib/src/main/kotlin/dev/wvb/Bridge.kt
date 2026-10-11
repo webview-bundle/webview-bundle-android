@@ -143,7 +143,7 @@ class Bridge internal constructor() : AutoCloseable {
 
         fun encodeError(error: Throwable): String {
             val json = JSONObject().put("message", error.message ?: error.toString())
-            (error as? BridgeFailure)?.code?.let { json.put("code", it) }
+            ((error as? BridgeFailure)?.code ?: (error as? WebviewBundleException)?.bridgeCode)?.let { json.put("code", it) }
             return json.toString()
         }
 

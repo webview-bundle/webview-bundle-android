@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicLong
 
 /**
- * Options for building a [BundleSource] with sensible Android defaults. Every field
+ * Options for building a [Source] with sensible Android defaults. Every field
  * is optional and falls back to an app-private directory when omitted.
  *
  * @property builtinAssetsDir when non-null, the APK `assets/<builtinAssetsDir>`
@@ -20,11 +20,11 @@ public data class SourceOptions(
     val builtinManifestFilepath: String? = null,
     val remoteManifestFilepath: String? = null,
     val builtinAssetsDir: String? = "bundles",
-    val integrity: BundleSourceIntegrityOptions? = null,
-    val signature: BundleSourceSignatureOptions? = null,
+    val integrity: SourceIntegrityOptions? = null,
     val dataReadOptions: DataReadOptions? = null,
     val headerReadOptions: HeaderReadOptions? = null,
     val indexReadOptions: IndexReadOptions? = null,
+    val removeBundleChunkSize: UInt? = null,
 )
 
 /** `<filesDir>/.wvb/builtin/bundles` — the read-only directory for bundles shipped with the app. */
@@ -36,16 +36,16 @@ public fun defaultRemoteDir(context: Context): String =
     File(context.filesDir, ".wvb/remote/bundles").absolutePath
 
 /**
- * Builds a [BundleSource] from [config], filling in default directories, copying
+ * Builds a [Source] from [config], filling in default directories, copying
  * bundled assets into the builtin dir, and creating the writable remote dir.
  *
  * Performs blocking file I/O; prefer building off the main thread when shipping
  * large builtin bundles.
  */
-public fun makeBundleSource(
+public fun makeSource(
     context: Context,
     config: SourceOptions,
-): BundleSource {
+): Source {
     val builtinDir = config.builtinDir ?: defaultBuiltinDir(context)
     val remoteDir = config.remoteDir ?: defaultRemoteDir(context)
 
@@ -56,18 +56,18 @@ public fun makeBundleSource(
         installBuiltinBundlesFromAssets(context, assetDir, builtinDir)
     }
 
-    val bundleConfig = BundleSourceConfig(
+    val bundleConfig = SourceConfig(
         builtinDir = builtinDir,
         remoteDir = remoteDir,
         builtinManifestFilepath = config.builtinManifestFilepath,
         remoteManifestFilepath = config.remoteManifestFilepath,
         integrity = config.integrity,
-        signature = config.signature,
         dataReadOptions = config.dataReadOptions,
         headerReadOptions = config.headerReadOptions,
         indexReadOptions = config.indexReadOptions,
+        removeBundleChunkSize = config.removeBundleChunkSize,
     )
-    return BundleSource(bundleConfig)
+    return Source(bundleConfig)
 }
 
 /** Per-destination locks serializing concurrent same-process extraction. */
@@ -78,7 +78,7 @@ private val tmpCounter = AtomicLong(0)
 
 /**
  * Copies bundles shipped in the APK `assets/[assetDir]` (default `bundles/`) into
- * [builtinDir] so the native [BundleSource] can read them as real files, returning
+ * [builtinDir] so the native [Source] can read them as real files, returning
  * the destination. Copies recursively as an additive overlay — files removed from
  * the assets in a later app version are **not** deleted from [builtinDir]. No-op
  * when the asset directory does not exist.

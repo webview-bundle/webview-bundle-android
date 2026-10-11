@@ -33,7 +33,9 @@ class MainActivity : Activity() {
             WebViewBundleConfig(
                 protocols = listOf(WebViewBundleProtocol.bundle()),
                 updater = WebViewBundleUpdaterConfig(
-                    remote = WebViewBundleRemoteConfig(endpoint = REMOTE_ENDPOINT),
+                    remote = WebViewBundleRemoteConfig(
+                        baseUrl = intent.getStringExtra("wvbRemoteUrl") ?: REMOTE_ENDPOINT,
+                    ),
                 ),
                 onError = { error -> Log.e(TAG, "handler error", error) },
             ),
@@ -101,7 +103,7 @@ class MainActivity : Activity() {
         const val TAG = "WvbTestApp"
         const val START_URL = "https://testbed.wvb/"
 
-        /** The playground remote the e2e testbed spec downloads the `testbed` bundle from. */
+        /** Default remote for manual use; E2E supplies wvbRemoteUrl at launch. */
         const val REMOTE_ENDPOINT = "https://playground-remote.wvb.dev"
     }
 }

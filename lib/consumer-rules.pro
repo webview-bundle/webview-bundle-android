@@ -1,4 +1,4 @@
-# WebViewBundle's native FFI bindings (lib/src/main/kotlin/dev/wvb/wvb_ffi.kt)
+# WebViewBundle's native FFI bindings (lib/src/main/kotlin/dev/wvb/WvbFFI.kt)
 # are UniFFI-generated and call into the native library through JNA. JNA maps the
 # Rust structs/callbacks by reflection and reads the field names from
 # @Structure.FieldOrder annotations, so R8 in a minified consumer app must not
@@ -14,3 +14,6 @@
 -keep class com.sun.jna.* { *; }
 -keep class * extends com.sun.jna.* { *; }
 -keepclassmembers class * extends com.sun.jna.* { public *; }
+
+# Called from Rust through JNI.
+-keep, includedescriptorclasses class org.rustls.platformverifier.** { *; }
