@@ -1,3 +1,4 @@
+import { startFixtureRemote, type FixtureRemote } from "./remote.js";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -22,6 +23,7 @@ export type Driver = Awaited<ReturnType<typeof remote>>;
 
 export interface TestContext {
 	server: AppiumServer;
+	fixtureRemote: FixtureRemote;
 	device: AndroidDevice;
 	driver: Driver;
 }
@@ -69,6 +71,7 @@ export async function createTestContext(): Promise<TestContext> {
 	const device = await ensureAndroidDevice();
 
 	const server = await startAppiumServer(APPIUM_PORT);
+	const fixtureRemote = await startFixtureRemote("10.0.2.2");
 
 	const sessionTimeout = process.env.CI ? 720_000 : 360_000;
 
@@ -90,6 +93,7 @@ export async function createTestContext(): Promise<TestContext> {
 			"appium:appPackage": APP_PACKAGE,
 			"appium:appActivity": APP_ACTIVITY,
 			"appium:appWaitActivity": "*",
+			"appium:optionalIntentArguments": `--es wvbRemoteUrl ${fixtureRemote.endpoint}`,
 			// The testapp's versionCode is constant, so without a full reset Appium
 			// skips reinstalling a rebuilt APK and keeps stale bundles/assets.
 			"appium:fullReset": true,
@@ -108,7 +112,7 @@ export async function createTestContext(): Promise<TestContext> {
 
 	await switchToWebview(driver);
 
-	return { server, device, driver };
+	return { server, device, driver, fixtureRemote };
 }
 
 /** ms to wait for the testapp's WebView to expose a debuggable WEBVIEW context. */
@@ -145,6 +149,7 @@ export async function disposeTestContext(
 	}
 	await context.driver.deleteSession().catch(() => {});
 	await context.server.stop();
+	await context.fixtureRemote.close();
 	if (context.device.bootedByUs && !process.env.WVB_E2E_KEEP) {
 		await context.device.shutdown();
 	}

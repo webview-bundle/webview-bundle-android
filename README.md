@@ -19,10 +19,9 @@ mise install
 ## Installing / updating the FFI module
 
 `scripts/install.mjs` fetches a release from the upstream repository and wires
-it into the `lib` module. From the `android.zip` asset it installs the Android
-variant (`lib-android`):
+it into the `lib` module.
 
-- the Kotlin bindings into `lib/src/main/kotlin/`
+- `WvbFFI.kt` and `WvbRustlsPlatformVerififer.kt` into `lib/src/main/kotlin/dev/wvb/`
 - the JNI libraries (a `libwvb_ffi.so` per ABI) into `lib/src/main/jniLibs/`
 
 The Kotlin bindings are overwritten in place; `jniLibs` is replaced wholesale,

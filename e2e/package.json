@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@wvb-playground/testdriver": "0.1.0",
-    "@wvb-playground/webview-testbed": "0.3.0"
+    "@wvb-playground/webview-testbed": "file:./fixtures/webview-testbed-0.4.0.tgz"
   },
   "devDependencies": {
     "@types/node": "^25",

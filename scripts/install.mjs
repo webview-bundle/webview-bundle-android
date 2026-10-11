@@ -5,16 +5,16 @@
 // webview-bundle/webview-bundle repository into this Gradle project.
 //
 // It fetches the GitHub release asset `android.zip` for a given tag and installs
-// the Android variant (`lib-android`) into the `lib` module:
+// the Android variant (`lib`) into the `lib` module:
 //   - the Kotlin bindings   -> lib/src/main/kotlin/...   (overwrite only —
 //     existing files that are not part of the asset are kept)
 //   - the JNI libraries     -> lib/src/main/jniLibs/...  (replaced wholesale,
 //     so stale ABIs from a previous install are removed)
 //
 // `android.zip` is laid out as (see .output/android/ for a reference):
-//   lib-android/src/main/jniLibs/<abi>/libwvb_ffi.so
-//   lib-android/src/main/kotlin/dev/wvb/wvb_ffi.kt
-//   lib-jvm/src/main/kotlin/dev/wvb/wvb_ffi.kt
+//   lib/src/main/jniLibs/<abi>/libwvb_ffi.so
+//   lib/src/main/kotlin/dev/wvb/WvbFFI.kt
+//   lib/src/main/kotlin/dev/wvb/WvbRustlsPlatformVerififer.kt
 //
 // Tags follow the upstream convention:
 //   - release:    ffi/<version>      e.g. ffi/0.1.0
@@ -53,9 +53,7 @@ import { fileURLToPath } from "node:url";
 
 const REPO_DEFAULT = "webview-bundle/webview-bundle";
 const ANDROID_ASSET = "android.zip";
-// The Android library variant inside android.zip (ships Kotlin + jniLibs). The
-// sibling `lib-jvm` variant is Kotlin-only and not used by this module.
-const ANDROID_MODULE = "lib-android";
+const ANDROID_MODULE = "lib";
 const USER_AGENT = "webview-bundle-android-install-ffi";
 
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -256,7 +254,7 @@ function walkFiles(dir) {
 }
 
 // Locate the `src/` directory of the Android variant inside the extracted
-// android.zip (e.g. lib-android/src). BFS for the shallowest `lib-android`
+// android.zip (e.g. lib/src). BFS for the shallowest `lib`
 // directory so an extra wrapping folder in the archive wouldn't break this.
 function findAndroidSrcDir(root) {
 	const queue = [root];
@@ -300,12 +298,23 @@ function installAndroidBindings(androidZipPath, tmpDir) {
 	if (files.length === 0)
 		die(`no files found under '${ANDROID_MODULE}/src' in ${ANDROID_ASSET}`);
 
+	for (const required of [
+		"main/kotlin/dev/wvb/WvbRustlsPlatformVerififer.kt",
+		"main/kotlin/dev/wvb/WvbFFI.kt",
+	]) {
+		if (!existsSync(join(srcDir, required)))
+			die(`FFI asset is missing ${required}; build/install an updated android.zip`);
+	}
+
 	// jniLibs is fully managed by this script (see .gitignore); wipe it so a
 	// dropped or renamed ABI from a previous install does not linger.
 	rmSync(JNILIBS_DIR, { recursive: true, force: true });
+	// Remove former filenames to avoid duplicate Kotlin declarations.
+	rmSync(join(LIB_SRC_DIR, "main/kotlin/dev/wvb/wvb_ffi.kt"), { force: true });
+	rmSync(join(LIB_SRC_DIR, "main/kotlin/dev/wvb/WvbAndroid.kt"), { force: true });
 
-	// Mirror lib-android/src/<rel> into lib/src/<rel>, so e.g.
-	//   main/kotlin/dev/wvb/wvb_ffi.kt  and  main/jniLibs/<abi>/libwvb_ffi.so
+	// Mirror lib/src/<rel> into lib/src/<rel>, so e.g.
+	//   main/kotlin/dev/wvb/WvbFFI.kt  and  main/jniLibs/<abi>/libwvb_ffi.so
 	// land in the right places. Kotlin files overwrite in place; any other
 	// hand-written source under lib/src is left untouched.
 	const installed = [];
