@@ -11,6 +11,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven {
+            // Build-time only: lib embeds this artifact instead of publishing it as a dependency.
             url = uri("https://raw.githubusercontent.com/rustls/rustls-platform-verifier/maven-archive/android-release-support/maven/")
             content { includeGroup("org.rustls") }
         }

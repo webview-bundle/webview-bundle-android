@@ -15,6 +15,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - run: ./gradlew :lib:assembleRelease :lib:lintRelease :testapp:assembleDebug
+      - name: Verify embedded TLS verifier publication
+        run: |
+          ./gradlew :lib:generatePomFileForMavenPublication :lib:generateMetadataFileForMavenPublication
+          node scripts/verify-publication.mjs
   e2e:
     runs-on: ubuntu-latest
     steps:
